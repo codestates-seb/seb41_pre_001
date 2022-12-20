@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class Seb41PreprojectApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(Seb41PreprojectApplication.class, args);
     }
 
