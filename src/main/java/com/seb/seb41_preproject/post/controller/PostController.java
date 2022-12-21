@@ -1,6 +1,7 @@
 package com.seb.seb41_preproject.post.controller;
 
 import com.seb.seb41_preproject.post.dto.BoardResponseDto;
+import com.seb.seb41_preproject.post.dto.PostAllDto;
 import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.dto.PostDto;
 import com.seb.seb41_preproject.entity.Post;
@@ -72,7 +73,8 @@ public class PostController {
                         .map(post->postMapper.postToBoardResponseDto(post))
                         .collect(Collectors.toList());
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new PostAllDto(response, pageInfo), HttpStatus.OK);
     }
 
     @GetMapping("/{post_id}")
