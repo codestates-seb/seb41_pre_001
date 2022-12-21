@@ -3,7 +3,6 @@ package com.seb.seb41_preproject.post.entity;
 import com.seb.seb41_preproject.comment.entity.Comment;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.member.entity.Member;
-import com.seb.seb41_preproject.post.entity.PostTag;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,4 +45,5 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
+
 }
