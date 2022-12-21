@@ -1,6 +1,6 @@
 package com.seb.seb41_preproject.post.dto;
 
-import com.seb.seb41_preproject.entity.Likes;
+import com.seb.seb41_preproject.likes.entity.Likes;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
