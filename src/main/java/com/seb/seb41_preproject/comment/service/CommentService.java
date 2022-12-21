@@ -24,12 +24,12 @@ public class CommentService {
     }
 
     public Comment CreateComment(Comment comment, Long postId) {
-//    TODO: db 에서 post 를 찾아온다음 해당 post를 DB에 추가해야함 : 로컬에서 생성해서 테스트한 결과 성공
-        Optional<Post> optionalPost = postRepository.findById(postId);
-        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Post findPost = findVerifiedPost(postId);
         comment.setPost(findPost);
         return commentRepository.save(comment);
     }
+
+
 
     public Comment UpdateComment(Comment comment) {
         Comment findComment = findVerifiedComment(comment.getId());
@@ -50,5 +50,11 @@ public class CommentService {
         Comment findComment = comment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return findComment;
+    }
+
+    private Post findVerifiedPost(Long postId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findPost;
     }
 }

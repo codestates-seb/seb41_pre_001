@@ -48,4 +48,11 @@ public class Comment {
         this.post = post;
         post.getComments().add(this);
     }
+    public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getComments().remove(this);
+        }
+        this.member = member;
+        member.getComments().add(this);
+    }
 }

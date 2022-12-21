@@ -15,7 +15,7 @@ import static com.seb.seb41_preproject.comment.dto.CommentDto.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/board/posts/{post_id}",produces = "application/json")
+@RequestMapping(value = "/board/posts/{post_id}/comment",produces = "application/json")
 public class CommentController {
 
     private final CommentService commentService;
@@ -26,7 +26,7 @@ public class CommentController {
         this.commentMapper = commentMapper;
     }
 
-    @PostMapping("/comment")
+    @PostMapping
     public ResponseEntity PostComment(@Valid @RequestBody CommentPostDto commentPostDto,
                                       @PathVariable("post_id") Long post_id){
 
@@ -37,7 +37,7 @@ public class CommentController {
         return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/comment/{comment_id}")
+    @PatchMapping("/{comment_id}")
     public ResponseEntity UpdateComment(@PathVariable("comment_id")@Positive long commentId,
                                         @Valid @RequestBody CommentPatchDto commentPatchDto) {
 
@@ -48,7 +48,7 @@ public class CommentController {
         return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.OK);
     }
 
-    @DeleteMapping("/comment/{comment_id}")
+    @DeleteMapping("/{comment_id}")
     public ResponseEntity DeleteComment(@PathVariable("comment_id") @Positive long commentId) {
 
         commentService.DeleteComment(commentId);
