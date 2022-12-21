@@ -16,4 +16,3 @@ public interface PostMapper {
 
     PostCommentResponseDto postToPostCommentResponseDto(Post post);
 }
-

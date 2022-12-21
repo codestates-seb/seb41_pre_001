@@ -83,4 +83,3 @@ public class PostController {
         return new ResponseEntity(postMapper.postToPostCommentResponseDto(response), HttpStatus.OK);
     }
 }
-

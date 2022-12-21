@@ -20,4 +20,3 @@ public class PostDto {
     @NotBlank
     private String tag;
 }
-

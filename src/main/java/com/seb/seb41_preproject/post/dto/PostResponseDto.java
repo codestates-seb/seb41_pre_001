@@ -21,4 +21,3 @@ public class PostResponseDto {
     private long views;
     private List<Likes> likes;
 }
-

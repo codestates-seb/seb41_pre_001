@@ -20,4 +20,3 @@ public class PostCommentResponseDto {
     private List<Likes> likes;
     private List<Comment> comments;
 }
-

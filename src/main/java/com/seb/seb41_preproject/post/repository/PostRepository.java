@@ -10,4 +10,3 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     //postId를 기준으로 내림차순으로(최신순) 모든 정보를 가져오기
     Page<Post> findAllByOrderByIdDesc(Pageable pageable);
 }
-
