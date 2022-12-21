@@ -14,3 +14,4 @@ public class PostAllDto<T> {
         this.pageInfo = pageInfo;
     }
 }
+

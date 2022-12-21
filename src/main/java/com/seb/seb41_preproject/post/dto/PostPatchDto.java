@@ -24,3 +24,4 @@ public class PostPatchDto {
     @NotBlank
     private LocalDateTime createdAt;
 }
+

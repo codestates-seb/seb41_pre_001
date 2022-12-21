@@ -17,3 +17,4 @@ public class BoardResponseDto {
     private long views;
     private List<Likes> likes;
 }
+
