@@ -1,7 +1,7 @@
 function TempQuestions() {
   return (
     <>
-      <div>질문들라우터</div>
+      <section className="appSection">질문들</section>
     </>
   );
 }

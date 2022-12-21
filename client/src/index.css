@@ -1,9 +1,33 @@
 * {
   box-sizing: border-box;
   padding: 0;
-  margin: 0; 
+  margin: 0;
 }
 
 ul {
   list-style: none;
+}
+
+nav {
+  width: 100vw;
+  height: 50px;
+  background-color: grey;
+}
+
+.bodyContainer {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: row;
+}
+
+.appContainer {
+  min-height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+}
+
+.appSection {
+  width: 800px;
+  height: auto;
 }

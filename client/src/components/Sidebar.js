@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 const SidebarContainer = styled.section`
-  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   height: 100%;
   background-color: lime;
 `;
 
-function TempSidebar() {
+function Sidebar() {
   return (
     <>
       <SidebarContainer>
@@ -107,4 +108,4 @@ function TempSidebar() {
   );
 }
 
-export default TempSidebar;
+export default Sidebar;
