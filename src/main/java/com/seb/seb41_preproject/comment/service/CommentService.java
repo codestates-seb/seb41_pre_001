@@ -2,6 +2,7 @@ package com.seb.seb41_preproject.comment.service;
 
 import com.seb.seb41_preproject.comment.entity.Comment;
 import com.seb.seb41_preproject.comment.repository.CommentRepository;
+import com.seb.seb41_preproject.post.entity.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;

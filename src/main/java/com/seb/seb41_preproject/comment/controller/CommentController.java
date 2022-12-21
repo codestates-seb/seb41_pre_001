@@ -53,7 +53,6 @@ public class CommentController {
 
         commentService.DeleteComment(commentId);
         log.info(" test : 댓글이 삭제됨");
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

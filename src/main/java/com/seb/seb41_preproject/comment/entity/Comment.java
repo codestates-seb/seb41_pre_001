@@ -38,4 +38,12 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name="POST_ID")
     private Post post;
+
+    public void setPost(Post post) {
+        if (this.post != null) {
+            this.post.getComments().remove(this);
+        }
+        this.post = post;
+        post.getComments().add(this);
+    }
 }
