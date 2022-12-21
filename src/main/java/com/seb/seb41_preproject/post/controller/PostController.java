@@ -4,7 +4,7 @@ import com.seb.seb41_preproject.post.dto.BoardResponseDto;
 import com.seb.seb41_preproject.post.dto.PostAllDto;
 import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.dto.PostDto;
-import com.seb.seb41_preproject.entity.Post;
+import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.mapper.PostMapper;
 import com.seb.seb41_preproject.post.page.PageInfo;
 import com.seb.seb41_preproject.post.service.PostService;

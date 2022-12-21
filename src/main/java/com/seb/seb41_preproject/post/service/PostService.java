@@ -1,6 +1,6 @@
 package com.seb.seb41_preproject.post.service;
 
-import com.seb.seb41_preproject.entity.Post;
+import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.exception.BusinessLogicException;
 import com.seb.seb41_preproject.post.exception.ExceptionCode;
 import com.seb.seb41_preproject.post.repository.PostRepository;
