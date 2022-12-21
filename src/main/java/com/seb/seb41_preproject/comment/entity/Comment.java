@@ -1,5 +1,6 @@
 package com.seb.seb41_preproject.comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.post.entity.Post;
@@ -35,7 +36,8 @@ public class Comment {
     @OneToMany(mappedBy = "comment")
     private List<Likes> likes = new ArrayList<>();
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="POST_ID")
     private Post post;
 
