@@ -1,6 +1,5 @@
 package com.seb.seb41_preproject.member.controller;
 
-import com.seb.seb41_preproject.member.dto.MemberDto;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.mapper.MemberMapper;
 import com.seb.seb41_preproject.member.service.MemberService;

@@ -29,6 +29,7 @@ public class Likes {
     @JoinColumn(name = "POST_ID")
     private Post post;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
