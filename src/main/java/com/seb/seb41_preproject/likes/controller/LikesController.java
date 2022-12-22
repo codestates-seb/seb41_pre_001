@@ -6,10 +6,11 @@ import com.seb.seb41_preproject.likes.dto.LikesDto.LikesPostDto;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.likes.mapper.LikesMapper;
 import com.seb.seb41_preproject.likes.service.LikesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@Slf4j
 @RestController
 @RequestMapping("/board/posts/{post_id}")
 public class LikesController {
@@ -27,6 +28,11 @@ public class LikesController {
         Likes likes = likesMapper.LikesPostDtoToLikes(likesPostDto);
         likesService.increasePostLikes(likes, postId);
 //      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
+        log.info("""
+                
+                =====================
+                ## 게시글 추천&비추천 로직실행
+                =====================""");
 
         return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
     }
@@ -37,6 +43,11 @@ public class LikesController {
         Likes likes = likesMapper.LikesCommentDtoToLikes(likesCommentDto);
         likesService.increaseCommentLikes(likes,commentId,postId);
 //      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
+        log.info("""
+                
+                =====================
+                ## 댓글 추천&비추천 로직실행
+                =====================""");
 
         return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
     }
