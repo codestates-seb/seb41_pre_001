@@ -33,6 +33,7 @@ public class Likes {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "COMMENT_ID")
     private Comment comment;

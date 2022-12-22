@@ -9,16 +9,19 @@ public class LikesDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class LikesPostDto {
         private int count;
     }
 
     @Getter
     @Setter
+    public static class LikesCommentDto {
+        private int count;
+    }
+
+
+    @Getter
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class LikesResponseDto {
 
         private int count;

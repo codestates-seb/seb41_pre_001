@@ -1,5 +1,7 @@
 package com.seb.seb41_preproject.likes.controller;
 
+import com.seb.seb41_preproject.likes.dto.LikesDto;
+import com.seb.seb41_preproject.likes.dto.LikesDto.LikesCommentDto;
 import com.seb.seb41_preproject.likes.dto.LikesDto.LikesPostDto;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.likes.mapper.LikesMapper;
@@ -23,9 +25,19 @@ public class LikesController {
     public ResponseEntity PostLikes(@RequestBody LikesPostDto likesPostDto, @PathVariable("post_id") Long postId) {
 
         Likes likes = likesMapper.LikesPostDtoToLikes(likesPostDto);
-        likesService.increaseLikes(likes, postId);
+        likesService.increasePostLikes(likes, postId);
+//      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
 
-// Todo : user 토큰에 like check 정보를 포함해서 넘겨줘야함.
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
+    }
+
+    @PostMapping("/comment/{comment_id}")
+    public ResponseEntity CommentLikes(@RequestBody LikesCommentDto likesCommentDto, @PathVariable("comment_id") Long commentId,@PathVariable("post_id") Long postId) {
+
+        Likes likes = likesMapper.LikesCommentDtoToLikes(likesCommentDto);
+        likesService.increaseCommentLikes(likes,commentId,postId);
+//      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
+
+        return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
     }
 }
