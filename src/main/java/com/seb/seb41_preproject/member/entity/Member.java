@@ -1,5 +1,6 @@
 package com.seb.seb41_preproject.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.seb.seb41_preproject.comment.entity.Comment;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.post.entity.Post;
@@ -32,13 +33,13 @@ public class Member {
 
     @Column
     private String UserImageUrl;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<Likes> likes = new ArrayList<>();
 }
