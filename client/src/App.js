@@ -1,17 +1,26 @@
+import styled from 'styled-components';
+import Header from './components/Header';
+import NavSidebar from './components/NavSidebar';
+import Footer from './components/Footer';
 import AskCreate from './pages/AskCreate';
+
+const BodyContainer = styled.div`
+  min-width: 1270px;
+  max-width: 1270px;
+  background-color: azure;
+  display: flex;
+`;
+
 function App() {
   return (
-    <>
-      <header>헤더</header>
-      <div>
-        <navigator>네비</navigator>
-        <main>
-          <AskCreate />
-        </main>
-        <sidebar></sidebar>
-      </div>
-      <footer>푸터</footer>
-    </>
+    <div className="appContainer">
+      <Header />
+      <BodyContainer>
+        <NavSidebar />
+        <div className="mainContainer"></div>
+      </BodyContainer>
+      <Footer></Footer>
+    </div>
   );
 }
 
