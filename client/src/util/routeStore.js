@@ -2,7 +2,7 @@ import Home from '../pages/Home';
 import QuestionList from '../pages/QuestionList';
 import Tags from '../pages/Tags';
 import User from '../pages/User';
-import Companies from '../pages/Companies';
+import Companies from '../components/Companies';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import ExploreCollectives from '../pages/ExploreCollectives';
