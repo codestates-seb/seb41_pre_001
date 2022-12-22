@@ -2,11 +2,11 @@ package com.seb.seb41_preproject.likes.service;
 
 import com.seb.seb41_preproject.comment.entity.Comment;
 import com.seb.seb41_preproject.comment.repository.CommentRepository;
+import com.seb.seb41_preproject.exception.BusinessLogicException;
+import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.likes.repository.LikesRepository;
 import com.seb.seb41_preproject.post.entity.Post;
-import com.seb.seb41_preproject.post.exception.BusinessLogicException;
-import com.seb.seb41_preproject.post.exception.ExceptionCode;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -53,14 +53,14 @@ public class LikesService {
 
     private Comment FindVerifiedComment(Long commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        Comment findComment = optionalComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Comment findComment = optionalComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
         return findComment;
     }
 
     private Post FindVerifiedPost(Long postId) {
 
         Optional<Post> optionalPost =  postRepository.findById(postId);
-        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
         return findPost;
     }
 }
