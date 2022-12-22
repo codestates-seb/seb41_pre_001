@@ -3,6 +3,8 @@ spring:
     console:
       path: /h2
       enabled: true
+  profiles:
+    include: jwt
   datasource:
     url: jdbc:h2:tcp://localhost/~/PreProject
     username: sa
@@ -26,7 +28,3 @@ logging:
         orm:
           jpa: DEBUG
         transaction: DEBUG
-jwt:
-  header: Authorization
-  secret: {secret key}
-  access-token-validity-in-seconds: 600 # 10 min
