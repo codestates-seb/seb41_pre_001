@@ -32,7 +32,11 @@ public class CommentController {
 
         Comment comment = commentMapper.CommentPostDtoToComment(commentPostDto);
         Comment response = commentService.CreateComment(comment, post_id);
-        log.info(" test : 댓글이 생성됨 ");
+        log.info("""
+                
+                =====================
+                ## 댓글 생성됨
+                =====================""");
 
         return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.CREATED);
     }
@@ -43,7 +47,11 @@ public class CommentController {
 
         commentPatchDto.setId(commentId);
         Comment response = commentService.UpdateComment(commentMapper.CommentPatchDtoToComment(commentPatchDto));
-        log.info(" test : 댓글이 수정됨 ");
+        log.info("""
+                
+                =====================
+                ## 댓글 수정됨
+                =====================""");
 
         return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.OK);
     }
@@ -52,7 +60,11 @@ public class CommentController {
     public ResponseEntity DeleteComment(@PathVariable("comment_id") @Positive long commentId) {
 
         commentService.DeleteComment(commentId);
-        log.info(" test : 댓글이 삭제됨");
+        log.info("""
+                
+                =====================
+                ## 댓글 삭제됨
+                =====================""");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
