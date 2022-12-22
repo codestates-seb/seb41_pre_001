@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Editor from '../components/Editors';
+import Editor from './Editors';
 
 const AskBody = styled.div`
   background-color: #fbfcfc;

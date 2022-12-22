@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar';
-import AskCreate from './AskCreate';
+import AskCreate from '../components/AskCreate';
 
 function Home() {
   return (
