@@ -1,4 +1,4 @@
-import Sidebar from '../components/Sidebar';
+import AskCreate from '../components/AskCreate';
 
 /**
  * # QuestionCreate
@@ -22,8 +22,7 @@ function QuestionCreate() {
   return (
     <>
       <section className="mainSection withSideBar">
-        <div>질문들</div>
-        <Sidebar />
+        <AskCreate />
       </section>
     </>
   );

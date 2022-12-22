@@ -6,6 +6,7 @@ import Companies from '../components/Companies';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import ExploreCollectives from '../pages/ExploreCollectives';
+import QuestionCreate from '../pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
 
 export const setRoute = () => {
@@ -19,6 +20,7 @@ export const setRoute = () => {
       <Route path="login" element={<Login />}></Route>
       <Route path="signup" element={<Signup />}></Route>
       <Route path="exploreCollectives" element={<ExploreCollectives />}></Route>
+      <Route path="questionCreate" element={<QuestionCreate />}></Route>
     </Routes>
   );
 };

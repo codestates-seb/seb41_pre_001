@@ -4,6 +4,9 @@ function Header() {
   return (
     <header>
       <nav>
+        <div className="s-topbar--container">
+          <svg data-icon="IconLogo" className="native"></svg>
+        </div>
         <Link to="/">로고</Link> about products for teams 검색{' '}
         <Link to="login">로그인</Link> <Link to="signup">회원가입</Link>
       </nav>
