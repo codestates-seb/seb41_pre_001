@@ -1,0 +1,1 @@
+<context:property-placeholder location="classpath:config/jwt.properties"/>
