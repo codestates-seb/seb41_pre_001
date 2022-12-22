@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:config/jwt.properties")
+@PropertySource("classpath:application-jwt.yml")
 public class JwtProperties {
-    @Value("${jwt.secretKey}")
+
+    @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.algorithm}")
-    private String algorithm;
+//    @Value("${jwt.algorithm}")
+//    private String algorithm;
 }
