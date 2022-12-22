@@ -18,7 +18,7 @@ function App() {
         <NavSidebar />
         <div className="mainContainer"></div>
       </BodyContainer>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
