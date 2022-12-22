@@ -9,13 +9,6 @@ ul {
   list-style: none;
 }
 
-/* NavSidebar */
-nav {
-  width: 100vw;
-  height: 50px;
-  background-color: grey;
-}
-
 /* App */
 .mainContainer {
   min-width: 1270px;
@@ -43,4 +36,20 @@ nav {
   width: auto;
   display: flex;
   flex-direction: row;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:hover:not(.active) {
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 80%;
+}
+
+a:active {
+  opacity: 60%;
 }

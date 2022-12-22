@@ -7,7 +7,7 @@ const Sidebar = styled.div`
   max-width: 170px;
   min-width: 170px;
   height: 100%;
-  background-color: aliceblue;
+  background-color: white;
 `;
 
 const Teams = styled.aside`
