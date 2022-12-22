@@ -1,7 +1,7 @@
 function Signup() {
   return (
     <>
-      <section className="appSection">사인업</section>
+      <section className="mainSection">사인업</section>
     </>
   );
 }

@@ -1,7 +1,7 @@
 function Login() {
   return (
     <>
-      <section className="appSection">로그인</section>
+      <section className="mainSection">로그인</section>
     </>
   );
 }

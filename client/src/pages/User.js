@@ -1,7 +1,7 @@
 function User() {
   return (
     <>
-      <section className="appSection">유저</section>
+      <section className="mainSection">유저</section>
     </>
   );
 }

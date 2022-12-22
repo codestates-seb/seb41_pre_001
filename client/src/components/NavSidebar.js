@@ -1,12 +1,7 @@
 import styled from 'styled-components';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { handleDonateMe } from '../util/alertStore';
-import Home from '../pages/Home';
-import TempQuestions from '../pages/TempQuestions';
-import Tags from '../pages/Tags';
-import User from '../pages/User';
-import Companies from '../pages/Companies';
-import ExploreCollectives from '../pages/ExploreCollectives';
+import { setRoute } from '../util/routeStore';
 
 const Sidebar = styled.div`
   max-width: 170px;
@@ -64,17 +59,7 @@ function NavSidebar() {
         </Teams>
       </Sidebar>
 
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="questions" element={<TempQuestions />}></Route>
-        <Route path="tags" element={<Tags />}></Route>
-        <Route path="user" element={<User />}></Route>
-        <Route path="companies" element={<Companies />}></Route>
-        <Route
-          path="exploreCollectives"
-          element={<ExploreCollectives />}
-        ></Route>
-      </Routes>
+      {setRoute()}
     </>
   );
 }

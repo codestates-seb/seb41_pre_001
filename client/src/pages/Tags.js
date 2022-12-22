@@ -1,7 +1,7 @@
 function Tags() {
   return (
     <>
-      <section className="appSection">태그들</section>
+      <section className="mainSection">태그들</section>
     </>
   );
 }
