@@ -1,12 +1,12 @@
 import Sidebar from '../components/Sidebar';
-import AskCreate from '../components/AskCreate';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
     <>
       <section className="mainSection withSideBar">
         <div>
-          <AskCreate />
+          <Link to="questionCreate">ask asdfasdfasdf</Link>
         </div>
         <Sidebar />
       </section>
