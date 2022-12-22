@@ -21,13 +21,14 @@ public class PostService {
     }
 
     public Post createPost(Post post) {
-
-
         return postRepository.save(post);
     }
 
     public Post updatePost(Post post) {
         Post findPost = findVerifiedTPost(post.getId());
+
+        findPost.setCreatedAt(findPost.getCreatedAt());
+        findPost.setViews(findPost.getViews()+1);
 
         Optional.ofNullable(post.getTitle())
                 .ifPresent(title -> findPost.setTitle(title));
@@ -50,6 +51,11 @@ public class PostService {
     }
 
     public Post findPost(long id) {
+        Post findPost = findVerifiedTPost(id);
+        findPost.setViews(findPost.getViews()+1);
+
+        postRepository.save(findPost);
+
         return findVerifiedTPost(id);
     }
 

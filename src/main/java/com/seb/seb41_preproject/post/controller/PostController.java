@@ -44,8 +44,6 @@ public class PostController {
                                     @RequestBody PostPatchDto postPatchDto) {
         log.info("게시글 수정 완료");
         postPatchDto.setId(id);
-        postPatchDto.setCreatedAt(postPatchDto.getCreatedAt());
-
         Post response = postService.updatePost(postMapper.postPatchDtoToPost(postPatchDto));
 
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.OK);
@@ -73,7 +71,6 @@ public class PostController {
                 posts.stream()
                         .map(post->postMapper.postToBoardResponseDto(post))
                         .collect(Collectors.toList());
-
         return new ResponseEntity<>(
                 new PostAllDto(response, pageInfo), HttpStatus.OK);
     }
