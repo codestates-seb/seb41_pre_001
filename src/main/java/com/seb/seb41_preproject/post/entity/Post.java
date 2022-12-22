@@ -29,13 +29,13 @@ public class Post {
     private String Content;
 
     @Column(nullable = false)
-    private List<String> Tag;
+    private String Tag;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false)
-    private Long Views;
+    //@Column(nullable = false)
+    //private Long Views;
 
     @Column
     private int LikeCount;
