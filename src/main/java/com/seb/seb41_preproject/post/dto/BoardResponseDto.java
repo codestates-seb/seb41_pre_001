@@ -15,5 +15,5 @@ public class BoardResponseDto {
     private String tag;
     private LocalDateTime createdAt;
     private long views;
-    private List<Likes> likes;
+    private int likeCount;
 }
