@@ -1,4 +1,4 @@
-package com.seb.seb41_preproject.Security;
+package com.seb.seb41_preproject.Security.Provider;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

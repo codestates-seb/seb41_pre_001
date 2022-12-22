@@ -26,3 +26,8 @@ logging:
         orm:
           jpa: DEBUG
         transaction: DEBUG
+jwt:
+  header: Authorization
+  secret:
+access-token-validity-in-seconds: 600 # 10 min
+

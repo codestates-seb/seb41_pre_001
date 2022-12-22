@@ -1,4 +1,4 @@
-package com.seb.seb41_preproject.Security;
+package com.seb.seb41_preproject.Security.Filter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
