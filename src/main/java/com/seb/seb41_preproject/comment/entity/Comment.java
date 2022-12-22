@@ -1,6 +1,7 @@
 package com.seb.seb41_preproject.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.post.entity.Post;
@@ -29,10 +30,13 @@ public class Comment {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Column
+    private int LikeCount;
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "comment")
     private List<Likes> likes = new ArrayList<>();
 

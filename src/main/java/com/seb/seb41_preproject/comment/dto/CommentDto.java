@@ -12,8 +12,6 @@ public class CommentDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class CommentPostDto{
         @NotNull
         private String content;
@@ -22,8 +20,6 @@ public class CommentDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class CommentPatchDto {
 
         private Long id;
@@ -38,9 +34,7 @@ public class CommentDto {
 
 
     @Getter
-    @Setter
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class CommentResponseDto{
 
         private Long id;
