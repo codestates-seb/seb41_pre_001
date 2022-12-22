@@ -28,10 +28,13 @@ public class Post {
     private String Content;
 
     @Column(nullable = false)
-    private String Tag;
+    private List<String> Tag;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private Long Views;
 
     @OneToMany(mappedBy = "post")
     private List<PostTag> postTags = new ArrayList<>();

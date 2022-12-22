@@ -1,12 +1,14 @@
 package com.seb.seb41_preproject.post.service;
 
+import com.seb.seb41_preproject.exception.BusinessLogicException;
+import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.post.entity.Post;
-import com.seb.seb41_preproject.post.exception.BusinessLogicException;
-import com.seb.seb41_preproject.post.exception.ExceptionCode;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Optional;
 
@@ -19,6 +21,8 @@ public class PostService {
     }
 
     public Post createPost(Post post) {
+
+
         return postRepository.save(post);
     }
 
@@ -51,7 +55,7 @@ public class PostService {
 
     public Post findVerifiedTPost(long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
-        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
 
         return findPost;
     }

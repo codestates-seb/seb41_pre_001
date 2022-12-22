@@ -1,4 +1,4 @@
-package com.seb.seb41_preproject.post.exception;
+package com.seb.seb41_preproject.exception;
 
 import lombok.Getter;
 

@@ -32,7 +32,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity postPost(@RequestBody PostDto postDto) {
-        System.out.println("CREATE");
+        log.info("게시글 작성 완료");
 
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));
 
@@ -42,7 +42,7 @@ public class PostController {
     @PatchMapping("/{post_id}")
     public ResponseEntity patchPost(@PathVariable("post_id") long id,
                                     @RequestBody PostPatchDto postPatchDto) {
-        System.out.println("UPDATE");
+        log.info("게시글 수정 완료");
         postPatchDto.setId(id);
         postPatchDto.setCreatedAt(postPatchDto.getCreatedAt());
 
@@ -53,6 +53,7 @@ public class PostController {
 
     @DeleteMapping("/{post_id}")
     public ResponseEntity deletePost(@PathVariable("post_id") long id) {
+
         postService.deletePost(id);
         System.out.printf("deleted post_id : ", id);
 
