@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +34,11 @@ public class PostController {
     @PostMapping
     public ResponseEntity postPost(@RequestBody PostDto postDto) {
         log.info("게시글 작성 완료");
-
+        postDto.setTag(postDto.getTag().replaceAll(" ", "").toLowerCase());
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));
-
+/*        response.setTags(Arrays.stream(response.getTag().split(","))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList()));*/
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
     }
 

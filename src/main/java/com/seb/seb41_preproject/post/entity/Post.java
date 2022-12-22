@@ -31,6 +31,11 @@ public class Post {
     @Column(nullable = false)
     private String Tag;
 
+    @ElementCollection
+    @CollectionTable(name = "TAG", joinColumns = @JoinColumn(name = "POST_ID"))
+    @Column(name = "TAG_LIST")
+    private List<String> Tags;
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -39,9 +44,6 @@ public class Post {
 
     @Column
     private int LikeCount;
-
-    @OneToMany(mappedBy = "post")
-    private List<PostTag> postTags = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
