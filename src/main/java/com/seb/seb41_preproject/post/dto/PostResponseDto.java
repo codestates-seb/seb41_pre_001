@@ -16,7 +16,7 @@ public class PostResponseDto {
     private long id;
     private String title;
     private String content;
-    private String tag;
+    private List<String> tags;
     private LocalDateTime createdAt;
     private long views;
     private int likeCount;

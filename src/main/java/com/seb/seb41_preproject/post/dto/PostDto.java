@@ -18,5 +18,6 @@ public class PostDto {
     private String content;
 
     @NotBlank
+    @Setter
     private String tag;
 }

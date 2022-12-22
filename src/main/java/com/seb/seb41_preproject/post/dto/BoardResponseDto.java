@@ -12,7 +12,7 @@ import java.util.List;
 public class BoardResponseDto {
     private long id;
     private String title;
-    private String tag;
+    private List<String> tags;
     private LocalDateTime createdAt;
     private long views;
     private int likeCount;
