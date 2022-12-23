@@ -1,65 +1,92 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { handleDonateMe } from '../util/alertStore';
 import { setRoute } from '../util/routeStore';
+import { ReactComponent as IconStar } from '../asset/icon/icon-star.svg';
+import { ReactComponent as IconAlertCycle } from '../asset/icon/icon-alertcycle.svg';
+import { ReactComponent as IconGlobe } from '../asset/icon/icon-globe.svg';
+
+const SidebarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const Sidebar = styled.div`
   max-width: 170px;
   min-width: 170px;
   height: 100%;
   background-color: white;
+  padding-top: 24px;
 `;
 
-const Teams = styled.aside`
-  background-color: antiquewhite;
+const CommonLi = styled.li`
+  width: 164px;
+  height: 30px;
+  padding-left: 10px;
+  background-color: transparent;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const SubTitle = styled(CommonLi)`
+  color: #6a737c;
+  font-size: 11px;
+  padding-top: 15px;
+`;
+
+const IconTitle = styled(CommonLi)`
+  padding: 0px 0px 0px 30px;
 `;
 
 function NavSidebar() {
   return (
     <>
-      <Sidebar>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>public</li>
+      <SidebarContainer>
+        <Sidebar>
           <ul>
-            <li>
-              <Link to="questions">Questions</Link>
-            </li>
-            <li>
-              <Link to="tags">tags</Link>
-            </li>
-            <li>
-              <Link to="user">User</Link>
-            </li>
-            <li>
-              <Link to="companies">Companies</Link>
-            </li>
+            <CommonLi>
+              <Link to="/">Home</Link>
+            </CommonLi>
+            <SubTitle>PUBLIC</SubTitle>
+            <ul>
+              <CommonLi>
+                <IconGlobe width="20px" height="15px" />
+                <Link to="questions"> Questions</Link>
+              </CommonLi>
+              <IconTitle>
+                <Link to="tags">tags</Link>
+              </IconTitle>
+              <IconTitle>
+                <Link to="user">User</Link>
+              </IconTitle>
+              <IconTitle>
+                <Link to="companies">Companies</Link>
+              </IconTitle>
+            </ul>
+            <SubTitle>
+              COLLECTIVES
+              <IconAlertCycle width="80px" height="15px" />
+            </SubTitle>
+            <CommonLi>
+              <IconStar padding="10px" />
+              <Link to="exploreCollectives">Explore Collectives</Link>
+            </CommonLi>
+            <SubTitle>
+              TEAMS
+              <IconAlertCycle width="120px" height="15px" />
+            </SubTitle>
+            <CommonLi>
+              <IconStar padding="10px" />
+              <Link to="exploreCollectives">Create free Team</Link>
+            </CommonLi>
           </ul>
-          <li>COLLECTIVES</li>
-          <li>
-            <Link to="exploreCollectives">Explore Collectives</Link>
-          </li>
-          <li>
-            <br />
-            TEAMS
-          </li>
-        </ul>
-        <Teams>
-          <p>
-            <strong>Stack Overflow for Teams</strong> Start collaborating and
-            sharing organizational knowledge.
-          </p>
-          <div>사진머시기 {`>`}_? 대화창 머시기 V</div>
-          <div>
-            <button onClick={() => handleDonateMe()}>Create a free Team</button>
-            <button onClick={() => handleDonateMe()}>Why Teams?</button>
-          </div>
-        </Teams>
-      </Sidebar>
+        </Sidebar>
+        <hr
+          style={{ border: '1px solid #E0E3E5', width: '1', height: '100%' }}
+        />
 
-      {setRoute()}
+        {setRoute()}
+      </SidebarContainer>
     </>
   );
 }
