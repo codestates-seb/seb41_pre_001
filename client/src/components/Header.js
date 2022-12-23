@@ -87,7 +87,7 @@ function Header() {
           <a href={outCoTe}>For Teams</a>
         </Span>
         <Span>
-          <Btn fill to="login">
+          <Btn fill="true" to="login">
             Log in
           </Btn>
         </Span>
