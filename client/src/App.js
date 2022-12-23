@@ -7,6 +7,7 @@ const BodyContainer = styled.div`
   min-width: 1270px;
   max-width: 1270px;
   background-color: azure;
+  padding-top: 56px;
   display: flex;
 `;
 

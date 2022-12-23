@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
 import { ReactComponent as ISearch } from '../asset/icon/icon-search.svg';
 import { Link } from 'react-router-dom';
-import { Btn } from '../util/routeStore';
 
 const Navigation = styled.nav`
   width: 100vw;
@@ -29,8 +28,9 @@ const SearchContainer = styled.div`
   background-color: white;
   border: #babfc4 solid 1px;
   border-radius: 4px;
-  padding: 3px 8px;
-  margin: 0px 4px;
+  width: 800px;
+  padding: 8px 8px;
+  margin: 0px 8px;
   display: flex;
   align-items: center;
 
@@ -52,6 +52,16 @@ const InputSearch = styled.input`
   outline: none;
 `;
 
+const Btn = styled(Link)`
+  width: 60px;
+  padding: 6px 8px;
+  background-color: ${(props) => (props.fill ? '#e1ecf4' : '#169aff')};
+  color: ${(props) => (props.fill ? '#39739d' : 'white')};
+  border: ${(props) => (props.fill ? '#39739d' : '169aff')} solid 1px;
+  border-radius: 2px;
+  text-align: center;
+`;
+
 const Line = styled.hr`
   background-color: ${(props) => (props.grey ? '#babfc4' : '#f48225')};
   height: ${(props) => (props.grey ? '1px' : '4px')};
@@ -64,7 +74,7 @@ function Header() {
   const outCoTe = 'https://stackoverflow.co/teams/';
 
   return (
-    <header>
+    <header style={{ position: 'fixed' }}>
       <Line />
       <Navigation>
         <LogoContainer>
