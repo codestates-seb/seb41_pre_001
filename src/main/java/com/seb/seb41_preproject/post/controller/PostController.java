@@ -2,8 +2,8 @@ package com.seb.seb41_preproject.post.controller;
 
 import com.seb.seb41_preproject.post.dto.BoardResponseDto;
 import com.seb.seb41_preproject.post.dto.PostAllDto;
-import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.dto.PostDto;
+import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.mapper.PostMapper;
 import com.seb.seb41_preproject.post.page.PageInfo;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,28 +32,23 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity postPost(@RequestBody PostDto postDto) {
-        log.info("게시글 작성 완료");
-        postDto.setTag(postDto.getTag().replaceAll(" ", "").toLowerCase());
+        log.info("----게시글 작성 완료----");
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));
-/*        response.setTags(Arrays.stream(response.getTag().split(","))
-                .map(String::toLowerCase)
-                .collect(Collectors.toList()));*/
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post_id}")
     public ResponseEntity patchPost(@PathVariable("post_id") long id,
                                     @RequestBody PostPatchDto postPatchDto) {
-        log.info("게시글 수정 완료");
+        log.info("----게시글 수정 완료----");
         postPatchDto.setId(id);
         Post response = postService.updatePost(postMapper.postPatchDtoToPost(postPatchDto));
-
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{post_id}")
     public ResponseEntity deletePost(@PathVariable("post_id") long id) {
-
+        log.info("----게시글 삭제 완료----");
         postService.deletePost(id);
         System.out.printf("deleted post_id : ", id);
 

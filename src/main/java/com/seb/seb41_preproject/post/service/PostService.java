@@ -1,9 +1,9 @@
 package com.seb.seb41_preproject.post.service;
 
+import com.seb.seb41_preproject.post.repository.PostRepository;
 import com.seb.seb41_preproject.exception.BusinessLogicException;
 import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.post.entity.Post;
-import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -22,7 +23,13 @@ public class PostService {
     }
 
     public Post createPost(Post post) {
-        post.setTags(Arrays.asList(post.getTag().split(",")));
+        //tag를 예쁘게 저장하기 위해(형식 규격화, 소문자 변환, 중복제거)
+        post.setTag(Arrays.stream(post.getTag().toLowerCase().replaceAll(" ", "").split(","))
+                            .distinct()
+                            .collect(Collectors.joining(", ")));
+        //tag를 잘라 List tags에 저장
+        post.setTags(Arrays.asList(post.getTag().split(", ")));
+        post.setViews(1);
         return postRepository.save(post);
     }
 
@@ -37,11 +44,15 @@ public class PostService {
         Optional.ofNullable(post.getContent())
                 .ifPresent(content -> findPost.setContent(content));
         Optional.ofNullable(post.getTag())
-                .ifPresent(tag -> findPost.setTags(new ArrayList<>(List.of(tag.replaceAll(" ", "").split(",")))));
+                .ifPresent(tag -> findPost.setTag(tag));
 
-        if(post.getTag().replaceAll(" ", "")!=findPost.getTag()) {
+        //tag 저장
+        findPost.setTag(Arrays.stream(findPost.getTag().toLowerCase().replaceAll(" ", "").split(","))
+                .distinct()
+                .collect(Collectors.joining(", ")));
+        //List tag 생성 (처음 리스트를 만들때 new로 만든게 아니라 수정하려면 오류가 나므로 새로 생성해서 저장)
+        findPost.setTags(new ArrayList<>(Arrays.asList(findPost.getTag().split(", "))));
 
-        }
         return postRepository.save(findPost);
     }
 
