@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
 import { ReactComponent as ISearch } from '../asset/icon/icon-search.svg';
 import { Link } from 'react-router-dom';
+import { Twirl as Hamburger } from 'hamburger-react';
 
 const Navigation = styled.nav`
   width: 100vw;
@@ -68,6 +69,8 @@ const Line = styled.hr`
 `;
 
 function Header() {
+  const [isOpen, setOpen] = useState(false);
+
   const searchInputRef = React.createRef();
   const searchInputPlaceholder = 'Search...';
   const outCo = 'https://stackoverflow.co/';
@@ -77,6 +80,14 @@ function Header() {
     <header style={{ position: 'fixed' }}>
       <Line />
       <Navigation>
+        <Hamburger
+          toggled={isOpen}
+          toggle={setOpen}
+          size={16}
+          direction={'right'}
+          duration={0.1}
+          rounded
+        />
         <LogoContainer>
           <Link to="/">
             <ILogo width="150px" height="30px" />

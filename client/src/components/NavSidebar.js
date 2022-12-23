@@ -40,54 +40,50 @@ const IconTitle = styled(CommonLi)`
 
 function NavSidebar() {
   return (
-    <>
-      <SidebarContainer>
-        <Sidebar>
+    <SidebarContainer>
+      <Sidebar>
+        <ul>
+          <CommonLi>
+            <Link to="/">Home</Link>
+          </CommonLi>
+          <SubTitle>PUBLIC</SubTitle>
           <ul>
             <CommonLi>
-              <Link to="/">Home</Link>
+              <IconGlobe width="20px" height="15px" />
+              <Link to="questions"> Questions</Link>
             </CommonLi>
-            <SubTitle>PUBLIC</SubTitle>
-            <ul>
-              <CommonLi>
-                <IconGlobe width="20px" height="15px" />
-                <Link to="questions"> Questions</Link>
-              </CommonLi>
-              <IconTitle>
-                <Link to="tags">tags</Link>
-              </IconTitle>
-              <IconTitle>
-                <Link to="user">User</Link>
-              </IconTitle>
-              <IconTitle>
-                <Link to="companies">Companies</Link>
-              </IconTitle>
-            </ul>
-            <SubTitle>
-              COLLECTIVES
-              <IconAlertCycle width="80px" height="15px" />
-            </SubTitle>
-            <CommonLi>
-              <IconStar padding="10px" />
-              <Link to="exploreCollectives">Explore Collectives</Link>
-            </CommonLi>
-            <SubTitle>
-              TEAMS
-              <IconAlertCycle width="120px" height="15px" />
-            </SubTitle>
-            <CommonLi>
-              <IconStar padding="10px" />
-              <Link to="exploreCollectives">Create free Team</Link>
-            </CommonLi>
+            <IconTitle>
+              <Link to="tags">tags</Link>
+            </IconTitle>
+            <IconTitle>
+              <Link to="user">User</Link>
+            </IconTitle>
+            <IconTitle>
+              <Link to="companies">Companies</Link>
+            </IconTitle>
           </ul>
-        </Sidebar>
-        <hr
-          style={{ border: '1px solid #E0E3E5', width: '1', height: '100%' }}
-        />
+          <SubTitle>
+            COLLECTIVES
+            <IconAlertCycle width="80px" height="15px" />
+          </SubTitle>
+          <CommonLi>
+            <IconStar padding="10px" />
+            <Link to="exploreCollectives">Explore Collectives</Link>
+          </CommonLi>
+          <SubTitle>
+            TEAMS
+            <IconAlertCycle width="120px" height="15px" />
+          </SubTitle>
+          <CommonLi>
+            <IconStar padding="10px" />
+            <Link to="exploreCollectives">Create free Team</Link>
+          </CommonLi>
+        </ul>
+      </Sidebar>
+      <hr style={{ border: '1px solid #E0E3E5', width: '1', height: '100%' }} />
 
-        {setRoute()}
-      </SidebarContainer>
-    </>
+      {setRoute()}
+    </SidebarContainer>
   );
 }
 
