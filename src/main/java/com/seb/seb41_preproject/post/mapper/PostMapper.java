@@ -1,7 +1,7 @@
 package com.seb.seb41_preproject.post.mapper;
 
-import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.dto.*;
+import com.seb.seb41_preproject.post.entity.Post;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

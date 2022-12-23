@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     //postId를 기준으로 내림차순으로(최신순) 모든 정보를 가져오기
