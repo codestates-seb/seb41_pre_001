@@ -2,6 +2,8 @@ package com.seb.seb41_preproject.post.service;
 
 import com.seb.seb41_preproject.exception.BusinessLogicException;
 import com.seb.seb41_preproject.exception.ExceptionCode;
+import com.seb.seb41_preproject.member.entity.Member;
+import com.seb.seb41_preproject.member.repository.MemberRepository;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
@@ -16,14 +18,31 @@ import java.util.Optional;
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, MemberRepository memberRepository) {
         this.postRepository = postRepository;
+        this.memberRepository = memberRepository;
     }
 
     public Post createPost(Post post) {
-        post.setTags(Arrays.asList(post.getTag().split(",")));
+//        Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
+//        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        setTag(post);
+//        post.setMember(member);
         return postRepository.save(post);
+    }
+
+
+    private static void setTag(Post post) {
+        post.setTags(Arrays.asList(post.getTag().split(",")));
+    }
+
+    private void findMember(Long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+
+        Member member = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public Post updatePost(Post post) {

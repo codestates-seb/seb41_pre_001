@@ -27,7 +27,7 @@ public class MemberController {
     public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId) {
         Member responseMember = memberService.findMember(userId);
         log.info("""
-                
+                                
                 =====================
                 ## 멤버 정보 불러오기
                 =====================""");
@@ -40,7 +40,7 @@ public class MemberController {
         Member member = memberMapper.MemberPostDtoToMember(postDto);
         Member responseMember = memberService.createMember(member);
         log.info("""
-                
+                                
                 =====================
                 ## 멤버 가입 완료
                 =====================""");
@@ -51,7 +51,7 @@ public class MemberController {
     public ResponseEntity DeleteMember(@PathVariable("user_id") Long userId) {
         memberService.deleteMember(userId);
         log.info("""
-                
+                                
                 =====================
                 ## 멤버 탈퇴 완료
                 =====================""");
