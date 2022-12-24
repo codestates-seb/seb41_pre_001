@@ -1,5 +1,8 @@
 package com.seb.seb41_preproject.post.controller;
 
+import com.seb.seb41_preproject.member.entity.Member;
+//import com.seb.seb41_preproject.member.entity.MemberAccount;
+import com.seb.seb41_preproject.member.service.CurrentUser;
 import com.seb.seb41_preproject.post.dto.BoardResponseDto;
 import com.seb.seb41_preproject.post.dto.PostAllDto;
 import com.seb.seb41_preproject.post.dto.PostPatchDto;
@@ -13,9 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +36,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity postPost(@RequestBody PostDto postDto) {
+    public ResponseEntity postPost(@RequestBody PostDto postDto
+                                  ) {
         log.info("게시글 작성 완료");
         postDto.setTag(postDto.getTag().replaceAll(" ", "").toLowerCase());
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));

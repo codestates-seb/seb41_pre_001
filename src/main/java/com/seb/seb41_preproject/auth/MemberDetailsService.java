@@ -31,22 +31,24 @@ public class MemberDetailsService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+
         return new MemberDetails(findMember);
     }
 
-    private final class MemberDetails extends Member implements UserDetails {
-        MemberDetails(Member findMember) {
-            setId(findMember.getId());
-            setUserName(findMember.getUserName());
-            setUserEmail(findMember.getUserEmail());
-            setUserPassword(findMember.getUserPassword());
-            setUserImageUrl(findMember.getUserImageUrl());
-            setRoles(findMember.getRoles());
+    private class MemberDetails extends Member implements UserDetails {
+        MemberDetails(Member member) {
+            setId(member.getId());
+            setUserName(member.getUserName());
+            setUserEmail(member.getUserEmail());
+            setUserPassword(member.getUserPassword());
+            setUserImageUrl(member.getUserImageUrl());
+            setRoles(member.getRoles());
+
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createAuthorities(this.getRoles());
+            return null;
         }
 
         @Override
@@ -79,5 +81,4 @@ public class MemberDetailsService implements UserDetailsService {
             return true;
         }
     }
-
 }

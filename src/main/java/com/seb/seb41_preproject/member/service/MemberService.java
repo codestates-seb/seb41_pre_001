@@ -6,6 +6,9 @@ import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +33,8 @@ public class MemberService {
     public Member createMember(Member member) {
 
         verifyExistUserEmail(member.getUserEmail());
-        log.info("password {}", member.getUserPassword());
-
         String encryptedPassword = passwordEncoder.encode(member.getUserPassword());
         member.setUserPassword(encryptedPassword);
-
 
         List<String> roles = authorityUtils.createRoles(member.getUserEmail());
         member.setRoles(List.of(roles.toString()));
