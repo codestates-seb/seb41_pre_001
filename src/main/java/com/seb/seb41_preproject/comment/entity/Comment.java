@@ -33,7 +33,7 @@ public class Comment {
     @Column
     private int LikeCount;
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

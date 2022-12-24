@@ -25,19 +25,23 @@ public class Likes {
     @Column
     private int Count;
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Post post;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMENT_ID")
     private Comment comment;
+
+    public void  updateLikesCount(int count) {
+        Count = count;
+    }
 
     public void setPost(Post post) {
         if (this.post != null) {

@@ -22,7 +22,7 @@ public class LikesController {
         this.likesMapper = likesMapper;
     }
 
-    @PostMapping
+    @PostMapping("/postLikes")
     public ResponseEntity PostLikes(@RequestBody LikesPostDto likesPostDto, @PathVariable("post_id") Long postId) {
 
         Likes likes = likesMapper.LikesPostDtoToLikes(likesPostDto);
@@ -37,11 +37,41 @@ public class LikesController {
         return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
     }
 
-    @PostMapping("/comment/{comment_id}")
-    public ResponseEntity CommentLikes(@RequestBody LikesCommentDto likesCommentDto, @PathVariable("comment_id") Long commentId,@PathVariable("post_id") Long postId) {
+    @PostMapping("/comment/{comment_id}/commentLikes")
+    public ResponseEntity CommentLikes(@RequestBody LikesCommentDto likesCommentDto, @PathVariable("comment_id") Long commentId ,@PathVariable("post_id") Long postId) {
 
         Likes likes = likesMapper.LikesCommentDtoToLikes(likesCommentDto);
         likesService.increaseCommentLikes(likes,commentId,postId);
+//      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
+        log.info("""
+                
+                =====================
+                ## 댓글 추천&비추천 로직실행
+                =====================""");
+
+        return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
+    }
+
+    @PostMapping("/postUnLikes")
+    public ResponseEntity PostUnLikes(@RequestBody LikesPostDto likesPostDto, @PathVariable("post_id") Long postId) {
+
+        Likes likes = likesMapper.LikesPostDtoToLikes(likesPostDto);
+        likesService.decreasePostLikes(likes, postId);
+//      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
+        log.info("""
+                
+                =====================
+                ## 게시글 추천&비추천 로직실행
+                =====================""");
+
+        return new ResponseEntity<>(likesMapper.LikesToLikesResponseDto(likes),HttpStatus.OK);
+    }
+
+    @PostMapping("/comment/{comment_id}/commentUnLikes")
+    public ResponseEntity CommentUnLikes(@RequestBody LikesCommentDto likesCommentDto, @PathVariable("comment_id") Long commentId,@PathVariable("post_id") Long postId) {
+
+        Likes likes = likesMapper.LikesCommentDtoToLikes(likesCommentDto);
+        likesService.decreaseCommentLikes(likes,commentId,postId);
 //      Todo : member의 like check 정보를 포함해서 넘겨줘야함.
         log.info("""
                 

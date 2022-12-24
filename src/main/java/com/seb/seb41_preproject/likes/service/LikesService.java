@@ -8,11 +8,14 @@ import com.seb.seb41_preproject.likes.entity.Likes;
 import com.seb.seb41_preproject.likes.repository.LikesRepository;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.repository.PostRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Slf4j
 @Service
+@Transactional
 public class LikesService {
     private final LikesRepository likesRepository;
     private final PostRepository postRepository;
@@ -25,19 +28,49 @@ public class LikesService {
     }
 
     public void increasePostLikes(Likes likes, Long postId) {
-//        TODO : Member entity 완성시 VerifyLikesCheck()를 통해 해당유저가 눌렀었는지 검증하는 로직 작성필요
-//        likes.setLikeCheck(1);
-//        Todo : 유저의 해당게시물의 라이크체크가 1이면 추천을 눌렀을때 상태를 0으로 바꾸고 추천수를 줄여야함
-//        if() {
-//            likes.setLikeCheck(0);
-//        }
-//        verifyMemberLikeCheck()
+
+//      TODO : Member entity 완성시 VerifyLikesCheck()를 통해 해당유저가 눌렀었는지 검증하는 로직 작성필요
         Post findPost = FindVerifiedPost(postId);
         int count = findPost.getLikeCount();
-        findPost.setLikeCount(count+1);
-        likes.setLikeCheck(1);
-        likes.setPost(findPost);
-        likesRepository.save(likes);
+
+      /*
+      * JwtToken 개발완료시 -> postid와 memberid 를 AND조건으로 한 Likes 테이블에서 Likecheck의 값을 판단하고,
+      * 동일한 요청이 두 번 왔을 때 처리로직 추가 해야함.
+      *
+      */
+        try {
+
+            Optional<Likes> optionalLikes = likesRepository.existsLikes(postId);
+            Likes findLikes = optionalLikes.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_EXISTS));
+
+        } catch (BusinessLogicException e) {
+            Optional<Likes> optionalLikes = likesRepository.existsLikes(postId);
+            Likes findLikes = optionalLikes.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_EXISTS));
+            likes.setCount(count - 1);
+            likesRepository.delete(findLikes);
+            likesRepository.save(likes);
+        }
+            findPost.setLikeCount(count + 1);
+            likes.setLikeCheck(1);
+            likes.setPost(findPost);
+
+            likesRepository.save(likes);
+
+//        }else {
+//
+////          Likes updateLikes = likesRepository.findById(likes.getId()).orElseThrow( ()-> New BusinessLogicException(ExceptionCode.POST_EXISTS));
+////            updateLikes.updateLikesCount(count -1);
+////            setter 사용을 줄이려면 이런로직으로 짜야겠다
+////
+//
+//            Optional<Likes> optionalLikes = likesRepository.existsLikes(postId);
+//            Likes findLikes = optionalLikes.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_EXISTS));
+//            findPost.setLikeCount(count - 1);
+//            likes.setLikeCheck(1);
+//            likes.setPost(findPost);
+//
+//
+//        }
     }
 
     public void increaseCommentLikes(Likes likes, Long commentId, Long postId) {
@@ -46,6 +79,49 @@ public class LikesService {
 
         int count = findComment.getLikeCount();
         findComment.setLikeCount(count+1);
+        likes.setPost(findPost);
+        likes.setComment(findComment);
+        likesRepository.save(likes);
+    }
+
+
+//    게시글 비추천 기능
+    public void decreasePostLikes(Likes likes, Long postId) {
+
+//      TODO : Member entity 완성시 VerifyLikesCheck()를 통해 해당유저가 눌렀었는지 검증하는 로직 작성필요
+        Post findPost = FindVerifiedPost(postId);
+        int count = findPost.getLikeCount();
+
+        /*
+         * JwtToken 개발완료시 -> memberid 로 Likes 테이블에서 Likecheck의 값을 판단하고,
+         * 동일한 요청이 두 번 올때의( 처음엔 -1 , 그다음엔 +1)처리를 해야함.
+         * 해당 메서드는 비추천 기능임.
+         */
+        if (likes.getLikeCheck() == 0) {
+
+            findPost.setLikeCount(count - 1);
+            likes.setLikeCheck(1);
+            likes.setPost(findPost);
+
+            likesRepository.save(likes);
+
+        }else {
+            Optional<Likes> optionalLikes = likesRepository.existsLikes(postId);
+            Likes findLikes = optionalLikes.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_EXISTS));
+            findPost.setLikeCount(count + 1);
+            likes.setLikeCheck(1);
+            likes.setPost(findPost);
+
+
+        }
+    }
+//  댓글 비추천 기능
+    public void decreaseCommentLikes(Likes likes, Long commentId, Long postId) {
+        Post findPost = FindVerifiedPost(postId);
+        Comment findComment = FindVerifiedComment(commentId);
+
+        int count = findComment.getLikeCount();
+        findComment.setLikeCount(count - 1);
         likes.setPost(findPost);
         likes.setComment(findComment);
         likesRepository.save(likes);
@@ -63,4 +139,5 @@ public class LikesService {
         Post findPost = optionalPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
         return findPost;
     }
+
 }
