@@ -4,16 +4,31 @@ import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
 import { ReactComponent as ISearch } from '../asset/icon/icon-search.svg';
 import { Link } from 'react-router-dom';
 import { Twirl as Hamburger } from 'hamburger-react';
+import Line from '../components/Line';
 
-const Navigation = styled.nav`
+import { Menu } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
+import NavSidebar from './NavSidebar';
+
+const HamburgerContainer = styled.div`
+  display: ${(props) => (props.isBugerVisible ? 'inline-block' : 'none')};
+`;
+
+const NavigationContainer = styled.div`
   width: 100vw;
-  height: 50px;
   background-color: #f8f9f9;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   font-size: 13px;
   font: unset;
+`;
+
+const Navigation = styled.nav`
+  width: 1270px;
+  height: 50px;
+  display: flex;
+  background-color: #f8f9f9;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const LogoContainer = styled.div`
@@ -29,10 +44,11 @@ const SearchContainer = styled.div`
   background-color: white;
   border: #babfc4 solid 1px;
   border-radius: 4px;
-  width: 800px;
+  width: auto;
   padding: 8px 8px;
   margin: 0px 8px;
   display: flex;
+  flex: 1;
   align-items: center;
 
   &:focus,
@@ -41,10 +57,6 @@ const SearchContainer = styled.div`
     border-color: #aedafc;
     border-width: 4px;
   }
-`;
-
-const Span = styled.span`
-  padding: 6px 4px;
 `;
 
 const InputSearch = styled.input`
@@ -63,13 +75,15 @@ const Btn = styled(Link)`
   text-align: center;
 `;
 
-const Line = styled.hr`
-  background-color: ${(props) => (props.grey ? '#babfc4' : '#f48225')};
-  height: ${(props) => (props.grey ? '1px' : '4px')};
+const Span = styled.span`
+  padding: 6px 4px;
 `;
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
+  const [isBugerVisible, setIsBugerVisible] = useState(true);
+
+  //useEffect(() => console.log('a'), [isBugerVisible]);
 
   const searchInputRef = React.createRef();
   const searchInputPlaceholder = 'Search...';
@@ -78,45 +92,56 @@ function Header() {
 
   return (
     <header style={{ position: 'fixed' }}>
-      <Line />
-      <Navigation>
-        <Hamburger
-          toggled={isOpen}
-          toggle={setOpen}
-          size={16}
-          direction={'right'}
-          duration={0.1}
-          rounded
-        />
-        <LogoContainer>
-          <Link to="/">
-            <ILogo width="150px" height="30px" />
-          </Link>
-        </LogoContainer>
-        <SearchContainer>
-          <ISearch />
-          <InputSearch
-            ref={searchInputRef}
-            placeholder={searchInputPlaceholder}
-            onMouseEnter={() => searchInputRef.current.focus()}
-          />
-        </SearchContainer>{' '}
-        <Span>
-          <a href={outCo}>About</a>
-        </Span>
-        <Span>
-          <a href={outCoTe}>For Teams</a>
-        </Span>
-        <Span>
-          <Btn fill="true" to="login">
-            Log in
-          </Btn>
-        </Span>
-        <Span>
-          <Btn to="signup">Sign up</Btn>
-        </Span>
-      </Navigation>
-      <Line grey />
+      <NavigationContainer>
+        <Line />
+        <Navigation>
+          <Menu
+            menuButton={
+              <HamburgerContainer isBugerVisible={isBugerVisible}>
+                <Hamburger
+                  toggled={isOpen}
+                  toggle={setOpen}
+                  size={16}
+                  direction={'right'}
+                  duration={0.1}
+                  rounded
+                />
+              </HamburgerContainer>
+            }
+          >
+            <NavSidebar />
+          </Menu>
+          <LogoContainer>
+            <Link to="/">
+              <ILogo width="150px" height="30px" />
+            </Link>
+          </LogoContainer>
+          <SearchContainer isBugerVisible={isBugerVisible}>
+            <ISearch />
+            <InputSearch
+              ref={searchInputRef}
+              placeholder={searchInputPlaceholder}
+              onMouseEnter={() => searchInputRef.current.focus()}
+            />
+          </SearchContainer>
+          <Span>
+            <a href={outCo}>About</a>
+          </Span>
+          <Span>
+            <a href={outCoTe}>For Teams</a>
+          </Span>
+          <Span>
+            <Btn fill="true" to="login">
+              Log in
+            </Btn>
+          </Span>
+          <Span>
+            <Btn to="signup">Sign up</Btn>
+          </Span>
+          <button onClick={() => setIsBugerVisible(!isBugerVisible)} />
+        </Navigation>
+        <Line grey={'true'} />
+      </NavigationContainer>
     </header>
   );
 }

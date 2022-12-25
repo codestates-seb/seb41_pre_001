@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { setRoute } from '../util/routeStore';
 import { ReactComponent as IconStar } from '../asset/icon/icon-star.svg';
 import { ReactComponent as IconAlertCycle } from '../asset/icon/icon-alertcycle.svg';
 import { ReactComponent as IconGlobe } from '../asset/icon/icon-globe.svg';
@@ -16,6 +15,7 @@ const Sidebar = styled.div`
   height: 100%;
   background-color: white;
   padding-top: 24px;
+  padding-bottom: 30px;
 `;
 
 const CommonLi = styled.li`
@@ -81,8 +81,6 @@ function NavSidebar() {
         </ul>
       </Sidebar>
       <hr style={{ border: '1px solid #E0E3E5', width: '1', height: '100%' }} />
-
-      {setRoute()}
     </SidebarContainer>
   );
 }
