@@ -21,7 +21,7 @@ const Sidebar = styled.div`
 
 const CommonLi = styled(MenuItem)`
   width: 164px;
-  height: 30px;
+  height: 34px;
   padding-left: 10px;
   background-color: transparent;
   font-size: 15px;
@@ -35,7 +35,7 @@ const SubTitle = styled(CommonLi)`
   padding-top: 15px;
 `;
 
-const IconTitle = styled(CommonLi)`
+const SubLi = styled(CommonLi)`
   padding: 0px 0px 0px 30px;
 `;
 
@@ -53,15 +53,17 @@ function NavSidebar() {
               <IconGlobe width="20px" height="15px" />
               <Link to="questions"> Questions</Link>
             </CommonLi>
-            <IconTitle>
-              <Link to="tags">tags</Link>
-            </IconTitle>
-            <IconTitle>
+            <SubLi>
+              {/* <Link to="tags">Tags</Link> */}
+              <a href="https://stackoverflow.com/tags">Tags</a>
+            </SubLi>
+            <SubLi>
               <Link to="user">User</Link>
-            </IconTitle>
-            <IconTitle>
-              <Link to="companies">Companies</Link>
-            </IconTitle>
+            </SubLi>
+            <SubLi>
+              {/* <Link to="companies">Companies</Link> */}
+              <a href="https://stackoverflow.com/jobs/companies">Companies</a>
+            </SubLi>
           </ul>
           <SubTitle>
             COLLECTIVES
@@ -69,7 +71,10 @@ function NavSidebar() {
           </SubTitle>
           <CommonLi>
             <IconStar padding="10px" />
-            <Link to="exploreCollectives">Explore Collectives</Link>
+            <a href="https://stackoverflow.com/collectives">
+              Explore Collectives
+            </a>
+            {/* <Link to="exploreCollectives">Explore Collectives</Link> */}
           </CommonLi>
           <SubTitle>
             TEAMS
@@ -77,7 +82,10 @@ function NavSidebar() {
           </SubTitle>
           <CommonLi>
             <IconStar padding="10px" />
-            <Link to="exploreCollectives">Create free Team</Link>
+            <a href="https://try.stackoverflow.co/why-teams/?utm_source=so-owned&utm_medium=side-bar&utm_campaign=campaign-38&utm_content=cta">
+              Create free Team
+            </a>
+            {/* <Link to="exploreCollectives">Create free Team</Link> */}
           </CommonLi>
         </ul>
       </Sidebar>
