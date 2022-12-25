@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Section from '../components/Section';
 import { sidebarData } from '../data/dumyData';
+import { handleDonateMe } from '../util/alertStore';
 
 const SidebarContainer = styled.section`
   min-width: 300px;
@@ -10,9 +11,12 @@ const SidebarContainer = styled.section`
 `;
 
 function Sidebar() {
+  const handleClick = () => {
+    handleDonateMe();
+  };
   return (
     <>
-      <SidebarContainer>
+      <SidebarContainer onClick={() => handleClick()}>
         <Section props={sidebarData.section1} />
         <Section props={sidebarData.section2} />
         <Section props={sidebarData.section3} />
