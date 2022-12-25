@@ -86,11 +86,6 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
   const searchInputRef = createRef();
   const ref = useRef(null);
 
-  // const handleMenuClick = (e) => {
-  //   e.stopPropagation = true;
-  //   e.keepOpen = true;
-  // };
-
   return (
     <header style={{ position: 'fixed' }}>
       <NavigationContainer>
