@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import { createRef, useRef } from 'react';
 import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
 import { ReactComponent as ISearch } from '../asset/icon/icon-search.svg';
 import { Link } from 'react-router-dom';
 import { Twirl as Hamburger } from 'hamburger-react';
 import Line from '../components/Line';
 
-import { Menu } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
+import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
 
@@ -79,38 +78,47 @@ const Span = styled.span`
   padding: 6px 4px;
 `;
 
-function Header() {
-  const [isOpen, setOpen] = useState(false);
-  const [isBugerVisible, setIsBugerVisible] = useState(true);
-
-  //useEffect(() => console.log('a'), [isBugerVisible]);
-
-  const searchInputRef = React.createRef();
+function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
   const searchInputPlaceholder = 'Search...';
   const outCo = 'https://stackoverflow.co/';
   const outCoTe = 'https://stackoverflow.co/teams/';
+
+  const searchInputRef = createRef();
+  const ref = useRef(null);
+
+  // const handleMenuClick = (e) => {
+  //   e.stopPropagation = true;
+  //   e.keepOpen = true;
+  // };
 
   return (
     <header style={{ position: 'fixed' }}>
       <NavigationContainer>
         <Line />
         <Navigation>
-          <Menu
-            menuButton={
-              <HamburgerContainer isBugerVisible={isBugerVisible}>
-                <Hamburger
-                  toggled={isOpen}
-                  toggle={setOpen}
-                  size={16}
-                  direction={'right'}
-                  duration={0.1}
-                  rounded
-                />
-              </HamburgerContainer>
-            }
+          <HamburgerContainer
+            ref={ref}
+            onPointerEnter={() => setOpen(true)}
+            isBugerVisible={isBugerVisible}
+          >
+            <Hamburger
+              toggled={isOpen}
+              toggle={setOpen}
+              size={16}
+              direction={'right'}
+              duration={0.1}
+              rounded
+            />
+          </HamburgerContainer>
+          <ControlledMenu
+            state={isOpen ? 'open' : 'closed'}
+            anchorRef={ref}
+            onPointerLeave={() => setOpen(false)}
+            onClose={() => setOpen(false)}
+            transition
           >
             <NavSidebar />
-          </Menu>
+          </ControlledMenu>
           <LogoContainer>
             <Link to="/">
               <ILogo width="150px" height="30px" />

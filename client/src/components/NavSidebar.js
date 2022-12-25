@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MenuItem } from '@szhsin/react-menu';
 import { Link } from 'react-router-dom';
 import { ReactComponent as IconStar } from '../asset/icon/icon-star.svg';
 import { ReactComponent as IconAlertCycle } from '../asset/icon/icon-alertcycle.svg';
@@ -18,7 +19,7 @@ const Sidebar = styled.div`
   padding-bottom: 30px;
 `;
 
-const CommonLi = styled.li`
+const CommonLi = styled(MenuItem)`
   width: 164px;
   height: 30px;
   padding-left: 10px;

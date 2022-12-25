@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Line from './components/Line';
 import Home from './pages/Home';
 import QuestionList from './pages/QuestionList';
 import Tags from './pages/Tags';
@@ -27,19 +26,15 @@ function App() {
   const [isOpen, setOpen] = useState(false);
   const [isBugerVisible, setIsBugerVisible] = useState(true);
 
-  //useEffect(() => console.log('a'), [isBugerVisible]);
-
-  const searchInputRef = React.createRef();
+  // useEffect(() => , [isOpen]);
 
   return (
     <div className="appContainer">
-      <Line />
       <Header
         isOpen={isOpen}
         setOpen={setOpen}
         isBugerVisible={isBugerVisible}
         setIsBugerVisible={setIsBugerVisible}
-        searchInputRef={searchInputRef}
       />
       <BodyContainer>
         <Routes>
