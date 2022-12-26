@@ -21,7 +21,7 @@ function QuestionDelete() {
   return (
     <>
       {/* Sidebar 없으면 지우면됨 */}
-      <section className="mainSection withSideBar">
+      <section className="mainSection">
         <div>질문 삭제</div>
         <Sidebar />
       </section>

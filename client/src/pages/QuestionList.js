@@ -21,7 +21,7 @@ import Sidebar from '../components/Sidebar';
 function QuestionList() {
   return (
     <>
-      <section className="mainSection withSideBar">
+      <section className="mainSection">
         <div>질문들</div>
         <Sidebar />
       </section>

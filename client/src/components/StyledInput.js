@@ -10,7 +10,7 @@ const InputContainer = styled.div`
   border-radius: 4px;
   width: auto;
   padding: 8px 8px;
-  margin: 0px 8px;
+  margin: 4px 8px;
   display: flex;
   flex: 1;
   align-items: center;
@@ -30,14 +30,16 @@ const Input = styled.input`
   outline: none;
 `;
 
-function StyledInput({ isBugerVisible, placeholder, type }) {
+function StyledInput({ id, isBugerVisible, placeholder, buttonType, type }) {
   const inputRef = createRef();
   return (
     <InputContainer ref={inputRef} isBugerVisible={isBugerVisible}>
-      {type === INPUT_TYPE_SEARCH ? <ISearch /> : ''}
+      {buttonType === INPUT_TYPE_SEARCH ? <ISearch /> : ''}
       <Input
+        id={id}
         placeholder={placeholder}
         onMouseEnter={() => inputRef.current.focus()}
+        type={type}
       />
     </InputContainer>
   );

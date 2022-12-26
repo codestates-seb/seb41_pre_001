@@ -21,7 +21,7 @@ import AskCreate from '../components/AskCreate';
 function QuestionCreate() {
   return (
     <>
-      <section className="mainSection withSideBar">
+      <section className="mainSection">
         <AskCreate />
       </section>
     </>
