@@ -29,6 +29,14 @@ ul {
   padding: 30px 0px
 }
 
+.withSidebar {
+  background-color: #F1F2F3;  
+  width: 1270px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px
+}
+
 a:link,
 a:visited,
 a:hover,

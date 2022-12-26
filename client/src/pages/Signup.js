@@ -7,6 +7,14 @@ import CommonButton, {
 } from '../components/CommonButton';
 import LabelInput from '../components/LabelInput';
 import RandomIcon from '../components/RandomIcon';
+import {
+  InputFormContainer,
+  InputsContainer,
+  LabelDescription,
+  Last,
+  RightContainer,
+  RowDiv,
+} from '../styles/StyledStore';
 
 const LeftContainer = styled.div`
   width: 470px;
@@ -42,48 +50,14 @@ function RCont({ cont }) {
   );
 }
 
-const RightContainer = styled.div`
-  width: 316px;
-  height: auto;
-`;
-
-const InputFormContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 316px;
-  height: auto;
-  border: 1px #d6d9dc solid;
-  border-radius: 5px;
-  background-color: #ffffff;
-`;
-
-const InputsContainer = styled.div`
-  width: 270px;
-  height: auto;
-  padding: 24px 0px;
-`;
-
 const Description = styled.p`
   color: #6a737c;
   font-size: 12px;
   padding: 0px 8px;
 `;
 
-const RowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const LabelDescription = styled.div`
-  font-size: 10px;
-`;
-
 const Desc = styled(LabelDescription)`
   padding-top: 24px;
-`;
-const Last = styled.div`
-  padding: 24px 8px;
-  text-align: center;
 `;
 
 function Signup() {
