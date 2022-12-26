@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Capcha from '../components/Capcha';
 import CommonButton, {
   BUTTON_TYPE_FACEBOOK,
   BUTTON_TYPE_GITHUB,
@@ -8,9 +9,38 @@ import LabelInput from '../components/LabelInput';
 import RandomIcon from '../components/RandomIcon';
 
 const LeftContainer = styled.div`
-  width: 316px;
+  width: 470px;
+  margin: 0px 48px 128px 0px;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
+
+const RTitle = styled.p`
+  padding-bottom: 32px;
+  font-size: 27px;
+`;
+const Rul = styled.ul`
+  font-size: 15px;
+`;
+
+const Rli = styled.li`
+  padding-bottom: 24px;
+`;
+
+const Rdescription = styled.p`
+  font-size: 13px;
+`;
+
+function RCont({ cont }) {
+  return (
+    <RowDiv>
+      <RandomIcon />
+      <span>{cont}</span>
+    </RowDiv>
+  );
+}
 
 const RightContainer = styled.div`
   width: 316px;
@@ -39,29 +69,6 @@ const Description = styled.p`
   padding: 0px 8px;
 `;
 
-const CapchaContainer = styled.div`
-  height: 156px;
-  background-color: #f1f2f3;
-  margin: 8px;
-  border: 1px #d6d9dc solid;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const Capcha = styled(CapchaContainer)`
-  width: 170px;
-  height: 120px;
-  background-color: #f9f9f9;
-`;
-
-const CenterDiv = styled.div`
-  padding: 4px 0px;
-  align-items: center;
-`;
-
 const RowDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -83,10 +90,33 @@ function Signup() {
   const name = 'Display name';
   const email = 'Email';
   const password = 'Password';
+
   return (
     <section className="mainSection">
       <LeftContainer>
-        <div></div>
+        <RTitle>Join the Stack Overflow community</RTitle>
+        <Rul>
+          <Rli>
+            <RCont cont={'Get unstuck — ask a question'} />
+          </Rli>
+          <Rli>
+            <RCont cont={' Unlock new privileges like voting and commenting'} />
+          </Rli>
+          <Rli>
+            <RCont cont={' Save your favorite tags, filters, and jobs'} />
+          </Rli>
+          <Rli>
+            <RCont cont={' Earn reputation and badges'} />
+          </Rli>
+        </Rul>
+        <Rdescription>
+          Collaborate and share knowledge with a private group for FREE.
+        </Rdescription>
+        <Rdescription>
+          <a href="https://stackoverflow.com/teams?utm_source=so-owned&utm_medium=product&utm_campaign=free-50&utm_content=public-sign-up">
+            Get Stack Overflow for Teams free for up to 50 users.
+          </a>
+        </Rdescription>
       </LeftContainer>
       <RightContainer>
         <div>
@@ -109,27 +139,7 @@ function Signup() {
             <LabelInput label={email} inputType={'email'} />
             <LabelInput label={password} inputType={'password'} />
             <Description>{`Passwords must contain at least eight characters, including at least 1 letter and 1 number.}`}</Description>
-            <CapchaContainer>
-              <Capcha>
-                <CenterDiv
-                  style={{ color: 'red', fontSize: '12px', flex: '1' }}
-                >
-                  Verification expired. Check the checkbox again.
-                </CenterDiv>
-                <CenterDiv style={{ flex: '1' }}>
-                  <label>
-                    <input type={'checkbox'} />
-                    {`  I'm not a robot`}
-                  </label>
-                </CenterDiv>
-                <CenterDiv style={{ fontSize: '10px', flex: '1' }}>
-                  <div>
-                    <RandomIcon /> reCAPTCHA
-                  </div>
-                  <div>Privacy - Terms</div>
-                </CenterDiv>
-              </Capcha>
-            </CapchaContainer>
+            <Capcha />
             <RowDiv>
               <div>
                 <input id="description" type={'checkbox'} />

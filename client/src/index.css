@@ -22,7 +22,7 @@ ul {
 
 /* pages */
 .mainSection {
-  background-color: rgba(0, 0, 255, 0.47);  
+  background-color: #F1F2F3;  
   width: 1270px;
   display: flex;
   flex-direction: row;
