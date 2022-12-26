@@ -2,9 +2,9 @@ jwt:
   secret: kevinkevinkevinkevinkevinkevinkevinkevin
 
   access:
-    expiration: 100
+    expiration: 50000
     header: Authorization
 
   refresh:
-    expiration: 420
+    expiration: 42000
     header: Authorization-refresh

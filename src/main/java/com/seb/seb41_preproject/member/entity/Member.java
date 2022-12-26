@@ -8,15 +8,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Member {
 
     @Id
@@ -35,15 +34,15 @@ public class Member {
     @Column
     private String userImageUrl;
 
-    @JsonManagedReference
+    @JsonManagedReference(value ="post")
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonManagedReference(value ="member")
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonManagedReference(value ="likes")
     @OneToMany(mappedBy = "member")
     private List<Likes> likes = new ArrayList<>();
 

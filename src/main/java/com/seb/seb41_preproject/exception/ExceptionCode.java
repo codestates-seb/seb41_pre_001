@@ -9,7 +9,8 @@ public enum ExceptionCode {
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
     MEMBER_EXISTS(409,"Member exists" ),
-    MEMBER_NOT_FOUND(404,"Member not found");
+    MEMBER_NOT_FOUND(404,"Member not found"),
+    LIKE_EXIST(409,"Like is already check");
 
     @Getter
     private int status;

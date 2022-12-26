@@ -9,6 +9,7 @@ import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +26,13 @@ public class PostService {
         this.memberRepository = memberRepository;
     }
 
-    public Post createPost(Post post) {
-//        Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
-//        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    public Post createPost(Post post, String username) {
 
+        Optional<Member> member = memberRepository.findByUserEmail(username);
+        Member findMember = member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        post.setMember(findMember);
         setTag(post);
-//        post.setMember(member);
+
         return postRepository.save(post);
     }
 

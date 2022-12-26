@@ -57,4 +57,5 @@ public class MemberController {
                 =====================""");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
