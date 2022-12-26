@@ -82,14 +82,14 @@ public class LikesService {
             findLike.setCount(findLike.getCount()+1);
             findPost.setLikeCount(count + 1);
 
-            likesRepository.save(likes);
+            likesRepository.save(findLike);
         } else if (likeCheck == 4) {
 
             findLike.setLikeCheck(1);
             findLike.setCount(findLike.getCount()+1);
             findPost.setLikeCount(count + 1);
 
-            likesRepository.save(likes);
+            likesRepository.save(findLike);
         }else if (likeCheck == 1) {
 
 
@@ -139,7 +139,7 @@ public class LikesService {
             findLike.setCount(findLike.getCount() - 1);
             findPost.setLikeCount(count - 1);
 
-            likesRepository.save(likes);
+            likesRepository.save(findLike);
         } else if (likeCheck == 3) {
             findLike.setCount(findLike.getCount()+1);
             findLike.setLikeCheck(4);
