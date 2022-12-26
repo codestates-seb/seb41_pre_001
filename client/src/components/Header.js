@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { createRef, useRef } from 'react';
+import { useRef } from 'react';
 import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
-import { ReactComponent as ISearch } from '../asset/icon/icon-search.svg';
 import { Link } from 'react-router-dom';
 import { Twirl as Hamburger } from 'hamburger-react';
 import Line from '../components/Line';
+import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
 
 import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
@@ -39,31 +39,6 @@ const LogoContainer = styled.div`
   background-color: transparent;
 `;
 
-const SearchContainer = styled.div`
-  background-color: white;
-  border: #babfc4 solid 1px;
-  border-radius: 4px;
-  width: auto;
-  padding: 8px 8px;
-  margin: 0px 8px;
-  display: flex;
-  flex: 1;
-  align-items: center;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    border-color: #aedafc;
-    border-width: 4px;
-  }
-`;
-
-const InputSearch = styled.input`
-  background-color: transparent;
-  border: none;
-  outline: none;
-`;
-
 const Btn = styled(Link)`
   width: 60px;
   padding: 6px 8px;
@@ -79,11 +54,8 @@ const Span = styled.span`
 `;
 
 function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
-  const searchInputPlaceholder = 'Search...';
   const outCo = 'https://stackoverflow.co/';
   const outCoTe = 'https://stackoverflow.co/teams/';
-
-  const searchInputRef = createRef();
   const ref = useRef(null);
 
   return (
@@ -119,14 +91,11 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
               <ILogo width="150px" height="30px" />
             </Link>
           </LogoContainer>
-          <SearchContainer isBugerVisible={isBugerVisible}>
-            <ISearch />
-            <InputSearch
-              ref={searchInputRef}
-              placeholder={searchInputPlaceholder}
-              onMouseEnter={() => searchInputRef.current.focus()}
-            />
-          </SearchContainer>
+          <StyledInput
+            isBugerVisible={isBugerVisible}
+            placeholder={'Search...'}
+            type={INPUT_TYPE_SEARCH}
+          />
           <Span>
             <a href={outCo}>About</a>
           </Span>

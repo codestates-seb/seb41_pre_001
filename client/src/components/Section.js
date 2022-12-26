@@ -91,7 +91,9 @@ function Sidebar({ props }) {
     <>
       {type === 6 ? (
         <CommonSection>
-          <TitleDown>{title}</TitleDown>
+          <TitleDown>
+            <strong>{title}</strong>
+          </TitleDown>
           <ul>
             {conts.map((cont, index) => (
               <Section8 cont={cont} key={index} />
@@ -100,7 +102,10 @@ function Sidebar({ props }) {
         </CommonSection>
       ) : type === 7 ? (
         <CommonSection>
-          <TitleDown>{title}</TitleDown>
+          {' '}
+          <TitleDown>
+            <strong>{title}</strong>
+          </TitleDown>
           <ul>
             {conts.map((cont, index) => (
               <Section9 cont={cont} key={index} />

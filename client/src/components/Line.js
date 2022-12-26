@@ -4,7 +4,7 @@ const StyledLine = styled.hr`
   background-color: ${(props) =>
     props.grey ? '#babfc4' : props.sideBarColor ? '#f1e5bc' : '#f48225'};
   height: ${(props) =>
-    props.grey ? '1px' : props.sideBarColor ? '1px' : '6px'};
+    props.grey ? '1px' : props.sideBarColor ? '1px' : '3px'};
   z-index: 1;
   border: 0;
 `;

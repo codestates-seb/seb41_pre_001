@@ -8,6 +8,7 @@ const SidebarContainer = styled.section`
   max-width: 300px;
   height: 100%;
   padding-top: 24px;
+  padding-bottom: 24px;
 `;
 
 function Sidebar() {

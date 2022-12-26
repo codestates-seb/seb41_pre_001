@@ -89,7 +89,6 @@ function NavSidebar() {
           </CommonLi>
         </ul>
       </Sidebar>
-      <hr style={{ border: '1px solid #E0E3E5', width: '1', height: '100%' }} />
     </SidebarContainer>
   );
 }
