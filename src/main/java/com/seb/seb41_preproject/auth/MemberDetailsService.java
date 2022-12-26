@@ -5,7 +5,6 @@ import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.repository.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,31 +25,41 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Optional<Member> optionalMember = memberRepository.findByUserEmail(username);
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-
-        return new MemberDetails(findMember);
+        return new MemberDetails(member,memberRepository);
     }
+    public final class MemberDetails extends Member implements UserDetails {
 
-    private class MemberDetails extends Member implements UserDetails {
-        MemberDetails(Member member) {
-            setId(member.getId());
-            setUserName(member.getUserName());
-            setUserEmail(member.getUserEmail());
-            setUserPassword(member.getUserPassword());
-            setUserImageUrl(member.getUserImageUrl());
-            setRoles(member.getRoles());
-
+        private final Long id;
+        private final MemberRepository memberRepository;
+        private Member member;
+        MemberDetails(Member findMember, MemberRepository memberRepository) {
+            this.memberRepository = memberRepository;
+            this.member = findMember;
+            this.id = findMember.getId();
+            setId(findMember.getId());
+            setUserName(findMember.getUserName());
+            setUserEmail(findMember.getUserEmail());
+            setUserPassword(findMember.getUserPassword());
+            setUserImageUrl(findMember.getUserImageUrl());
+            setRoles(findMember.getRoles());
         }
+
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return null;
+            return authorityUtils.createAuthorities(this.getRoles());
         }
 
+        public Member getMember() {
+            Optional<Member> byId = memberRepository.findById(id);
+            this.member = byId.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+            return member;
+        }
         @Override
         public String getPassword() {
             return getUserPassword();
@@ -58,7 +67,9 @@ public class MemberDetailsService implements UserDetailsService {
 
         @Override
         public String getUsername() {
-            return getUserEmail();
+            Optional<Member> byUserId = memberRepository.findById(id);
+            Member member = byUserId.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+            return member.getUserEmail();
         }
 
         @Override
@@ -80,5 +91,5 @@ public class MemberDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
-    }
+}
 }

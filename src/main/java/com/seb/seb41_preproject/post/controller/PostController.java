@@ -1,7 +1,11 @@
 package com.seb.seb41_preproject.post.controller;
 
+
+
+
+import com.seb.seb41_preproject.auth.MemberDetailsService;
+import com.seb.seb41_preproject.auth.MemberDetailsService.MemberDetails;
 import com.seb.seb41_preproject.member.entity.Member;
-//import com.seb.seb41_preproject.member.entity.MemberAccount;
 import com.seb.seb41_preproject.member.service.CurrentUser;
 import com.seb.seb41_preproject.post.dto.BoardResponseDto;
 import com.seb.seb41_preproject.post.dto.PostAllDto;
@@ -17,8 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +30,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/board/posts")
 @Slf4j
+
 public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
+
 
     public PostController(PostService postService, PostMapper postMapper) {
         this.postService = postService;
@@ -36,14 +42,11 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity postPost(@RequestBody PostDto postDto
-                                  ) {
-        log.info("게시글 작성 완료");
+    public ResponseEntity postPost(@RequestBody PostDto postDto, @AuthenticationPrincipal String memberEmail) {
+
         postDto.setTag(postDto.getTag().replaceAll(" ", "").toLowerCase());
-        Post response = postService.createPost(postMapper.postDtoToPost(postDto));
-/*        response.setTags(Arrays.stream(response.getTag().split(","))
-                .map(String::toLowerCase)
-                .collect(Collectors.toList()));*/
+        Post response = postService.createPost(postMapper.postDtoToPost(postDto),memberEmail);
+        log.info("게시글 작성 완료");
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
     }
 

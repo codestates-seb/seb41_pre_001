@@ -1,8 +1,9 @@
 package com.seb.seb41_preproject.auth.filter;
 
-
 import com.seb.seb41_preproject.auth.MemberAuthorityUtils;
 import com.seb.seb41_preproject.auth.jwt.JwtTokenizer;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,45 +18,53 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class JwtVerificationFilter extends OncePerRequestFilter {
-
+public class JwtVerificationFilter extends OncePerRequestFilter {  // (1)
     private final JwtTokenizer jwtTokenizer;
     private final MemberAuthorityUtils authorityUtils;
 
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer, MemberAuthorityUtils authorityUtils) {
+
+    public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
+                                 MemberAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
     }
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        Map<String, Object> claims = VerifyJws(request);
-        setAuthenticationToContext(claims);
+        // (1)
+        try {
+            Map<String, Object> claims = verifyJws(request);
+            setAuthenticationToContext(claims);
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+        } catch (ExpiredJwtException ee) {
+            request.setAttribute("exception", ee);
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+        }
 
         filterChain.doFilter(request, response);
     }
 
-
-
+    // (6)
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String authorization = request.getHeader("Authorization");
+        String authorization = request.getHeader("Authorization");  // (6-1)
 
-        return authorization == null || !authorization.startsWith("Bearer");
+        return authorization == null || !authorization.startsWith("Bearer");  // (6-2)
     }
-    private Map<String, Object> VerifyJws(HttpServletRequest request) {
+
+    private Map<String, Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         String base64EncodedSecretKey = jwtTokenizer.encodedBase64SecretKey(jwtTokenizer.getSecretKey());
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws,base64EncodedSecretKey).getBody();
+        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+
         return claims;
     }
 
-    private void setAuthenticationToContext(Map<String, Object> claims) {
-
-        String username = (String) claims.get("userEmail");
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List<String>) claims.get("roles"));
+    private void setAuthenticationToContext(Map<String, Object> claims){
+        String username = (String) claims.get("username");
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

@@ -3,9 +3,12 @@ package com.seb.seb41_preproject.auth.Security;
 import com.seb.seb41_preproject.auth.MemberAuthorityUtils;
 import com.seb.seb41_preproject.auth.filter.JwtAuthenticationFilter;
 import com.seb.seb41_preproject.auth.filter.JwtVerificationFilter;
+import com.seb.seb41_preproject.auth.filter.MemberAccessDeniedHandler;
+import com.seb.seb41_preproject.auth.filter.MemberAuthenticationEntryPoint;
 import com.seb.seb41_preproject.auth.jwt.JwtTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,6 +40,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
@@ -46,10 +50,13 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-
                         .anyRequest().permitAll()
                 );
 
@@ -83,6 +90,8 @@ public class SecurityConfiguration {
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
 
             jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
+            jwtAuthenticationFilter.setUsernameParameter("username");
+            jwtAuthenticationFilter.setPasswordParameter("password");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

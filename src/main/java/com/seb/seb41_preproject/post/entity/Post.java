@@ -56,12 +56,4 @@ public class Post {
     @JsonManagedReference
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
-
-    public void setMember(Member member) {
-        if (this.member != null) {
-            this.member.getPosts().remove(this);
-        }
-        this.member = member;
-        member.getPosts().add(this);
-    }
 }
