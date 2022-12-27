@@ -16,7 +16,6 @@ function App() {
       <Header />
       <BodyContainer>
         <NavSidebar />
-        <div className="mainContainer"></div>
       </BodyContainer>
       <Footer></Footer>
     </div>

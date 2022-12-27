@@ -1,5 +1,4 @@
 import Sidebar from '../components/Sidebar';
-
 /**
  * # QuestionList
  *

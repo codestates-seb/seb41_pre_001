@@ -1,120 +1,16 @@
 import styled from 'styled-components';
 import Editor from './Editors';
-
-const AskBody = styled.div`
-  background-color: #fbfcfc;
-`;
-const AskTitle = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(206deg 90% 70%);
-  background-color: hsl(206deg 100% 97%);
-`;
-const AskTitleH1 = styled.h1`
-  font-size: 27px;
-  margin-left: 27px;
-  margin-bottom: 55px;
-`;
-const AskTitleH2 = styled.h2`
-  font-size: 19.8px;
-  font-weight: 400;
-`;
-const UlContent = styled.ul`
-  list-style-type: disc;
-  font-size: 13px;
-  font-weight: 400;
-  margin-left: 28px;
-`;
-const TitleContent = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -10px;
-
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const AskContent = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  position: relative;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-  > textarea {
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    margin: 30px;
-  }
-`;
-const AskExpect = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const AskTags = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const Buttons = styled.div`
-  display: flex;
-  margin-top: -17px;
-`;
-const SubmitButton = styled.button`
-  background-color: hsl(206deg 100% 52%);
-  border-radius: 3px;
-  border: none;
-  color: #ffffff;
-  margin-left: 27px;
-  padding: 10px;
-`;
-const DiscardButton = styled.button`
-  background-color: #fbfcfc;
-  border: none;
-  color: #c22e32;
-  margin-left: 25px;
-`;
+import backpics from './pics/AskBackground.png';
 
 function AskCreate() {
   return (
     <AskBody className="ask-title">
-      <AskTitleH1>Ask a public question</AskTitleH1>
+      <AskHeader>
+        <AskTitleH1>Ask a public question</AskTitleH1>
+        <img src={backpics} alt="" />
+      </AskHeader>
       <AskTitle className="ask-info">
-        <AskTitleH2>Writing a good question</AskTitleH2>
+        <h2>Writing a good question</h2>
         <br />
         <p>
           You’re ready to{' '}
@@ -134,7 +30,7 @@ function AskCreate() {
         <br />
         <h5>Steps</h5>
         <br />
-        <UlContent>
+        <ul>
           <li>Summarize your problem in a one-line title.</li>
           <li>Describe your problem in more detail.</li>
           <li>Describe what you tried and what you expected to happen.</li>
@@ -143,8 +39,9 @@ function AskCreate() {
             community.
           </li>
           <li>Review your question and post it to the site.</li>
-        </UlContent>
+        </ul>
       </AskTitle>
+
       <TitleContent className="title-content">
         <h5>Title</h5>
         <p>
@@ -204,3 +101,127 @@ function AskCreate() {
   );
 }
 export default AskCreate;
+
+const AskBody = styled.div`
+  background-color: hsl(210deg 8% 98%);
+`;
+const AskHeader = styled.div`
+  display: flex;
+  > img {
+    text-align: right;
+    margin-top: 20px;
+  }
+`;
+const AskTitle = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(206deg 90% 70%);
+  border-radius: 3px 3px 3px 3px;
+  background-color: hsl(206deg 100% 97%);
+  > h2 {
+    font-size: 19.8px;
+    font-weight: 400;
+  }
+  > ul {
+    list-style-type: disc;
+    font-size: 13px;
+    font-weight: 400;
+    margin-left: 28px;
+  }
+`;
+const AskTitleH1 = styled.h1`
+  font-size: 27px;
+  margin-left: 29px;
+  margin-bottom: 55px;
+  margin-top: 55px;
+  box-sizing: content-box;
+  width: 800px;
+`;
+const TitleContent = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  border-radius: 3px 3px 3px 3px;
+  background-color: #ffffff;
+  margin-top: -10px;
+
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const AskContent = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  border-radius: 3px 3px 3px 3px;
+  background-color: #ffffff;
+  margin-top: -17px;
+  position: relative;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  > textarea {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 30px;
+  }
+`;
+const AskExpect = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  border-radius: 3px 3px 3px 3px;
+  background-color: #ffffff;
+  margin-top: -17px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const AskTags = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  border-radius: 3px 3px 3px 3px;
+  background-color: #ffffff;
+  margin-top: -17px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  margin-top: -17px;
+  margin-bottom: 20px;
+`;
+const SubmitButton = styled.button`
+  background-color: hsl(206deg 100% 52%);
+  border-radius: 3px;
+  border: none;
+  color: #ffffff;
+  margin-left: 29px;
+  padding: 10px;
+`;
+const DiscardButton = styled.button`
+  background-color: #fbfcfc;
+  border: none;
+  color: #c22e32;
+  margin-left: 25px;
+`;
