@@ -1,66 +1,95 @@
 import styled from 'styled-components';
+import { MenuItem } from '@szhsin/react-menu';
 import { Link } from 'react-router-dom';
-import { handleDonateMe } from '../util/alertStore';
-import { setRoute } from '../util/routeStore';
+import { ReactComponent as IconStar } from '../asset/icon/icon-star.svg';
+import { ReactComponent as IconAlertCycle } from '../asset/icon/icon-alertcycle.svg';
+import { ReactComponent as IconGlobe } from '../asset/icon/icon-globe.svg';
+
+const SidebarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const Sidebar = styled.div`
   max-width: 170px;
   min-width: 170px;
   height: 100%;
-  background-color: aliceblue;
+  background-color: white;
+  padding-top: 24px;
+  padding-bottom: 30px;
 `;
 
-const Teams = styled.aside`
-  background-color: antiquewhite;
+const CommonLi = styled(MenuItem)`
+  width: 164px;
+  height: 34px;
+  padding-left: 10px;
+  background-color: transparent;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const SubTitle = styled(CommonLi)`
+  color: #6a737c;
+  font-size: 11px;
+  padding-top: 15px;
+`;
+
+const SubLi = styled(CommonLi)`
+  padding: 0px 0px 0px 30px;
 `;
 
 function NavSidebar() {
   return (
-    <>
+    <SidebarContainer>
       <Sidebar>
         <ul>
-          <li>
+          <CommonLi>
             <Link to="/">Home</Link>
-          </li>
-          <li>public</li>
+          </CommonLi>
+          <SubTitle>PUBLIC</SubTitle>
           <ul>
-            <li>
-              <Link to="questions">Questions</Link>
-            </li>
-            <li>
-              <Link to="tags">tags</Link>
-            </li>
-            <li>
+            <CommonLi>
+              <IconGlobe width="20px" height="15px" />
+              <Link to="questions"> Questions</Link>
+            </CommonLi>
+            <SubLi>
+              {/* <Link to="tags">Tags</Link> */}
+              <a href="https://stackoverflow.com/tags">Tags</a>
+            </SubLi>
+            <SubLi>
               <Link to="user">User</Link>
-            </li>
-            <li>
-              <Link to="companies">Companies</Link>
-            </li>
+            </SubLi>
+            <SubLi>
+              {/* <Link to="companies">Companies</Link> */}
+              <a href="https://stackoverflow.com/jobs/companies">Companies</a>
+            </SubLi>
           </ul>
-          <li>COLLECTIVES</li>
-          <li>
-            <Link to="exploreCollectives">Explore Collectives</Link>
-          </li>
-          <li>
-            <br />
+          <SubTitle>
+            COLLECTIVES
+            <IconAlertCycle width="80px" height="15px" />
+          </SubTitle>
+          <CommonLi>
+            <IconStar padding="10px" />
+            <a href="https://stackoverflow.com/collectives">
+              Explore Collectives
+            </a>
+            {/* <Link to="exploreCollectives">Explore Collectives</Link> */}
+          </CommonLi>
+          <SubTitle>
             TEAMS
-          </li>
+            <IconAlertCycle width="120px" height="15px" />
+          </SubTitle>
+          <CommonLi>
+            <IconStar padding="10px" />
+            <a href="https://try.stackoverflow.co/why-teams/?utm_source=so-owned&utm_medium=side-bar&utm_campaign=campaign-38&utm_content=cta">
+              Create free Team
+            </a>
+            {/* <Link to="exploreCollectives">Create free Team</Link> */}
+          </CommonLi>
         </ul>
-        <Teams>
-          <p>
-            <strong>Stack Overflow for Teams</strong> Start collaborating and
-            sharing organizational knowledge.
-          </p>
-          <div>사진머시기 {`>`}_? 대화창 머시기 V</div>
-          <div>
-            <button onClick={() => handleDonateMe()}>Create a free Team</button>
-            <button onClick={() => handleDonateMe()}>Why Teams?</button>
-          </div>
-        </Teams>
       </Sidebar>
-
-      {setRoute()}
-    </>
+    </SidebarContainer>
   );
 }
 

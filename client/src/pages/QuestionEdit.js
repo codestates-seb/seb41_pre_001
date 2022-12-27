@@ -21,7 +21,7 @@ function QuestionEdit() {
   return (
     <>
       {/* Sidebar 없으면 지우면됨 */}
-      <section className="mainSection withSideBar">
+      <section className="mainSection">
         <div>질문 수정</div>
         <Sidebar />
       </section>
