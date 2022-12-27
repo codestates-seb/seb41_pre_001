@@ -1,16 +1,9 @@
 package com.seb.seb41_preproject.post.controller;
 
-
-
-
-import com.seb.seb41_preproject.auth.MemberDetailsService;
-import com.seb.seb41_preproject.auth.MemberDetailsService.MemberDetails;
-import com.seb.seb41_preproject.member.entity.Member;
-import com.seb.seb41_preproject.member.service.CurrentUser;
 import com.seb.seb41_preproject.post.dto.BoardResponseDto;
 import com.seb.seb41_preproject.post.dto.PostAllDto;
-import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.dto.PostDto;
+import com.seb.seb41_preproject.post.dto.PostPatchDto;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.mapper.PostMapper;
 import com.seb.seb41_preproject.post.page.PageInfo;
@@ -20,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,11 +21,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/board/posts")
 @Slf4j
-
 public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
-
 
     public PostController(PostService postService, PostMapper postMapper) {
         this.postService = postService;
@@ -42,27 +31,24 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity postPost(@RequestBody PostDto postDto, @AuthenticationPrincipal String memberEmail) {
-
-        postDto.setTag(postDto.getTag().replaceAll(" ", "").toLowerCase());
-        Post response = postService.createPost(postMapper.postDtoToPost(postDto),memberEmail);
-        log.info("게시글 작성 완료");
+    public ResponseEntity postPost(@RequestBody PostDto postDto) {
+        log.info("----게시글 작성 완료----");
+        Post response = postService.createPost(postMapper.postDtoToPost(postDto));
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post_id}")
     public ResponseEntity patchPost(@PathVariable("post_id") long id,
                                     @RequestBody PostPatchDto postPatchDto) {
-        log.info("게시글 수정 완료");
+        log.info("----게시글 수정 완료----");
         postPatchDto.setId(id);
         Post response = postService.updatePost(postMapper.postPatchDtoToPost(postPatchDto));
-
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{post_id}")
     public ResponseEntity deletePost(@PathVariable("post_id") long id) {
-
+        log.info("----게시글 삭제 완료----");
         postService.deletePost(id);
         System.out.printf("deleted post_id : ", id);
 
