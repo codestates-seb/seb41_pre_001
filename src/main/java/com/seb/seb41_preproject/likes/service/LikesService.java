@@ -102,15 +102,53 @@ public class LikesService {
     }
 
 
-    public void increaseCommentLikes(Likes likes, Long commentId, Long postId) {
-        Post findPost = findVerifiedPost(postId);
+    public void increaseCommentLikes(Likes likes, Long commentId, Long postId, String userEmail, int likeCheck) {
         Comment findComment = findVerifiedComment(commentId);
-
+        Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
-        findComment.setLikeCount(count + 1);
-        likes.setPost(findPost);
-        likes.setComment(findComment);
-        likesRepository.save(likes);
+        Long memberId = findMember.getId();
+        Optional<Likes> optionalLikes = likesRepository.existsLikes(postId, memberId);
+        Likes findLike = optionalLikes.orElse(likes);
+
+        if (likeCheck == 0) {
+
+            likes.setComment(findComment);
+            likes.setLikeCheck(1);
+            likes.setMember(findMember);
+            likes.setCount(likes.getCount());
+            findComment.setLikeCount(count + 1);
+            likesRepository.save(likes);
+
+        } else if (likeCheck == 2) {
+
+            findLike.setCount(findLike.getCount() + 1);
+            findLike.setLikeCheck(1);
+            findComment.setLikeCount(count + 1);
+
+            likesRepository.save(findLike);
+        }  else if (likeCheck == 3) {
+
+            findLike.setLikeCheck(1);
+            findLike.setCount(findLike.getCount()+1);
+            findComment.setLikeCount(count + 1);
+
+            likesRepository.save(findLike);
+        } else if (likeCheck == 4) {
+
+            findLike.setLikeCheck(1);
+            findLike.setCount(findLike.getCount()+1);
+            findComment.setLikeCount(count + 1);
+
+            likesRepository.save(findLike);
+        }else if (likeCheck == 1) {
+
+
+            findLike.setCount(findLike.getCount() - 1);
+            findLike.setLikeCheck(2);
+            findComment.setLikeCount(count - 1);
+
+            likesRepository.save(findLike);
+        }
     }
 
 
@@ -164,15 +202,51 @@ public class LikesService {
     }
 
     //  댓글 비추천 기능
-    public void decreaseCommentLikes(Likes likes, Long commentId, Long postId) {
-        Post findPost = findVerifiedPost(postId);
+    public void decreaseCommentLikes(Likes likes, Long commentId, Long postId, int likeCheck, String userEmail) {
         Comment findComment = findVerifiedComment(commentId);
-
+        Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
-        findComment.setLikeCount(count - 1);
-        likes.setPost(findPost);
-        likes.setComment(findComment);
-        likesRepository.save(likes);
+        Long memberId = findMember.getId();
+        Optional<Likes> optionalLikes = likesRepository.existsLikes(postId, memberId);
+        Likes findLike = optionalLikes.orElse(likes);
+
+        if (likeCheck == 0) {
+
+            likes.setComment(findComment);
+            likes.setLikeCheck(3);
+            likes.setMember(findMember);
+            likes.setCount(likes.getCount());
+            findComment.setLikeCount(count - 1);
+
+            likesRepository.save(likes);
+        } else if (likeCheck == 1) {
+
+            findLike.setLikeCheck(2);
+            findLike.setCount(findLike.getCount() - 1);
+            findComment.setLikeCount(count - 1);
+
+            likesRepository.save(findLike);
+        } else if (likeCheck == 3) {
+            findLike.setCount(findLike.getCount()+1);
+            findLike.setLikeCheck(4);
+            findComment.setLikeCount(count + 1);
+
+            likesRepository.save(findLike);
+        } else if (likeCheck == 4) {
+
+            findLike.setCount(findLike.getCount()-1);
+            findLike.setLikeCheck(3);
+            findComment.setLikeCount(count - 1);
+
+            likesRepository.save(findLike);
+        } else if(likeCheck == 2){
+
+            findLike.setCount(findLike.getCount()-1);
+            findLike.setLikeCheck(3);
+            findComment.setLikeCount(count - 1);
+
+            likesRepository.save(findLike);
+        }
     }
 
 
