@@ -1,4 +1,7 @@
 import { faker } from '@faker-js/faker';
+import { useState } from 'react';
+import ModalDelete from '../components/ModalDelete';
+import ModalEdit from '../components/ModalEdit';
 import RandomIcon from '../components/RandomIcon';
 import { RowDiv } from '../styles/StyledStore';
 
@@ -60,9 +63,17 @@ const CommonList = ({ titleType = -1, conts = [] }) => {
 };
 
 function User() {
+  const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
+  const [editModalIsOpen, setIsEditModalOpen] = useState(false);
+  const handleDeletePrompt = () => {
+    setIsDeleteModalOpen(true);
+  };
+  const handleEditPrompt = () => {
+    setIsEditModalOpen(true);
+  };
   return (
     <>
-      <section className="withSidebar">
+      <section id="userDiv" className="withSidebar">
         <RowDiv>
           <img src={faker.image.avatar()} alt="avatar" />
           <div>
@@ -75,8 +86,16 @@ function User() {
           </div>
         </RowDiv>
         <RowDiv>
-          <button>Edit profile</button>
-          <button>Delete account</button>
+          <button onClick={handleEditPrompt}>Edit profile</button>
+          <ModalEdit
+            editModalIsOpen={editModalIsOpen}
+            setIsEditModalOpen={setIsEditModalOpen}
+          />
+          <button onClick={handleDeletePrompt}>Delete account</button>
+          <ModalDelete
+            deleteModalIsOpen={deleteModalIsOpen}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+          />
         </RowDiv>
         <CommonList titleType={TITLE_TYPE_ANSWERS} />
         <CommonList titleType={TITLE_TYPE_QUESTION} />
