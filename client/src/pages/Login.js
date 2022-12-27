@@ -44,8 +44,8 @@ function Login() {
         </div>
         <InputFormContainer>
           <InputsContainer>
-            <LabelInput label={email} inputType={'email'} />
-            <LabelInput label={password} inputType={'password'} />
+            <LabelInput label={email} type={'email'} />
+            <LabelInput label={password} type={'password'} />
             <CommonButton cont={'Log in'} />
           </InputsContainer>
         </InputFormContainer>

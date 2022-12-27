@@ -109,9 +109,9 @@ function Signup() {
         </div>
         <InputFormContainer>
           <InputsContainer>
-            <LabelInput label={name} inputType={'text'} />
-            <LabelInput label={email} inputType={'email'} />
-            <LabelInput label={password} inputType={'password'} />
+            <LabelInput label={name} type={'text'} />
+            <LabelInput label={email} type={'email'} />
+            <LabelInput label={password} type={'password'} />
             <Description>{`Passwords must contain at least eight characters, including at least 1 letter and 1 number.}`}</Description>
             <Capcha />
             <RowDiv>
