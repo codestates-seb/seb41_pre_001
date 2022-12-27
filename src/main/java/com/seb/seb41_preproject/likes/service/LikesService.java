@@ -103,11 +103,11 @@ public class LikesService {
 
 
     public void increaseCommentLikes(Likes likes, Long commentId, Long postId, String userEmail, int likeCheck) {
+
         Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
-        Long memberId = findMember.getId();
-        Optional<Likes> optionalLikes = likesRepository.existsLikes(postId, memberId);
+        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
         Likes findLike = optionalLikes.orElse(likes);
 
         if (likeCheck == 0) {
@@ -206,8 +206,7 @@ public class LikesService {
         Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
-        Long memberId = findMember.getId();
-        Optional<Likes> optionalLikes = likesRepository.existsLikes(postId, memberId);
+        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
         Likes findLike = optionalLikes.orElse(likes);
 
         if (likeCheck == 0) {

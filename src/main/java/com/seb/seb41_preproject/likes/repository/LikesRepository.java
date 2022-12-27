@@ -18,6 +18,10 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
     @Query(value = "select l from Likes l where l.post.id = :postId and l.member.id = :memberId")
     Optional<Likes> existsLikes(@Param(value = "postId") Long id,
                                 @Param(value = "memberId") Long memberId);
+    @Query(value = "select l.LikeCheck from Likes l where l.post.id =:postId and l.comment.id = :commentId")
+    Optional<Likes> existCommentLikes(@Param(value = "postId") Long id,
+                                      @Param(value = "commentId") Long commentId);
+
     Optional<Likes> findByPostId(Long id);
 
     Optional<Likes> findByMemberId(Long id);
