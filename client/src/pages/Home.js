@@ -6,7 +6,9 @@ function Home() {
     <>
       <section className="mainSection">
         <div>
-          <Link to="questionCreate">ask asdfasdfasdf</Link>
+          <Link to="questionCreate">
+            <fieldset>Ask Questions!</fieldset>
+          </Link>
         </div>
         <Sidebar />
       </section>
