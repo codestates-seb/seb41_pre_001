@@ -22,7 +22,10 @@ function QuestionList() {
   return (
     <>
       <section className="mainSection">
-        <div>질문들</div>
+        <fieldset>What is JavaScript? </fieldset>
+        <fieldset>What is CSS? </fieldset>
+        <fieldset>What is HTML?</fieldset>
+        {/*div tag 넣으면 작동이 안 됨*/}
         <Sidebar />
       </section>
     </>
