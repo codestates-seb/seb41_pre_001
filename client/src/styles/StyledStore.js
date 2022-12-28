@@ -1,5 +1,21 @@
 import styled from 'styled-components';
 
+export const MainContainer = styled.section`
+  background-color: #f1f2f3;
+  width: 1270px;
+  display: flex;
+  flex-direction: row;
+  padding: 30px 0px;
+`;
+
+export const MainWithSidebarContainer = styled.section`
+  background-color: #f1f2f3;
+  width: 1270px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px;
+`;
+
 export const RowDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,4 +48,18 @@ export const LabelDescription = styled.div`
 export const Last = styled.div`
   padding: 24px 8px;
   text-align: center;
+`;
+export const ColumnDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ColumnCenterDiv = styled(ColumnDiv)`
+  justify-content: center;
+`;
+
+export const UserSpan = styled.span`
+  font-size: 13px;
+  padding: 8px;
+  color: #6a737b;
 `;

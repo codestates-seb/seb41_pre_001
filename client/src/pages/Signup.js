@@ -12,6 +12,7 @@ import {
   InputsContainer,
   LabelDescription,
   Last,
+  MainContainer,
   RightContainer,
   RowDiv,
 } from '../styles/StyledStore';
@@ -66,7 +67,7 @@ function Signup() {
   const password = 'Password';
 
   return (
-    <section className="mainSection">
+    <MainContainer>
       <LeftContainer>
         <RTitle>Join the Stack Overflow community</RTitle>
         <Rul>
@@ -109,9 +110,9 @@ function Signup() {
         </div>
         <InputFormContainer>
           <InputsContainer>
-            <LabelInput label={name} inputType={'text'} />
-            <LabelInput label={email} inputType={'email'} />
-            <LabelInput label={password} inputType={'password'} />
+            <LabelInput label={name} type={'text'} />
+            <LabelInput label={email} type={'email'} />
+            <LabelInput label={password} type={'password'} />
             <Description>{`Passwords must contain at least eight characters, including at least 1 letter and 1 number.}`}</Description>
             <Capcha />
             <RowDiv>
@@ -157,7 +158,7 @@ function Signup() {
           </LabelDescription>
         </Last>
       </RightContainer>
-    </section>
+    </MainContainer>
   );
 }
 
