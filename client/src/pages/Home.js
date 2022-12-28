@@ -4,12 +4,10 @@ import { MainWithSidebarContainer } from '../styles/StyledStore';
 
 function Home() {
   return (
-    <>
-      <MainWithSidebarContainer>
-        <Main />
-        <Sidebar />
-      </MainWithSidebarContainer>
-    </>
+    <MainWithSidebarContainer>
+      <Main />
+      <Sidebar />
+    </MainWithSidebarContainer>
   );
 }
 

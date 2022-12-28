@@ -24,12 +24,10 @@ import { MainContainer } from '../styles/StyledStore';
  */
 function QuestionCreate() {
   return (
-    <>
-      <MainContainer>
-        <AskCreate />
-        <AskCreateScripts />
-      </MainContainer>
-    </>
+    <MainContainer>
+      <AskCreate />
+      <AskCreateScripts />
+    </MainContainer>
   );
 }
 

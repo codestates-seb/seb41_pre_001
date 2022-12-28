@@ -10,19 +10,17 @@ import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
 
-const HeaderContainer = styled.header`
-  position: fixed;
-  width: 100%;
-  display: flex;
-`;
-
 const HamburgerContainer = styled.div`
   display: ${(props) => (props.isBugerVisible ? 'inline-block' : 'none')};
 `;
 
 const NavigationContainer = styled.div`
+  position: fixed;
   width: 100vw;
   background-color: #f8f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 13px;
   font: unset;
 `;
@@ -30,7 +28,7 @@ const NavigationContainer = styled.div`
 const Navigation = styled.nav`
   width: 1270px;
   height: 50px;
-  display: flex;
+  display: inline-flex;
   background-color: #f8f9f9;
   flex-direction: row;
   align-items: center;
@@ -59,68 +57,71 @@ const Span = styled.span`
   padding: 6px 4px;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { isOpen, setOpen, isBugerVisible, setIsBugerVisible }
+ * @returns <NavigationContainer>
+ */
 function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
   const outCo = 'https://stackoverflow.co/';
   const outCoTe = 'https://stackoverflow.co/teams/';
   const ref = useRef(null);
 
   return (
-    <HeaderContainer>
-      <NavigationContainer>
-        <Line />
-        <Navigation>
-          <HamburgerContainer
-            ref={ref}
-            onPointerEnter={() => setOpen(true)}
-            isBugerVisible={isBugerVisible}
-          >
-            <Hamburger
-              toggled={isOpen}
-              toggle={setOpen}
-              size={16}
-              direction={'right'}
-              duration={0.1}
-              rounded
-            />
-          </HamburgerContainer>
-          <ControlledMenu
-            state={isOpen ? 'open' : 'closed'}
-            anchorRef={ref}
-            onPointerLeave={() => setOpen(false)}
-            onClose={() => setOpen(false)}
-            transition
-          >
-            <NavSidebar />
-          </ControlledMenu>
-          <LogoContainer>
-            <Link to="/">
-              <ILogo width="150px" height="30px" />
-            </Link>
-          </LogoContainer>
-          <StyledInput
-            isBugerVisible={isBugerVisible}
-            placeholder={'Search...'}
-            type={INPUT_TYPE_SEARCH}
+    <NavigationContainer>
+      <Line />
+      <Navigation>
+        <HamburgerContainer
+          ref={ref}
+          onPointerEnter={() => setOpen(true)}
+          isBugerVisible={isBugerVisible}
+        >
+          <Hamburger
+            toggled={isOpen}
+            toggle={setOpen}
+            size={16}
+            direction={'right'}
+            duration={0.1}
+            rounded
           />
-          <Span>
-            <a href={outCo}>About</a>
-          </Span>
-          <Span>
-            <a href={outCoTe}>For Teams</a>
-          </Span>
-          <Span>
-            <Btn fill="true" to="login">
-              Log in
-            </Btn>
-          </Span>
-          <Span>
-            <Btn to="signup">Sign up</Btn>
-          </Span>
-          <button onClick={() => setIsBugerVisible(!isBugerVisible)} />
-        </Navigation>
-        <Line grey={'true'} />
-      </NavigationContainer>
-    </HeaderContainer>
+        </HamburgerContainer>
+        <ControlledMenu
+          state={isOpen ? 'open' : 'closed'}
+          anchorRef={ref}
+          onPointerLeave={() => setOpen(false)}
+          onClose={() => setOpen(false)}
+          transition
+        >
+          <NavSidebar />
+        </ControlledMenu>
+        <LogoContainer>
+          <Link to="/">
+            <ILogo width="150px" height="30px" />
+          </Link>
+        </LogoContainer>
+        <StyledInput
+          isBugerVisible={isBugerVisible}
+          placeholder={'Search...'}
+          type={INPUT_TYPE_SEARCH}
+        />
+        <Span>
+          <a href={outCo}>About</a>
+        </Span>
+        <Span>
+          <a href={outCoTe}>For Teams</a>
+        </Span>
+        <Span>
+          <Btn fill="true" to="login">
+            Log in
+          </Btn>
+        </Span>
+        <Span>
+          <Btn to="signup">Sign up</Btn>
+        </Span>
+        <button onClick={() => setIsBugerVisible(!isBugerVisible)} />
+      </Navigation>
+      <Line grey={'true'} />
+    </NavigationContainer>
   );
 }
 

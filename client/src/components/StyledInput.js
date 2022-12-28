@@ -30,6 +30,11 @@ const Input = styled.input`
   outline: none;
 `;
 
+/**
+ * Created by @KimTank
+ * @param {  id, isBugerVisible, placeholder, buttonType, type, value, onChange }
+ * @returns <InputContainer>
+ */
 function StyledInput({
   id,
   isBugerVisible,

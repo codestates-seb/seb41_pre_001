@@ -46,6 +46,11 @@ const Span = styled.span`
   padding-left: 4px;
 `;
 
+/**
+ * Craeted by TY
+ * @param { cont }
+ * @returns <div>
+ */
 function Section7({ cont }) {
   const title = cont.title;
   const member = cont.member;
@@ -66,6 +71,11 @@ function Section7({ cont }) {
   );
 }
 
+/**
+ * Craeted by TY
+ * @param { cont }
+ * @returns <li>
+ */
 function Section8({ cont }) {
   return (
     <li style={{ padding: '0px 12px' }}>
@@ -74,6 +84,11 @@ function Section8({ cont }) {
   );
 }
 
+/**
+ * Craeted by TY
+ * @param { cont }
+ * @returns <li>
+ */
 function Section9({ cont }) {
   return (
     <li style={{ display: 'flex', padding: '0px 12px' }}>
@@ -83,6 +98,12 @@ function Section9({ cont }) {
   );
 }
 
+/**
+ * Created by @KimTank
+ * TODO 여러가지 엮어쓰느라 복잡해짐. 값엮어줄때 따로 분리하는게 나을걸로봄
+ * @param { props }
+ * @returns <>
+ */
 function Sidebar({ props }) {
   const type = props.type;
   const title = props.title;

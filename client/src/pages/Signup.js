@@ -42,6 +42,11 @@ const Rdescription = styled.p`
   font-size: 13px;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { cont }
+ * @returns <RowDiv>
+ */
 function RCont({ cont }) {
   return (
     <RowDiv>
@@ -61,6 +66,11 @@ const Desc = styled(LabelDescription)`
   padding-top: 24px;
 `;
 
+/**
+ * Created by @KimTank
+ * - 221228: 뷰 완성
+ * @returns <MainContainer>
+ */
 function Signup() {
   const name = 'Display name';
   const email = 'Email';

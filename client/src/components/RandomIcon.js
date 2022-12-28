@@ -331,6 +331,11 @@ import {
   FcWorkflow,
 } from 'react-icons/fc';
 
+/**
+ * Created by @KimTank
+ * 랜덤아이콘 출력, 대신 styled 조정안됨
+ * @returns
+ */
 function RandomIcon() {
   const iconArray = [
     <FcAbout />,

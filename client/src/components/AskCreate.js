@@ -5,6 +5,10 @@ import { handleDiscard } from '../util/alertStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Created by @DG
+ * @returns <AskBody>
+ */
 function AskCreate() {
   const handleClick = () => {
     handleDiscard();
