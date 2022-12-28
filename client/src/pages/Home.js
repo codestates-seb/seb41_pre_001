@@ -7,7 +7,9 @@ function Home() {
     <>
       <MainWithSidebarContainer>
         <div>
-          <Link to="questionCreate">ask asdfasdfasdf</Link>
+          <Link to="questionCreate">
+            <fieldset>Ask Questions!</fieldset>
+          </Link>
         </div>
         <Sidebar />
       </MainWithSidebarContainer>
