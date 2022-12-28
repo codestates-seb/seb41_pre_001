@@ -179,42 +179,33 @@ public class LikesService {
         Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
         Likes findLike = optionalLikes.orElse(likes);
 
-        if (likeCheck == 0) {
-
-            likes.setComment(findComment);
-            likes.setLikeCheck(3);
-            likes.setMember(findMember);
-            likes.setCount(likes.getCount());
-            findComment.setLikeCount(count - 1);
-
-            likesRepository.save(likes);
-        } else if (likeCheck == 1) {
-
-            findLike.setLikeCheck(2);
-            findLike.setCount(findLike.getCount() - 1);
-            findComment.setLikeCount(count - 1);
-
-            likesRepository.save(findLike);
-        } else if (likeCheck == 3) {
-            findLike.setCount(findLike.getCount()+1);
-            findLike.setLikeCheck(4);
-            findComment.setLikeCount(count + 1);
-
-            likesRepository.save(findLike);
-        } else if (likeCheck == 4) {
-
-            findLike.setCount(findLike.getCount()-1);
-            findLike.setLikeCheck(3);
-            findComment.setLikeCount(count - 1);
-
-            likesRepository.save(findLike);
-        } else if(likeCheck == 2){
-
-            findLike.setCount(findLike.getCount()-1);
-            findLike.setLikeCheck(3);
-            findComment.setLikeCount(count - 1);
-
-            likesRepository.save(findLike);
+        switch (likeCheck) {
+            case 0 -> {
+                likes.setComment(findComment);
+                likes.setLikeCheck(2);
+                likes.setMember(findMember);
+                likes.setCount(likes.getCount());
+                findComment.setLikeCount(count - 1);
+                likesRepository.save(likes);
+            }
+            case 1 -> {
+                findLike.setLikeCheck(3);
+                findLike.setCount(findLike.getCount() - 1);
+                findComment.setLikeCount(count - 1);
+                likesRepository.save(findLike);
+            }
+            case 3 -> {
+                findLike.setCount(findLike.getCount() - 1);
+                findLike.setLikeCheck(4);
+                findComment.setLikeCount(count - 1);
+                likesRepository.save(findLike);
+            }
+            case 4, 2 -> {
+                findLike.setCount(findLike.getCount() + 1);
+                findLike.setLikeCheck(3);
+                findComment.setLikeCount(count + 1);
+                likesRepository.save(findLike);
+            }
         }
     }
 
