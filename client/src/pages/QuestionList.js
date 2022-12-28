@@ -21,12 +21,13 @@ import styled from 'styled-components';
 function QuestionList() {
   return (
     <>
-//<<<<<<< FE_DEV_SW
       <QLContainer>
         <article className="mainSection">
           <h1>Top Questions</h1>
           {/*eslint-disable-next-line prettier/prettier*/}
-          <a href="https://www.google.com/search?q=what+is+javascript">What is Javascript?</a>
+          <a href="https://www.google.com/search?q=what+is+javascript">
+            What is Javascript?
+          </a>
           <p>
             JavaScript is a scripting or programming language that allows you to
             implement complex features on web pages — every time a web page does
@@ -38,7 +39,8 @@ function QuestionList() {
             What is CSS?{' '}
           </a>
           {/*eslint-disable-next-line prettier/prettier*/}
-          <p>CSS (Cascading Style Sheets) allows you to create great-looking web
+          <p>
+            CSS (Cascading Style Sheets) allows you to create great-looking web
             pages, but how does it work under the hood? This article explains
             what CSS is with a simple syntax example and also covers some key
             terms about the language.
@@ -47,8 +49,12 @@ function QuestionList() {
             What is HTML?
           </a>
           {/*eslint-disable-next-line prettier/prettier*/}
-          <p>HTML (HyperText Markup Language) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables. 
-          As the title suggests, this article will give you a basic understanding of HTML and its functions.
+          <p>
+            HTML (HyperText Markup Language) is the code that is used to
+            structure a web page and its content. For example, content could be
+            structured within a set of paragraphs, a list of bulleted points, or
+            using images and data tables. As the title suggests, this article
+            will give you a basic understanding of HTML and its functions.
           </p>
           {/*div tag 넣으면 작동이 안 됨*/}
           <Sidebar />

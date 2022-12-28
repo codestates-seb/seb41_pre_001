@@ -29,7 +29,6 @@ function QuestionCreate() {
         <AskCreate />
         <AskCreateScripts />
       </MainContainer>
-
     </>
   );
 }
