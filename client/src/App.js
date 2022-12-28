@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import QuestionList from './pages/QuestionList';
+// import main from './main.js';
 import Tags from './pages/Tags';
 import User from './pages/User';
 import Companies from './components/Companies';
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="questions" element={<QuestionList />} />
+          <Route path="main" element={<main />} />
           <Route path="tags" element={<Tags />} />
           <Route path="user" element={<User />} />
           <Route path="companies" element={<Companies />} />
