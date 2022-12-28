@@ -74,11 +74,21 @@ public class MemberService {
         if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
             throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
-        System.out.println(authentication.getName());
+        log.info(authentication.getName());
 
         Optional<Member> optionalMember = memberRepository.findByUserEmail(authentication.getName());
         Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return member;
+    }
+
+    //로그아웃
+    public void logoutMember(Long userId) {
+        //로그아웃 요청한 멤버와 로그인 중인 멤버가 일치하는지 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!authentication.getName().equals(verifyExistUserId(userId).getUserEmail()))
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
+        authentication.setAuthenticated(false);
     }
 }
