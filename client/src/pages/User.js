@@ -1,88 +1,103 @@
 import { faker } from '@faker-js/faker';
+import { useState } from 'react';
+import styled from 'styled-components';
+import CommonButton, {
+  BUTTON_TYPE_USER_DELETE,
+  BUTTON_TYPE_USER_EDIT,
+} from '../components/CommonButton';
+import ModalDelete from '../components/ModalDelete';
+import ModalEdit from '../components/ModalEdit';
 import RandomIcon from '../components/RandomIcon';
-import { RowDiv } from '../styles/StyledStore';
+import UserList, {
+  TITLE_TYPE_ANSWERS,
+  TITLE_TYPE_QUESTION,
+  TITLE_TYPE_TAGS,
+} from '../components/UserList';
+import { ColumnCenterDiv, RowDiv, UserSpan } from '../styles/StyledStore';
+
+const Title = styled.p`
+  font-size: 34px;
+  padding: 0px 8px;
+`;
+
+const Container = styled.div`
+  width: 800px;
+  max-width: 800px;
+  min-width: 800px;
+`;
 
 const UserDetail = ({ cont }) => {
   return (
     <>
       <RandomIcon />
-      <span>{cont}</span>
+      <UserSpan>{cont}</UserSpan>
     </>
   );
 };
 
-const TITLE_TYPE_ANSWERS = 1;
-const TITLE_TYPE_QUESTION = 2;
-const TITLE_TYPE_TAGS = 3;
+const AvatarImg = styled.img`
+  width: 128px;
+  height: 128px;
+`;
 
-const CommonList = ({ titleType = -1, conts = [] }) => {
-  if (titleType === -1) return false;
+const UserDescriptionDiv = styled(RowDiv)`
+  padding: 4px 8px;
+`;
 
-  const typeValue = {};
-  switch (titleType) {
-    case TITLE_TYPE_ANSWERS:
-      typeValue.title = 'Answers';
-      typeValue.verb = 'answered';
-      typeValue.noun = 'questions';
-      break;
-    case TITLE_TYPE_QUESTION:
-      typeValue.title = 'Questions';
-      typeValue.verb = 'asked';
-      typeValue.noun = typeValue.title.toLowerCase();
-      break;
-    case TITLE_TYPE_TAGS:
-      typeValue.title = 'Tags';
-      typeValue.verb = 'participated in';
-      typeValue.noun = typeValue.title.toLowerCase();
-      break;
-    default:
-      return false;
-  }
-
-  return (
-    <>
-      <p>{typeValue.title}</p>
-      <ul>
-        {conts.length === 0 ? (
-          <span>
-            You have not {typeValue.verb} any {typeValue.noun}
-          </span>
-        ) : (
-          conts.map((cont, index) => {
-            <li key={index}>
-              <span>{cont}</span>
-            </li>;
-          })
-        )}
-      </ul>
-    </>
-  );
-};
+const UserButtonDiv = styled(ColumnCenterDiv)`
+  width: 400px;
+  margin: 8px;
+  justify-content: stretch;
+`;
 
 function User() {
+  const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
+  const [editModalIsOpen, setIsEditModalOpen] = useState(false);
+  const handleDeletePrompt = () => {
+    setIsDeleteModalOpen(true);
+  };
+  const handleEditPrompt = () => {
+    setIsEditModalOpen(true);
+  };
   return (
-    <>
-      <section className="withSidebar">
+    <section id="userDiv" className="withSidebar">
+      <Container>
         <RowDiv>
-          <img src={faker.image.avatar()} alt="avatar" />
-          <div>
-            <p>userID</p>
-            <RowDiv>
+          <AvatarImg src={faker.image.avatar()} alt="avatar" />
+          <ColumnCenterDiv>
+            <Title>userID</Title>
+            <UserDescriptionDiv>
               <UserDetail cont={'Member for 9 days'} />
               <UserDetail cont={'Last seen this week'} />
               <UserDetail cont={'Visited 8 days, 1 consecutive'} />
-            </RowDiv>
-          </div>
+            </UserDescriptionDiv>
+          </ColumnCenterDiv>
         </RowDiv>
-        <RowDiv>
-          <button>Edit profile</button>
-          <button>Delete account</button>
-        </RowDiv>
-        <CommonList titleType={TITLE_TYPE_ANSWERS} />
-        <CommonList titleType={TITLE_TYPE_QUESTION} />
-        <CommonList titleType={TITLE_TYPE_TAGS} />
-      </section>
-    </>
+        <UserButtonDiv>
+          <CommonButton
+            onClick={handleEditPrompt}
+            buttonType={BUTTON_TYPE_USER_EDIT}
+            cont={'Edit profile'}
+          />
+          <ModalEdit
+            editModalIsOpen={editModalIsOpen}
+            setIsEditModalOpen={setIsEditModalOpen}
+          />
+          <CommonButton
+            onClick={handleDeletePrompt}
+            buttonType={BUTTON_TYPE_USER_DELETE}
+            cont={'Delete account'}
+          />
+          <ModalDelete
+            deleteModalIsOpen={deleteModalIsOpen}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+          />
+        </UserButtonDiv>
+        <UserList titleType={TITLE_TYPE_ANSWERS} />
+        <UserList titleType={TITLE_TYPE_QUESTION} />
+        <UserList titleType={TITLE_TYPE_TAGS} />
+      </Container>
+    </section>
   );
 }
 

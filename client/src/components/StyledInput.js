@@ -30,7 +30,15 @@ const Input = styled.input`
   outline: none;
 `;
 
-function StyledInput({ id, isBugerVisible, placeholder, buttonType, type }) {
+function StyledInput({
+  id,
+  isBugerVisible,
+  placeholder,
+  buttonType,
+  type,
+  value,
+  onChange,
+}) {
   const inputRef = createRef();
   return (
     <InputContainer ref={inputRef} isBugerVisible={isBugerVisible}>
@@ -40,6 +48,8 @@ function StyledInput({ id, isBugerVisible, placeholder, buttonType, type }) {
         placeholder={placeholder}
         onMouseEnter={() => inputRef.current.focus()}
         type={type}
+        value={value}
+        onChange={onChange}
       />
     </InputContainer>
   );

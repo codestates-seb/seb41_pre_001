@@ -33,3 +33,17 @@ export const Last = styled.div`
   padding: 24px 8px;
   text-align: center;
 `;
+export const ColumnDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ColumnCenterDiv = styled(ColumnDiv)`
+  justify-content: center;
+`;
+
+export const UserSpan = styled.span`
+  font-size: 13px;
+  padding: 8px;
+  color: #6a737b;
+`;

@@ -27,7 +27,7 @@ function Login() {
   return (
     <section className="withSidebar">
       <LoginContainer>
-        <RandomIcon size="80" />
+        <RandomIcon />
         <div>
           <CommonButton
             buttonType={BUTTON_TYPE_GOOGLE}

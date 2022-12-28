@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import ExploreCollectives from './pages/ExploreCollectives';
 import QuestionCreate from './pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
+import ReactModal from 'react-modal';
 
 const BodyContainer = styled.div`
   min-width: 1270px;
@@ -22,6 +23,8 @@ const BodyContainer = styled.div`
   display: flex;
 `;
 
+ReactModal.setAppElement('#root');
+
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [isBugerVisible, setIsBugerVisible] = useState(true);
@@ -29,7 +32,7 @@ function App() {
   // useEffect(() => , [isOpen]);
 
   return (
-    <div className="appContainer">
+    <div id="app" className="appContainer">
       <Header
         isOpen={isOpen}
         setOpen={setOpen}
