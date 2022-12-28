@@ -1,4 +1,7 @@
 import AskCreate from '../components/AskCreate';
+
+import AskCreateScripts from '../components/AskCreateScripts';
+
 import { MainContainer } from '../styles/StyledStore';
 
 /**
@@ -24,7 +27,9 @@ function QuestionCreate() {
     <>
       <MainContainer>
         <AskCreate />
+        <AskCreateScripts />
       </MainContainer>
+
     </>
   );
 }
