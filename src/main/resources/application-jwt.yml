@@ -1,13 +1,10 @@
 #jwt:
 #  secret: ZG9uZ2h1bi1zaGFycC1kYnJ1YS13ZWItcHJvamVjdC11c2luZy1qd3Qtc2VjcmV0LURvbmdodW4tc3ByaW5nLWJvb3Qtand0LWJhY2stZW5kLWFuZC1qcy1jb2xsYWJv
+mail:
+  address:
+    admin: admin@gmail.com
 
 jwt:
-  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
-
-  access:
-    expiration: 20000
-    header: Authorization
-
-  refresh:
-    expiration: 90
-    header: Authorization-refresh
+  secret-key: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420

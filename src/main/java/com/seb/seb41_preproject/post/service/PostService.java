@@ -1,5 +1,7 @@
 package com.seb.seb41_preproject.post.service;
 
+import com.seb.seb41_preproject.member.entity.Member;
+import com.seb.seb41_preproject.member.service.MemberService;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import com.seb.seb41_preproject.exception.BusinessLogicException;
 import com.seb.seb41_preproject.exception.ExceptionCode;
@@ -7,6 +9,7 @@ import com.seb.seb41_preproject.post.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +17,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final MemberService memberService;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, MemberService memberService) {
         this.postRepository = postRepository;
+        this.memberService = memberService;
     }
 
     public Post createPost(Post post) {
@@ -30,11 +36,20 @@ public class PostService {
         //tag를 잘라 List tags에 저장
         post.setTags(Arrays.asList(post.getTag().split(", ")));
         post.setViews(1);
+
+        //로그인 중인 멤버로 작성
+        post.setMember(memberService.getLoginMember());
+
         return postRepository.save(post);
     }
 
     public Post updatePost(Post post) {
         Post findPost = findVerifiedPost(post.getId());
+
+        //수정하는 멤버와 작성한 멤버가 같은지 확인
+        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
+        if(memberService.getLoginMember().getId() != postMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
         findPost.setCreatedAt(findPost.getCreatedAt());
         findPost.setViews(findPost.getViews()+1);
@@ -58,6 +73,12 @@ public class PostService {
 
     public void deletePost(long id) {
         Post findPost = findVerifiedPost(id);
+
+        //삭제하는 멤버와 작성한 멤버가 같은지 확인
+        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
+        if(memberService.getLoginMember().getId() != postMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
         postRepository.deleteById(findPost.getId());
     }
 
