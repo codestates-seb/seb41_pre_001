@@ -31,14 +31,15 @@ public class PostService {
     public Post createPost(Post post) {
         //tag를 예쁘게 저장하기 위해(형식 규격화, 소문자 변환, 중복제거)
         post.setTag(Arrays.stream(post.getTag().toLowerCase().replaceAll(" ", "").split(","))
-                            .distinct()
-                            .collect(Collectors.joining(", ")));
+                .distinct()
+                .collect(Collectors.joining(", ")));
         //tag를 잘라 List tags에 저장
         post.setTags(Arrays.asList(post.getTag().split(", ")));
         post.setViews(1);
 
         //로그인 중인 멤버로 작성
-        post.setMember(memberService.getLoginMember());
+        Member loginMember = memberService.getLoginMember();
+        post.setMember(loginMember);
 
         return postRepository.save(post);
     }

@@ -61,4 +61,15 @@ public class MemberController {
                 """);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PatchMapping("/logout/{user_id}")
+    public ResponseEntity logout(@PathVariable("user_id") Long userId) {
+        memberService.logoutMember(userId);
+
+        log.info("""
+                                
+                =====================
+                ## 로그아웃 완료
+                =====================""");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

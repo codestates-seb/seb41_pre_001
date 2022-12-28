@@ -28,6 +28,8 @@ public class MemberDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByUserEmail(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_LOGIN);
+        memberRepository.save(findMember);
 
         return new MemberDetails(findMember);
     }
