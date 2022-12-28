@@ -4,8 +4,8 @@ import { handleDonateMe } from '../util/alertStore';
 
 const FooterContainer = styled.footer`
   min-width: 640px;
-  max-width: 1270px;
-  width: 1270px;
+  max-width: 100%;
+  width: 100%;
   height: 322px;
   background-color: black;
   color: #919996;

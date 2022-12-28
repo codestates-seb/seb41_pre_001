@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.section`
   background-color: #f1f2f3;
-  width: 1270px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   padding: 30px 0px;
@@ -10,9 +10,9 @@ export const MainContainer = styled.section`
 
 export const MainWithSidebarContainer = styled.section`
   background-color: #f1f2f3;
-  width: 1270px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 30px 0px;
 `;
 
