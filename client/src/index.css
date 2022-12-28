@@ -15,14 +15,14 @@ ul {
   min-width: 640px;
   max-width: 100vw;
   height: 100vh;
-  background-color: aqua;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
 }
 
 /* pages */
 .mainSection {
-  background-color: #F1F2F3;  
+  background-color: #f1f2f3;  
   width: 1270px;
   display: flex;
   flex-direction: row;

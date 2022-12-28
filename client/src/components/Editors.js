@@ -1,8 +1,11 @@
-import MDEditor, { commands } from '@uiw/react-md-editor';
+import React from 'react';
+import MDEditor from '@uiw/react-md-editor';
+
 function Editor() {
+  const [value, setValue] = React.useState('');
   return (
-    <div>
-      <MDEditor extraCommands={[commands.fullscreen]} />
+    <div className="container">
+      <MDEditor value={value} onChange={setValue} />
     </div>
   );
 }

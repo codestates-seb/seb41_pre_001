@@ -1,5 +1,5 @@
 import AskCreate from '../components/AskCreate';
-
+import AskCreateScripts from '../components/AskCreateScripts';
 /**
  * # QuestionCreate
  *
@@ -23,6 +23,7 @@ function QuestionCreate() {
     <>
       <section className="mainSection">
         <AskCreate />
+        <AskCreateScripts />
       </section>
     </>
   );

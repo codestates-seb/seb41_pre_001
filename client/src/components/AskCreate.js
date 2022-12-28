@@ -1,115 +1,39 @@
 import styled from 'styled-components';
 import Editor from './Editors';
-
-const AskBody = styled.div`
-  background-color: #fbfcfc;
-`;
-const AskTitle = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(206deg 90% 70%);
-  background-color: hsl(206deg 100% 97%);
-`;
-const AskTitleH1 = styled.h1`
-  font-size: 27px;
-  margin-left: 27px;
-  margin-bottom: 55px;
-`;
-const AskTitleH2 = styled.h2`
-  font-size: 19.8px;
-  font-weight: 400;
-`;
-const UlContent = styled.ul`
-  list-style-type: disc;
-  font-size: 13px;
-  font-weight: 400;
-  margin-left: 28px;
-`;
-const TitleContent = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -10px;
-
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const AskContent = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  position: relative;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-  > textarea {
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    margin: 30px;
-  }
-`;
-const AskExpect = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const AskTags = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
-const Buttons = styled.div`
-  display: flex;
-  margin-top: -17px;
-`;
-const SubmitButton = styled.button`
-  background-color: hsl(206deg 100% 52%);
-  border-radius: 3px;
-  border: none;
-  color: #ffffff;
-  margin-left: 27px;
-  padding: 10px;
-`;
-const DiscardButton = styled.button`
-  background-color: #fbfcfc;
-  border: none;
-  color: #c22e32;
-  margin-left: 25px;
-`;
+import StyledInput from './StyledInput';
+import { handleDiscard } from '../util/alertStore';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AskCreate() {
+  const handleClick = () => {
+    handleDiscard();
+  };
+
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const navigator = useNavigate();
+
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const onChangeContent = (content) => {
+    setContent(content);
+  };
+
+  const onClickDiscard = () => {
+    navigator('/');
+  };
+
+  const onClickSubmit = async () => {
+    if (title.length < 10) {
+      alert('제목을 최소 10글자 이상 적어주세요');
+    } else if (content.length < 50) {
+      alert('내용을 최소 20글자 이상 적어주세요');
+    }
+  };
+
   return (
     <AskBody className="ask-title">
       <AskTitleH1>Ask a public question</AskTitleH1>
@@ -151,14 +75,12 @@ function AskCreate() {
           Be specific and imagine you’re asking a question to another person.
         </p>
         <div className="input-title">
-          <input
+          <StyledInput
             id="title"
             name="title"
             type="text"
             placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-            maxLength="300"
-            data-min-length="15"
-            data-max-length="150"
+            onChange={onChangeTitle}
           />
         </div>
       </TitleContent>
@@ -168,7 +90,7 @@ function AskCreate() {
           Introduce the problem and expand on what you put in the title. Minimum
           20 characters.
         </p>
-        <Editor />
+        <Editor onChange={onChangeContent} />
       </AskContent>
       <AskExpect className="ask-expect">
         <h5>What did you try and what were you expecting?</h5>
@@ -184,7 +106,7 @@ function AskCreate() {
           Add up to 5 tags to describe what your question is about. Start typing
           to see suggestions.
         </p>
-        <input
+        <StyledInput
           id="tag"
           name="tag"
           type="text"
@@ -192,11 +114,22 @@ function AskCreate() {
         />
       </AskTags>
       <Buttons>
-        <SubmitButton className="submit-button" type="button">
-          Review your question
+        <SubmitButton
+          className="submit-button"
+          type="button"
+          onClick={onClickSubmit}
+        >
+          Post your question
         </SubmitButton>
 
-        <DiscardButton className="dicard-button" type="button">
+        <DiscardButton
+          className="dicard-button"
+          type="button"
+          onClick={() => {
+            handleClick();
+            onClickDiscard();
+          }}
+        >
           Discard draft
         </DiscardButton>
       </Buttons>
@@ -204,3 +137,116 @@ function AskCreate() {
   );
 }
 export default AskCreate;
+
+const AskBody = styled.div`
+  background-color: #f1f2f3;
+  margin-left: 250px;
+`;
+const AskTitle = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(206deg 90% 70%);
+  background-color: hsl(206deg 100% 97%);
+  border-radius: 3px 3px 3px 3px;
+`;
+const AskTitleH1 = styled.h1`
+  font-size: 27px;
+  margin-left: 27px;
+  margin-bottom: 55px;
+`;
+const AskTitleH2 = styled.h2`
+  font-size: 19.8px;
+  font-weight: 400;
+`;
+const UlContent = styled.ul`
+  list-style-type: disc;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 28px;
+`;
+const TitleContent = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  background-color: #ffffff;
+  margin-top: -10px;
+  border-radius: 3px 3px 3px 3px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const AskContent = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  background-color: #ffffff;
+  margin-top: -17px;
+  position: relative;
+  border-radius: 3px 3px 3px 3px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  > textarea {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 30px;
+  }
+`;
+const AskExpect = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  background-color: #ffffff;
+  margin-top: -17px;
+  border-radius: 3px 3px 3px 3px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const AskTags = styled.div`
+  padding: 30px;
+  margin: 30px;
+  border: 1px solid hsl(210deg 8% 90%);
+  background-color: #ffffff;
+  margin-top: -17px;
+  border-radius: 3px 3px 3px 3px;
+  > h5 {
+    font-size: 15px;
+  }
+  > p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  margin-top: -17px;
+`;
+const SubmitButton = styled.button`
+  background-color: hsl(206deg 100% 52%);
+  border-radius: 3px;
+  border: none;
+  color: #ffffff;
+  margin-left: 29px;
+  padding: 10px;
+`;
+const DiscardButton = styled.button`
+  background-color: #f1f2f3;
+  border: none;
+  color: #c22e32;
+  margin-left: 25px;
+`;

@@ -1,15 +1,11 @@
 import Sidebar from '../components/Sidebar';
-import { Link } from 'react-router-dom';
+import Main from '../components/Main';
 
 function Home() {
   return (
     <>
-      <section className="mainSection">
-        <div>
-          <Link to="questionCreate">ask asdfasdfasdf</Link>
-        </div>
-        <Sidebar />
-      </section>
+      <Main />
+      <Sidebar />
     </>
   );
 }
