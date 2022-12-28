@@ -1,7 +1,9 @@
+import { MainContainer } from '../styles/StyledStore';
+
 function ExploreCollectives() {
   return (
     <>
-      <section className="mainSection">뭐냐넌</section>
+      <MainContainer>ExploreCollectives</MainContainer>
     </>
   );
 }

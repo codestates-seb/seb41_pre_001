@@ -13,7 +13,12 @@ import UserList, {
   TITLE_TYPE_QUESTION,
   TITLE_TYPE_TAGS,
 } from '../components/UserList';
-import { ColumnCenterDiv, RowDiv, UserSpan } from '../styles/StyledStore';
+import {
+  ColumnCenterDiv,
+  MainContainer,
+  RowDiv,
+  UserSpan,
+} from '../styles/StyledStore';
 
 const Title = styled.p`
   font-size: 34px;
@@ -60,7 +65,7 @@ function User() {
     setIsEditModalOpen(true);
   };
   return (
-    <section id="userDiv" className="withSidebar">
+    <MainContainer>
       <Container>
         <RowDiv>
           <AvatarImg src={faker.image.avatar()} alt="avatar" />
@@ -97,7 +102,7 @@ function User() {
         <UserList titleType={TITLE_TYPE_QUESTION} />
         <UserList titleType={TITLE_TYPE_TAGS} />
       </Container>
-    </section>
+    </MainContainer>
   );
 }
 

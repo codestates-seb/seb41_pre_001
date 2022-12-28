@@ -1,4 +1,5 @@
 import Sidebar from '../components/Sidebar';
+import { MainWithSidebarContainer } from '../styles/StyledStore';
 
 /**
  * # QuestionDelete
@@ -21,10 +22,10 @@ function QuestionDelete() {
   return (
     <>
       {/* Sidebar 없으면 지우면됨 */}
-      <section className="mainSection">
+      <MainWithSidebarContainer>
         <div>질문 삭제</div>
         <Sidebar />
-      </section>
+      </MainWithSidebarContainer>
     </>
   );
 }

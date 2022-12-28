@@ -12,6 +12,7 @@ import {
   InputsContainer,
   LabelDescription,
   Last,
+  MainWithSidebarContainer,
 } from '../styles/StyledStore';
 
 const LoginContainer = styled.div`
@@ -25,7 +26,7 @@ function Login() {
   const email = 'Email';
   const password = 'Password';
   return (
-    <section className="withSidebar">
+    <MainWithSidebarContainer>
       <LoginContainer>
         <RandomIcon />
         <div>
@@ -61,7 +62,7 @@ function Login() {
           </LabelDescription>
         </Last>
       </LoginContainer>
-    </section>
+    </MainWithSidebarContainer>
   );
 }
 

@@ -1,4 +1,5 @@
 import Sidebar from '../components/Sidebar';
+import { MainWithSidebarContainer } from '../styles/StyledStore';
 
 /**
  * # QuestionList
@@ -21,10 +22,10 @@ import Sidebar from '../components/Sidebar';
 function QuestionList() {
   return (
     <>
-      <section className="mainSection">
+      <MainWithSidebarContainer>
         <div>질문들</div>
         <Sidebar />
-      </section>
+      </MainWithSidebarContainer>
     </>
   );
 }

@@ -12,6 +12,7 @@ import {
   InputsContainer,
   LabelDescription,
   Last,
+  MainContainer,
   RightContainer,
   RowDiv,
 } from '../styles/StyledStore';
@@ -66,7 +67,7 @@ function Signup() {
   const password = 'Password';
 
   return (
-    <section className="mainSection">
+    <MainContainer>
       <LeftContainer>
         <RTitle>Join the Stack Overflow community</RTitle>
         <Rul>
@@ -157,7 +158,7 @@ function Signup() {
           </LabelDescription>
         </Last>
       </RightContainer>
-    </section>
+    </MainContainer>
   );
 }
 
