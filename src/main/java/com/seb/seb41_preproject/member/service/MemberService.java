@@ -62,9 +62,9 @@ public class MemberService {
         return optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
-    public void deleteMember(Long userId) {
+    public void deleteMember(Long userId, String memberEmail) {
 
-        Optional<Member> optionalMember = memberRepository.findById(userId);
+        Optional<Member> optionalMember = memberRepository.findByUserEmail(memberEmail);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         memberRepository.delete(findMember);
         findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
