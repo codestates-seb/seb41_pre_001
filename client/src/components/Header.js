@@ -10,6 +10,12 @@ import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
 
+const HeaderContainer = styled.header`
+  position: fixed;
+  width: 100%;
+  display: flex;
+`;
+
 const HamburgerContainer = styled.div`
   display: ${(props) => (props.isBugerVisible ? 'inline-block' : 'none')};
 `;
@@ -59,7 +65,7 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
   const ref = useRef(null);
 
   return (
-    <header style={{ position: 'fixed' }}>
+    <HeaderContainer>
       <NavigationContainer>
         <Line />
         <Navigation>
@@ -114,7 +120,7 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
         </Navigation>
         <Line grey={'true'} />
       </NavigationContainer>
-    </header>
+    </HeaderContainer>
   );
 }
 
