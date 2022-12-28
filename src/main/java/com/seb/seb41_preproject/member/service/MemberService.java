@@ -51,8 +51,11 @@ public class MemberService {
         if(member.isPresent()) throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
-    public Member findMember(Long userId) {
-        return verifyExistUserId(userId);
+    public Member findMember(Long userId, String memberEmail) {
+        Optional<Member> byUserEmail = memberRepository.findByUserEmail(memberEmail);
+        Member member = byUserEmail.get();
+        return member;
+
     }
 
     public Member verifyExistUserId(Long userId) {

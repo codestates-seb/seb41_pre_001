@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import static com.seb.seb41_preproject.member.dto.MemberDto.*;
@@ -23,8 +24,8 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{user_id}")
-    public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId) {
-        Member responseMember = memberService.findMember(userId);
+    public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId, @AuthenticationPrincipal String memberEmail) {
+        Member responseMember = memberService.findMember(userId,memberEmail);
         log.info("""
                                 
                 =====================
