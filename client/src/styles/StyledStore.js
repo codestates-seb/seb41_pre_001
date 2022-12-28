@@ -1,5 +1,21 @@
 import styled from 'styled-components';
 
+export const MainContainer = styled.section`
+  background-color: #f1f2f3;
+  width: 1270px;
+  display: flex;
+  flex-direction: row;
+  padding: 30px 0px;
+`;
+
+export const MainWithSidebarContainer = styled.section`
+  background-color: #f1f2f3;
+  width: 1270px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px;
+`;
+
 export const RowDiv = styled.div`
   display: flex;
   flex-direction: row;

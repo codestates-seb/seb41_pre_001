@@ -1,15 +1,16 @@
 import Sidebar from '../components/Sidebar';
 import { Link } from 'react-router-dom';
+import { MainWithSidebarContainer } from '../styles/StyledStore';
 
 function Home() {
   return (
     <>
-      <section className="mainSection">
+      <MainWithSidebarContainer>
         <div>
           <Link to="questionCreate">ask asdfasdfasdf</Link>
         </div>
         <Sidebar />
-      </section>
+      </MainWithSidebarContainer>
     </>
   );
 }

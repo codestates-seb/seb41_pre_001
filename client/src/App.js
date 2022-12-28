@@ -25,6 +25,16 @@ const BodyContainer = styled.div`
 
 ReactModal.setAppElement('#root');
 
+const AppContainer = styled.div`
+  width: 1270px;
+  min-width: 640px;
+  max-width: 100vw;
+  height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+`;
+
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [isBugerVisible, setIsBugerVisible] = useState(true);
@@ -32,7 +42,7 @@ function App() {
   // useEffect(() => , [isOpen]);
 
   return (
-    <div id="app" className="appContainer">
+    <AppContainer id="app">
       <Header
         isOpen={isOpen}
         setOpen={setOpen}
@@ -53,7 +63,7 @@ function App() {
         </Routes>
       </BodyContainer>
       <Footer />
-    </div>
+    </AppContainer>
   );
 }
 
