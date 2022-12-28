@@ -4,6 +4,7 @@ package com.seb.seb41_preproject.member.controller;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.mapper.MemberMapper;
 import com.seb.seb41_preproject.member.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity PostMember(@RequestBody MemberPostDto postDto) {
+    public ResponseEntity PostMember(@Valid @RequestBody MemberPostDto postDto) {
 
         Member member = memberMapper.MemberPostDtoToMember(postDto);
         Member responseMember = memberService.createMember(member);
@@ -41,7 +42,9 @@ public class MemberController {
                                 
                 =====================
                 ## 멤버 가입 완료
-                =====================""");
+                =====================
+                
+                """);
         return new ResponseEntity<>(memberMapper.MemberToMemberResponseDto(responseMember), HttpStatus.CREATED);
     }
 
@@ -52,7 +55,9 @@ public class MemberController {
                                 
                 =====================
                 ## 멤버 탈퇴 완료
-                =====================""");
+                =====================
+                
+                """);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
