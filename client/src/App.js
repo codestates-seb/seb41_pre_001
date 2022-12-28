@@ -17,9 +17,6 @@ import { Route, Routes } from 'react-router-dom';
 import ReactModal from 'react-modal';
 
 const BodyContainer = styled.div`
-  min-width: 1270px;
-  max-width: 1270px;
-  background-color: azure;
   padding-top: 53px;
   display: flex;
 `;
@@ -27,12 +24,9 @@ const BodyContainer = styled.div`
 ReactModal.setAppElement('#root');
 
 const AppContainer = styled.div`
-  width: 1270px;
   min-width: 640px;
   max-width: 100vw;
   height: 100vh;
-  background-color: aqua;
-  display: flex;
   flex-direction: column;
 `;
 
