@@ -40,6 +40,11 @@ public class Member {
     @Column
     private String userImageUrl;
 
+    @JsonManagedReference(value ="member")
+    @Enumerated(value = EnumType.STRING)
+    @Column
+    private MemberStatus memberStatus;
+
     @JsonManagedReference(value ="post")
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
@@ -56,4 +61,20 @@ public class Member {
     @CollectionTable(name = "ROLE", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "ROLES")
     private List<String> roles = new ArrayList<>();
+
+    public enum MemberStatus {
+        MEMBER_ACTIVE("가입 상태"),
+        MEMBER_QUIT("탈퇴 상태"),
+        MEMBER_LOGIN("로그인 상태"),
+        MEMBER_LOGOUT("로그아웃 상태");
+
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
+
 }
