@@ -1,17 +1,16 @@
 package com.seb.seb41_preproject.member.service;
 
-import com.seb.seb41_preproject.Security.Info.TokenInfo;
-import com.seb.seb41_preproject.Security.Provider.JwtTokenProvider;
+import com.seb.seb41_preproject.auth.utils.CustomAuthorityUtils;
+import com.seb.seb41_preproject.event.MemberRegistrationApplicationEvent;
 import com.seb.seb41_preproject.exception.BusinessLogicException;
 import com.seb.seb41_preproject.exception.ExceptionCode;
-import com.seb.seb41_preproject.member.controller.MemberAuthorityUtils;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,23 +23,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
-    private final MemberAuthorityUtils authorityUtils;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final JwtTokenProvider jwtTokenProvider;
-
+    private final CustomAuthorityUtils authorityUtils;
 
 
     public Member createMember(Member member) {
 
         verifyExistUserEmail(member.getUserEmail());
+
+        //Password 암호화
         String encryptedPassword = passwordEncoder.encode(member.getUserPassword());
         member.setUserPassword(encryptedPassword);
 
+        //DB에 User Role 저장
         List<String> roles = authorityUtils.createRoles(member.getUserEmail());
-        member.setRoles(List.of(roles.toString()));
+        member.setRoles(roles);
 
-        return memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+        return savedMember;
     }
 
     private void verifyExistUserEmail(String userEmail) {
@@ -52,7 +55,7 @@ public class MemberService {
         return verifyExistUserId(userId);
     }
 
-    private Member verifyExistUserId(Long userId) {
+    public Member verifyExistUserId(Long userId) {
         Optional<Member> optionalMember = memberRepository.findById(userId);
         return optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
@@ -63,19 +66,19 @@ public class MemberService {
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         memberRepository.delete(findMember);
     }
-    @Transactional
-    public TokenInfo login(String memberId, String password) {
-        // 1. Login ID/PW 를 기반으로 Authentication 객체 생성
-        // 이때 authentication 는 인증 여부를 확인하는 authenticated 값이 false
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberId, password);
 
-        // 2. 실제 검증 (사용자 비밀번호 체크)이 이루어지는 부분
-        // authenticate 매서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    //로그인 중인 멤버 찾기
+    public Member getLoginMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
-        return tokenInfo;
+        System.out.println(authentication.getName());
+
+        Optional<Member> optionalMember = memberRepository.findByUserEmail(authentication.getName());
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return member;
     }
 }
