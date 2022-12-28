@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import QuestionList from './pages/QuestionList';
+// import main from './main.js';
 import Tags from './pages/Tags';
 import User from './pages/User';
 import Companies from './components/Companies';
@@ -13,6 +14,7 @@ import Signup from './pages/Signup';
 import ExploreCollectives from './pages/ExploreCollectives';
 import QuestionCreate from './pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
+import ReactModal from 'react-modal';
 
 const BodyContainer = styled.div`
   min-width: 1270px;
@@ -22,6 +24,18 @@ const BodyContainer = styled.div`
   display: flex;
 `;
 
+ReactModal.setAppElement('#root');
+
+const AppContainer = styled.div`
+  width: 1270px;
+  min-width: 640px;
+  max-width: 100vw;
+  height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+`;
+
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [isBugerVisible, setIsBugerVisible] = useState(true);
@@ -29,7 +43,7 @@ function App() {
   // useEffect(() => , [isOpen]);
 
   return (
-    <div className="appContainer">
+    <AppContainer id="app">
       <Header
         isOpen={isOpen}
         setOpen={setOpen}
@@ -40,6 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="questions" element={<QuestionList />} />
+          <Route path="main" element={<main />} />
           <Route path="tags" element={<Tags />} />
           <Route path="user" element={<User />} />
           <Route path="companies" element={<Companies />} />
@@ -50,7 +65,7 @@ function App() {
         </Routes>
       </BodyContainer>
       <Footer />
-    </div>
+    </AppContainer>
   );
 }
 

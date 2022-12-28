@@ -1,7 +1,9 @@
+import { MainContainer } from '../styles/StyledStore';
+
 function Tags() {
   return (
     <>
-      <section className="mainSection">태그들</section>
+      <MainContainer>Tags</MainContainer>
     </>
   );
 }

@@ -11,13 +11,13 @@ const Label = styled.label`
   padding: 8px;
 `;
 
-function LabelInput({ label, type }) {
+function LabelInput({ label, type, value, onChange }) {
   return (
     <Container>
       <Label style={{ for: { label } }}>
         <strong>{label}</strong>
       </Label>
-      <StyledInput id={label} type={type} />
+      <StyledInput id={label} type={type} value={value} onChange={onChange} />
     </Container>
   );
 }

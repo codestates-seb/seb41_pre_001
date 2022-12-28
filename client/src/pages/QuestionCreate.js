@@ -1,5 +1,9 @@
 import AskCreate from '../components/AskCreate';
+
 import AskCreateScripts from '../components/AskCreateScripts';
+
+import { MainContainer } from '../styles/StyledStore';
+
 /**
  * # QuestionCreate
  *
@@ -21,10 +25,11 @@ import AskCreateScripts from '../components/AskCreateScripts';
 function QuestionCreate() {
   return (
     <>
-      <section className="mainSection">
+      <MainContainer>
         <AskCreate />
         <AskCreateScripts />
-      </section>
+      </MainContainer>
+
     </>
   );
 }
