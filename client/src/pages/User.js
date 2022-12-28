@@ -1,31 +1,29 @@
 import { faker } from '@faker-js/faker';
 import { useState } from 'react';
 import styled from 'styled-components';
-import CommonButton, { BUTTON_TYPE_GOOGLE } from '../components/CommonButton';
+import CommonButton, {
+  BUTTON_TYPE_USER_DELETE,
+  BUTTON_TYPE_USER_EDIT,
+} from '../components/CommonButton';
 import ModalDelete from '../components/ModalDelete';
 import ModalEdit from '../components/ModalEdit';
 import RandomIcon from '../components/RandomIcon';
-import { ColumnCenterDiv, RowDiv } from '../styles/StyledStore';
+import UserList, {
+  TITLE_TYPE_ANSWERS,
+  TITLE_TYPE_QUESTION,
+  TITLE_TYPE_TAGS,
+} from '../components/UserList';
+import { ColumnCenterDiv, RowDiv, UserSpan } from '../styles/StyledStore';
 
 const Title = styled.p`
   font-size: 34px;
   padding: 0px 8px;
 `;
 
-const ListTitle = styled.p`
-  font-size: 21px;
-`;
-
 const Container = styled.div`
-  width: 1100px;
-  max-width: 1100px;
-  min-width: 1100px;
-`;
-
-const UserSpan = styled.span`
-  font-size: 13px;
-  padding: 8px;
-  color: #6a737b;
+  width: 800px;
+  max-width: 800px;
+  min-width: 800px;
 `;
 
 const UserDetail = ({ cont }) => {
@@ -34,65 +32,6 @@ const UserDetail = ({ cont }) => {
       <RandomIcon />
       <UserSpan>{cont}</UserSpan>
     </>
-  );
-};
-
-const TITLE_TYPE_ANSWERS = 1;
-const TITLE_TYPE_QUESTION = 2;
-const TITLE_TYPE_TAGS = 3;
-
-const Item = styled.li`
-  border: 1px solid #babfc4;
-  border-radius: 5px;
-`;
-
-const ListContainer = styled.div`
-  padding: 8px 0px;
-`;
-
-const List = ({ titleType = -1, conts = [] }) => {
-  if (titleType === -1) return false;
-
-  const typeValue = {};
-  switch (titleType) {
-    case TITLE_TYPE_ANSWERS:
-      typeValue.title = 'Answers';
-      typeValue.verb = 'answered';
-      typeValue.noun = 'questions';
-      break;
-    case TITLE_TYPE_QUESTION:
-      typeValue.title = 'Questions';
-      typeValue.verb = 'asked';
-      typeValue.noun = typeValue.title.toLowerCase();
-      break;
-    case TITLE_TYPE_TAGS:
-      typeValue.title = 'Tags';
-      typeValue.verb = 'participated in';
-      typeValue.noun = typeValue.title.toLowerCase();
-      break;
-    default:
-      return false;
-  }
-
-  return (
-    <ListContainer>
-      <ListTitle>{typeValue.title}</ListTitle>
-      <ul>
-        {conts.length === 0 ? (
-          <Item>
-            <UserSpan>
-              You have not {typeValue.verb} any {typeValue.noun}
-            </UserSpan>
-          </Item>
-        ) : (
-          conts.map((cont, index) => {
-            <Item key={index}>
-              <UserSpan>{cont}</UserSpan>
-            </Item>;
-          })
-        )}
-      </ul>
-    </ListContainer>
   );
 };
 
@@ -137,7 +76,7 @@ function User() {
         <UserButtonDiv>
           <CommonButton
             onClick={handleEditPrompt}
-            buttonType={BUTTON_TYPE_GOOGLE}
+            buttonType={BUTTON_TYPE_USER_EDIT}
             cont={'Edit profile'}
           />
           <ModalEdit
@@ -146,7 +85,7 @@ function User() {
           />
           <CommonButton
             onClick={handleDeletePrompt}
-            buttonType={BUTTON_TYPE_GOOGLE}
+            buttonType={BUTTON_TYPE_USER_DELETE}
             cont={'Delete account'}
           />
           <ModalDelete
@@ -154,9 +93,9 @@ function User() {
             setIsDeleteModalOpen={setIsDeleteModalOpen}
           />
         </UserButtonDiv>
-        <List titleType={TITLE_TYPE_ANSWERS} />
-        <List titleType={TITLE_TYPE_QUESTION} />
-        <List titleType={TITLE_TYPE_TAGS} />
+        <UserList titleType={TITLE_TYPE_ANSWERS} />
+        <UserList titleType={TITLE_TYPE_QUESTION} />
+        <UserList titleType={TITLE_TYPE_TAGS} />
       </Container>
     </section>
   );

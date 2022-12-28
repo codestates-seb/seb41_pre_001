@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { ColumnDiv } from '../styles/StyledStore';
+import CommonButton, {
+  BUTTON_TYPE_USER,
+  BUTTON_TYPE_USER_EDIT,
+} from './CommonButton';
+import LabelInput from './LabelInput';
 
 const customStyles = {
   content: {
@@ -52,6 +58,8 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
 
   const closeModal = () => {
     setIsEditModalOpen(false);
+    setPassword('');
+    setPasswordConfirm('');
   };
   return (
     <div id="modalContainer">
@@ -64,13 +72,35 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
       >
         <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>Edit Account</h2>
         <div>Account edit</div>
-        <form>
-          <input value={name} onChange={handleName} />
-          <input value={password} onChange={handleEmail} />
-          <input value={passwordConfirm} onChange={handleEmailConfirm} />
-        </form>
-        <button onClick={handleEdit}>Delete</button>
-        <button onClick={closeModal}>Close</button>
+        <ColumnDiv>
+          <LabelInput
+            label={'Display Name'}
+            value={name}
+            onChange={handleName}
+          />
+          <LabelInput
+            label={'Password'}
+            value={password}
+            type={'password'}
+            onChange={handleEmail}
+          />
+          <LabelInput
+            label={'Password Confirm'}
+            value={passwordConfirm}
+            type={'password'}
+            onChange={handleEmailConfirm}
+          />
+        </ColumnDiv>
+        <CommonButton
+          buttonType={BUTTON_TYPE_USER_EDIT}
+          cont={'Edit'}
+          onClick={handleEdit}
+        />
+        <CommonButton
+          buttonType={BUTTON_TYPE_USER}
+          cont={'Close'}
+          onClick={closeModal}
+        />
       </Modal>
     </div>
   );

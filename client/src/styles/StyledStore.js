@@ -41,3 +41,9 @@ export const ColumnDiv = styled.div`
 export const ColumnCenterDiv = styled(ColumnDiv)`
   justify-content: center;
 `;
+
+export const UserSpan = styled.span`
+  font-size: 13px;
+  padding: 8px;
+  color: #6a737b;
+`;

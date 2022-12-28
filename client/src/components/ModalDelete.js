@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
+import CommonButton, {
+  BUTTON_TYPE_USER,
+  BUTTON_TYPE_USER_DELETE,
+} from './CommonButton';
+import LabelInput from './LabelInput';
 
 const customStyles = {
   content: {
@@ -25,6 +30,7 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
   // }
 
   const handleInputChange = (e) => {
+    console.log(e.target.value);
     setText(e.target.value);
   };
 
@@ -40,6 +46,7 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
 
   const closeModal = () => {
     setIsDeleteModalOpen(false);
+    setText('');
   };
   return (
     <div id="modalContainer">
@@ -53,12 +60,23 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
         <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>
           Delete Account
         </h2>
-        <div>Input &quot;{verifyPoint}&quot;</div>
         <form>
-          <input value={text} onChange={handleInputChange} />
+          <LabelInput
+            label={`Input "${verifyPoint}"`}
+            value={text}
+            onChange={handleInputChange}
+          />
         </form>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={closeModal}>Close</button>
+        <CommonButton
+          buttonType={BUTTON_TYPE_USER_DELETE}
+          onClick={handleDelete}
+          cont={'Delete'}
+        />
+        <CommonButton
+          buttonType={BUTTON_TYPE_USER}
+          onClick={closeModal}
+          cont={'Close'}
+        />
       </Modal>
     </div>
   );

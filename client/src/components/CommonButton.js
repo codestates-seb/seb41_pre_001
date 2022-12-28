@@ -5,6 +5,8 @@ export const BUTTON_TYPE_GOOGLE = 1;
 export const BUTTON_TYPE_GITHUB = 2;
 export const BUTTON_TYPE_FACEBOOK = 3;
 export const BUTTON_TYPE_USER = 4;
+export const BUTTON_TYPE_USER_DELETE = 5;
+export const BUTTON_TYPE_USER_EDIT = 6;
 
 const Button = styled.div`
   color: ${(props) =>
@@ -18,8 +20,11 @@ const Button = styled.div`
       ? '#ffffff'
       : props.buttonType === BUTTON_TYPE_GITHUB
       ? '#2f3337'
-      : props.buttonType === BUTTON_TYPE_FACEBOOK
+      : props.buttonType === BUTTON_TYPE_FACEBOOK ||
+        props.buttonType === BUTTON_TYPE_USER_EDIT
       ? '#385496'
+      : props.buttonType === BUTTON_TYPE_USER_DELETE
+      ? '#e36049'
       : '#1495fa'};
   font-size: 13px;
   height: 37px;
@@ -53,7 +58,13 @@ function CommonButton({ buttonType, cont, onClick }) {
       buttonType={buttonType}
       onClick={onClick === undefined ? () => alert(cont) : onClick}
     >
-      <RandomIcon />
+      {buttonType === BUTTON_TYPE_USER ||
+      buttonType === BUTTON_TYPE_USER_DELETE ||
+      buttonType === BUTTON_TYPE_USER_EDIT ? (
+        ''
+      ) : (
+        <RandomIcon />
+      )}
       {cont}
     </Button>
   );
