@@ -39,6 +39,11 @@ const SubLi = styled(CommonLi)`
   padding: 0px 0px 0px 30px;
 `;
 
+/**
+ * Created by @KimTank
+ * TODO 실제값 엮어줘야됨
+ * @returns <SidebarContainer>
+ */
 function NavSidebar() {
   return (
     <SidebarContainer>

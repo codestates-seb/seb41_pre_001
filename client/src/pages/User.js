@@ -31,6 +31,11 @@ const Container = styled.div`
   min-width: 800px;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { cont }
+ * @returns <>
+ */
 const UserDetail = ({ cont }) => {
   return (
     <>
@@ -55,6 +60,11 @@ const UserButtonDiv = styled(ColumnCenterDiv)`
   justify-content: stretch;
 `;
 
+/**
+ * Created by @KimTank
+ * - 221228: 뷰완성
+ * @returns <MainContainer>
+ */
 function User() {
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const [editModalIsOpen, setIsEditModalOpen] = useState(false);

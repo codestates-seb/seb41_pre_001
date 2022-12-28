@@ -12,6 +12,7 @@ const FooterContainer = styled.footer`
   display: flex;
   flex-direction: 'row';
   align-items: stretch;
+  justify-content: center;
   padding: 30px 10px;
   font-size: 13px;
 `;
@@ -28,6 +29,11 @@ const Title = styled.strong`
   padding: 0px 0px 16px 0px;
 `;
 
+/**
+ * Created by TY
+ * @param { title, contents = [] }
+ * @returns 
+ */
 const FooterList = ({ title, contents = [] }) => {
   return (
     <>
@@ -49,6 +55,10 @@ const Span = styled.span`
   padding: 0px 8px 0px 0px;
 `;
 
+/**
+ * Created by @KimTank
+ * @returns <FooterContainer>
+ */
 function Footer() {
   const handleClick = () => {
     handleDonateMe();

@@ -17,9 +17,15 @@ const customStyles = {
   },
 };
 
-//불러오는측에서
-// const [modalIsOpen, setIsOpen] = useState(false);
-//ReactModal.setAppElement('#app');
+/**
+ * Create by @KimTank
+ *
+ * 불러오는측에서
+ * const [modalIsOpen, setIsOpen] = useState(false);
+ * ReactModal.setAppElement('#app');
+ * @param { deleteModalIsOpen, setIsDeleteModalOpen }
+ * @returns <Modal>
+ */
 function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
   const [text, setText] = useState('');
 
@@ -49,36 +55,32 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
     setText('');
   };
   return (
-    <div id="modalContainer">
-      <Modal
-        isOpen={deleteModalIsOpen}
-        /*  onAfterOpen={afterOpenModal} */
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Delete verify modal"
-      >
-        <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>
-          Delete Account
-        </h2>
-        <form>
-          <LabelInput
-            label={`Input "${verifyPoint}"`}
-            value={text}
-            onChange={handleInputChange}
-          />
-        </form>
-        <CommonButton
-          buttonType={BUTTON_TYPE_USER_DELETE}
-          onClick={handleDelete}
-          cont={'Delete'}
+    <Modal
+      isOpen={deleteModalIsOpen}
+      /*  onAfterOpen={afterOpenModal} */
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Delete verify modal"
+    >
+      <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>Delete Account</h2>
+      <form>
+        <LabelInput
+          label={`Input "${verifyPoint}"`}
+          value={text}
+          onChange={handleInputChange}
         />
-        <CommonButton
-          buttonType={BUTTON_TYPE_USER}
-          onClick={closeModal}
-          cont={'Close'}
-        />
-      </Modal>
-    </div>
+      </form>
+      <CommonButton
+        buttonType={BUTTON_TYPE_USER_DELETE}
+        onClick={handleDelete}
+        cont={'Delete'}
+      />
+      <CommonButton
+        buttonType={BUTTON_TYPE_USER}
+        onClick={closeModal}
+        cont={'Close'}
+      />
+    </Modal>
   );
 }
 

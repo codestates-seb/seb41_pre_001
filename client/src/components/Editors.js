@@ -1,6 +1,10 @@
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
+/**
+ * Created by @DG
+ * @returns <div>
+ */
 function Editor() {
   const [value, setValue] = React.useState('');
   return (

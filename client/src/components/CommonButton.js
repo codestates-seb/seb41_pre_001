@@ -52,6 +52,11 @@ const Button = styled.div`
   }
 `;
 
+/**
+ * Create by @KimTank
+ * @param { buttonType, cont, onClick }
+ * @returns <Button>
+ */
 function CommonButton({ buttonType, cont, onClick }) {
   return (
     <Button

@@ -11,6 +11,11 @@ const Label = styled.label`
   padding: 8px;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { label, type, value, onChange }
+ * @returns <Container>
+ */
 function LabelInput({ label, type, value, onChange }) {
   return (
     <Container>

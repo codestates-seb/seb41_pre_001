@@ -20,13 +20,10 @@ import { MainWithSidebarContainer } from '../styles/StyledStore';
  */
 function QuestionEdit() {
   return (
-    <>
-      {/* Sidebar 없으면 지우면됨 */}
-      <MainWithSidebarContainer>
-        <div>질문 수정</div>
-        <Sidebar />
-      </MainWithSidebarContainer>
-    </>
+    <MainWithSidebarContainer>
+      <div>질문 수정</div>
+      <Sidebar />
+    </MainWithSidebarContainer>
   );
 }
 

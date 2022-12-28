@@ -22,6 +22,11 @@ const LoginContainer = styled.div`
   justify-content: center;
 `;
 
+/**
+ * Created by @KimTank
+ * - 2022-12-28: 뷰잡음
+ * @returns <MainWithSidebarContainer>
+ */
 function Login() {
   const email = 'Email';
   const password = 'Password';
