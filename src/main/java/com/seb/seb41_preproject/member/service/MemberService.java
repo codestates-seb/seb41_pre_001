@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
-@Transactional(readOnly = true)
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -39,6 +39,8 @@ public class MemberService {
         //DB에 User Role 저장
         List<String> roles = authorityUtils.createRoles(member.getUserEmail());
         member.setRoles(roles);
+
+        member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
 
         Member savedMember = memberRepository.save(member);
 
@@ -65,20 +67,36 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findById(userId);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         memberRepository.delete(findMember);
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
     }
 
     //로그인 중인 멤버 찾기
     public Member getLoginMember() {
+        //토큰이 있는지 확인
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+        if(authentication == null || authentication.getName() == null|| authentication.getName().equals("anonymousUser"))
             throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
-
-        System.out.println(authentication.getName());
 
         Optional<Member> optionalMember = memberRepository.findByUserEmail(authentication.getName());
         Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        //로그인 상태인지 확인
+        if(!member.getMemberStatus().equals(Member.MemberStatus.MEMBER_LOGIN))
+            throw new BusinessLogicException(ExceptionCode.ANONYMOUS_USER);
 
         return member;
+    }
+
+    //로그아웃
+    public void logoutMember(Long userId) {
+        Member findMember = verifyExistUserId(userId);
+
+        //로그아웃 요청한 멤버와 로그인 중인 멤버가 일치하는지 확인
+        if(findMember.getId() != getLoginMember().getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
+        //같으면 로그아웃 상태로 변경
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_LOGOUT);
+
+        memberRepository.save(findMember);
     }
 }

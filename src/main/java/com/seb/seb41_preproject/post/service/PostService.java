@@ -38,7 +38,8 @@ public class PostService {
         post.setViews(1);
 
         //로그인 중인 멤버로 작성
-        post.setMember(memberService.getLoginMember());
+        Member loginMember = memberService.getLoginMember();
+        post.setMember(loginMember);
 
         return postRepository.save(post);
     }

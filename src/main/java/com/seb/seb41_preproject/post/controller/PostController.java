@@ -32,26 +32,39 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity postPost(@RequestBody PostDto postDto) {
-        log.info("----게시글 작성 완료----");
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));
+
+        log.info("""
+                                
+                =====================
+                ## 게시물 작성 완료
+                =====================""");
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post_id}")
     public ResponseEntity patchPost(@PathVariable("post_id") long id,
                                     @RequestBody PostPatchDto postPatchDto) {
-        log.info("----게시글 수정 완료----");
         postPatchDto.setId(id);
         Post response = postService.updatePost(postMapper.postPatchDtoToPost(postPatchDto));
+
+        log.info("""
+                                
+                =====================
+                ## 게시물 수정 완료
+                =====================""");
         return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{post_id}")
     public ResponseEntity deletePost(@PathVariable("post_id") long id) {
-        log.info("----게시글 삭제 완료----");
         postService.deletePost(id);
-        System.out.printf("deleted post_id : ", id);
 
+        log.info("""
+                                
+                =====================
+                ## 게시물 삭제 완료
+                =====================""");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -68,6 +81,12 @@ public class PostController {
                 posts.stream()
                         .map(post->postMapper.postToBoardResponseDto(post))
                         .collect(Collectors.toList());
+
+        log.info("""
+                                
+                =====================
+                ## 전체 게시판 조회
+                =====================""");
         return new ResponseEntity<>(
                 new PostAllDto(response, pageInfo), HttpStatus.OK);
     }
@@ -75,6 +94,12 @@ public class PostController {
     @GetMapping("/{post_id}")
     public ResponseEntity getPost(@PathVariable("post_id") long id) {
         Post response = postService.findPost(id);
+
+        log.info("""
+                                
+                =====================
+                ## 특정 게시글 조회
+                =====================""");
         return new ResponseEntity(postMapper.postToPostCommentResponseDto(response), HttpStatus.OK);
     }
 }

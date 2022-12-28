@@ -12,6 +12,7 @@ public enum ExceptionCode {
 
     MEMBER_EXISTS(409,"Member exists" ),
     MEMBER_NOT_FOUND(404,"Member not found"),
+    ANONYMOUS_USER(405,"You are not logged in"),
 
     LIKE_EXIST(409,"Like is already check"),
 
