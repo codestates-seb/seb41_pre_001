@@ -1,12 +1,12 @@
 import Sidebar from '../components/Sidebar';
-import TopQuestions from '../components/TopQuestions';
+import Main from '../components/Main';
 import { MainWithSidebarContainer } from '../styles/StyledStore';
 
 function Home() {
   return (
     <>
       <MainWithSidebarContainer>
-        <TopQuestions />
+        <Main />
         <Sidebar />
       </MainWithSidebarContainer>
     </>

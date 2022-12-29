@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function TopQuestions() {
+function Main() {
   const Askbtn = useNavigate();
 
   const handleAskBtn = () => {
@@ -19,7 +19,7 @@ function TopQuestions() {
   );
 }
 
-export default TopQuestions;
+export default Main;
 
 const MainBody = styled.div`
   background-color: #ffffff;
