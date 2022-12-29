@@ -32,7 +32,7 @@ const Title = styled.strong`
 /**
  * Created by TY
  * @param { title, contents = [] }
- * @returns 
+ * @returns
  */
 const FooterList = ({ title, contents = [] }) => {
   return (

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import Capcha from '../components/Capcha';
 import CommonButton, {
   BUTTON_TYPE_FACEBOOK,
@@ -16,6 +17,10 @@ import {
   RightContainer,
   RowDiv,
 } from '../styles/StyledStore';
+import { faker } from '@faker-js/faker';
+import { handleDonateMe } from '../util/alertStore';
+import { useState } from 'react';
+import { regDisplayName, regEmail } from '../util/regExp';
 
 const LeftContainer = styled.div`
   width: 470px;
@@ -72,9 +77,97 @@ const Desc = styled(LabelDescription)`
  * @returns <MainContainer>
  */
 function Signup() {
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [isCapchaChecked, setCapchaChecked] = useState(false);
+
   const name = 'Display name';
   const email = 'Email';
   const password = 'Password';
+
+  const handleName = (e) => {
+    console.log(e.target.value);
+    setUserName(e.target.value);
+  };
+
+  const handleEmail = (e) => {
+    console.log(e.target.value);
+    setUserEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    console.log(e.target.value);
+    setUserPassword(e.target.value);
+  };
+
+  const handleChecked = () => {
+    setCapchaChecked(true);
+    return false;
+  };
+
+  const handleSignup = () => {
+    if (!isCapchaChecked) {
+      alert('reCAPTCHA is not checked');
+      return false;
+    }
+    if (userName.length === 0) {
+      alert('DisplayName is empty');
+      return false;
+    }
+    if (userName.length < 3 || userName.length > 20) {
+      alert('DisplayName is over 4 letters, under 20 letters');
+      return false;
+    }
+    if (!regDisplayName.test(userName)) {
+      alert('DisplayName is allowed by English or number');
+      return false;
+    }
+    if (userEmail.length === 0) {
+      alert('Email is empty');
+      return false;
+    }
+    if (!regEmail.test(userEmail)) {
+      alert('Email is not valid');
+      return false;
+    }
+    if (userPassword.length === 0) {
+      alert('Password is empty');
+      return false;
+    }
+    //TODO 비밀번호 검증
+    // if (!regPassword.test(userPassword)) {
+    //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
+    //   return false;
+    // }
+    console.log(
+      process.env.REACT_APP_PROTOCOL +
+        process.env.REACT_APP_HOST +
+        process.env.REACT_APP_PORT +
+        process.env.REACT_APP_EP_SIGNUP
+    );
+    console.log('name: ' + userName);
+    console.log('email: ' + userEmail);
+    console.log('passwd: ' + userPassword);
+    axios
+      .post(
+        process.env.REACT_APP_EP_SIGNUP,
+        {
+          userName: userName,
+          userEmail: userEmail,
+          userPassword: userPassword,
+          userImageUrl: faker.image.avatar(),
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        const { data } = response;
+        alert(data);
+      })
+      .catch((error) => alert(error));
+  };
 
   return (
     <MainContainer>
@@ -106,25 +199,43 @@ function Signup() {
       <RightContainer>
         <div>
           <CommonButton
+            onClick={handleDonateMe}
             buttonType={BUTTON_TYPE_GOOGLE}
             cont={`Sign up with Google`}
           />
           <CommonButton
+            onClick={handleDonateMe}
             buttonType={BUTTON_TYPE_GITHUB}
             cont={`Sign up with Github`}
           />
           <CommonButton
+            onClick={handleDonateMe}
             buttonType={BUTTON_TYPE_FACEBOOK}
             cont={`Sign up with Facebook`}
           />
         </div>
         <InputFormContainer>
           <InputsContainer>
-            <LabelInput label={name} type={'text'} />
-            <LabelInput label={email} type={'email'} />
-            <LabelInput label={password} type={'password'} />
+            <LabelInput
+              label={name}
+              type={'text'}
+              value={userName}
+              onChange={handleName}
+            />
+            <LabelInput
+              label={email}
+              type={'email'}
+              value={userEmail}
+              onChange={handleEmail}
+            />
+            <LabelInput
+              label={password}
+              type={'password'}
+              value={userPassword}
+              onChange={handlePassword}
+            />
             <Description>{`Passwords must contain at least eight characters, including at least 1 letter and 1 number.}`}</Description>
-            <Capcha />
+            <Capcha isChecked={isCapchaChecked} onClick={handleChecked} />
             <RowDiv>
               <div>
                 <input id="description" type={'checkbox'} />
@@ -138,7 +249,7 @@ function Signup() {
                 <RandomIcon />
               </div>
             </RowDiv>
-            <CommonButton cont={'Sign up'} />
+            <CommonButton cont={'Sign up'} onClick={handleSignup} />
             <Desc>
               {`By clicking “Sign up”, you agree to our `}
               <a href="https://stackoverflow.com/legal/terms-of-service/public">

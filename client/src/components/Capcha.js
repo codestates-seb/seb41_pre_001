@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import RandomIcon from './RandomIcon';
 
@@ -30,9 +29,9 @@ const CenterDiv = styled.div`
  * TODO Capcha - google
  * @returns <CapchaContainer>
  */
-function Capcha() {
+function Capcha({ isChecked, onClick }) {
   // capcha 일정시간 이후 자동체크풀림 진척도 너무걸려 무시
-  const [isChecked, setIsChecked] = useState(false);
+  //const [isChecked, setIsChecked] = useState(false);
   //   TODO 자동풀림
   //   const [initCount, setInitCount] = useState(0);
   //   const [count, setCount] = useState(10);
@@ -43,9 +42,9 @@ function Capcha() {
   //     }, 1_000);
   //   }, [count]);
 
-  const handleChecked = () => {
-    setIsChecked(true);
-  };
+  // const handleChecked = () => {
+  //   setIsChecked(true);
+  // };
 
   return (
     <CapchaContainer>
@@ -71,7 +70,7 @@ function Capcha() {
                 id="capcha"
                 type={'checkbox'}
                 style={{ paddingTop: '12px' }}
-                onClick={handleChecked}
+                onClick={onClick}
               />
               <label htmlFor="capcha">{`  I'm not a robot`}</label>
             </>
