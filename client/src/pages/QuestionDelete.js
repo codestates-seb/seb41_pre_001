@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar';
-import { MainWithSidebarContainer } from '../styles/StyledStore';
+import { MainContainer } from '../styles/StyledStore';
 
 /**
  * # QuestionDelete
@@ -20,10 +20,10 @@ import { MainWithSidebarContainer } from '../styles/StyledStore';
  */
 function QuestionDelete() {
   return (
-    <MainWithSidebarContainer>
+    <MainContainer>
       <div>질문 삭제</div>
       <Sidebar />
-    </MainWithSidebarContainer>
+    </MainContainer>
   );
 }
 

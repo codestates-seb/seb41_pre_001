@@ -1,13 +1,18 @@
 import Sidebar from '../components/Sidebar';
 import Main from '../components/Main';
-import { MainWithSidebarContainer } from '../styles/StyledStore';
+import { MainContainer } from '../styles/StyledStore';
+import styled from 'styled-components';
+
+const StyledMainContainer = styled(MainContainer)`
+  background-color: #ffffff;
+`;
 
 function Home() {
   return (
-    <MainWithSidebarContainer>
+    <StyledMainContainer>
       <Main />
       <Sidebar />
-    </MainWithSidebarContainer>
+    </StyledMainContainer>
   );
 }
 

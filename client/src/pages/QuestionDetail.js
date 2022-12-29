@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar';
-import { MainWithSidebarContainer } from '../styles/StyledStore';
+import { MainContainer } from '../styles/StyledStore';
 
 /**
  * # QuestionDetail
@@ -20,10 +20,10 @@ import { MainWithSidebarContainer } from '../styles/StyledStore';
  */
 function QuestionDetail() {
   return (
-    <MainWithSidebarContainer>
+    <MainContainer>
       <div>질문들</div>
       <Sidebar />
-    </MainWithSidebarContainer>
+    </MainContainer>
   );
 }
 
