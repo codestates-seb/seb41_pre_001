@@ -27,6 +27,8 @@ export default Main;
 
 const MainBody = styled.div`
   background-color: #ffffff;
+  margin-left: 250px;
+  margin-top: -30px;
   border-left: 1px solid hsl(210deg 8% 90%);
   /* 변경ty margin-left: 250px; */
 `;

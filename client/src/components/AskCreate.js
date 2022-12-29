@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Editor from './Editors';
 import StyledInput from './StyledInput';
+import { Tag } from './Tag';
 import { handleDiscard } from '../util/alertStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +34,7 @@ function AskCreate() {
   const onClickSubmit = async () => {
     if (title.length < 10) {
       alert('제목을 최소 10글자 이상 적어주세요');
-    } else if (content.length < 50) {
+    } else if (content.length < 20) {
       alert('내용을 최소 20글자 이상 적어주세요');
     }
   };
@@ -79,13 +80,15 @@ function AskCreate() {
           Be specific and imagine you’re asking a question to another person.
         </p>
         <div className="input-title">
-          <StyledInput
-            id="title"
-            name="title"
-            type="text"
-            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-            onChange={onChangeTitle}
-          />
+          <form action="/" method="post">
+            <StyledInput
+              id="title"
+              name="title"
+              type="text"
+              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+              onChange={onChangeTitle}
+            />
+          </form>
         </div>
       </TitleContent>
       <AskContent className="ask-content">
@@ -94,28 +97,25 @@ function AskCreate() {
           Introduce the problem and expand on what you put in the title. Minimum
           20 characters.
         </p>
-        <Editor onChange={onChangeContent} />
+        <form action="/" method="post">
+          <Editor onChange={onChangeContent} />
+        </form>
       </AskContent>
-      <AskExpect className="ask-expect">
+      {/* <AskExpect className="ask-expect">
         <h5>What did you try and what were you expecting?</h5>
         <p>
           Describe what you tried, what you expected to happen, and what
           actually resulted. Minimum 20 characters.
         </p>
         <Editor />
-      </AskExpect>
+      </AskExpect> */}
       <AskTags className="ask-tags">
         <h5>Tags</h5>
         <p>
           Add up to 5 tags to describe what your question is about. Start typing
           to see suggestions.
         </p>
-        <StyledInput
-          id="tag"
-          name="tag"
-          type="text"
-          placeholder="e.g. (objective-c typescript sql-server)"
-        />
+        <Tag />
       </AskTags>
       <Buttons>
         <SubmitButton
@@ -206,21 +206,21 @@ const AskContent = styled.div`
     margin: 30px;
   }
 `;
-const AskExpect = styled.div`
-  padding: 30px;
-  margin: 30px;
-  border: 1px solid hsl(210deg 8% 90%);
-  background-color: #ffffff;
-  margin-top: -17px;
-  border-radius: 3px 3px 3px 3px;
-  > h5 {
-    font-size: 15px;
-  }
-  > p {
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-`;
+// const AskExpect = styled.div`
+//   padding: 30px;
+//   margin: 30px;
+//   border: 1px solid hsl(210deg 8% 90%);
+//   background-color: #ffffff;
+//   margin-top: -17px;
+//   border-radius: 3px 3px 3px 3px;
+//   > h5 {
+//     font-size: 15px;
+//   }
+//   > p {
+//     font-size: 12px;
+//     margin-bottom: 3px;
+//   }
+// `;
 const AskTags = styled.div`
   padding: 30px;
   margin: 30px;

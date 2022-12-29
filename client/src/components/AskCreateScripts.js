@@ -24,7 +24,7 @@ function AskCreateScripts() {
           any difficulties that have prevented you from solving it yourself.
         </p>
       </AskScript>
-      <ExpectScript>
+      {/* <ExpectScript>
         <h2>Expand on the problem</h2>
         <p>
           Show what you’ve tried, tell us what happened, and why it didn’t meet
@@ -48,7 +48,7 @@ function AskCreateScripts() {
             format them appropriately.
           </a>
         </p>
-      </ExpectScript>
+      </ExpectScript> */}
       <TagScript>
         <h2>Adding tags</h2>
         <p>
@@ -124,29 +124,29 @@ const AskScript = styled.div`
   }
 `;
 
-const ExpectScript = styled.div`
-  padding: 0;
-  margin: 0;
-  border: 1px solid hsl(210deg 8% 90%);
-  border-radius: 3px 3px 3px 3px;
-  background-color: #ffffff;
-  margin-top: 150px;
-  margin-left: -15px;
-  box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.1);
+// const ExpectScript = styled.div`
+//   padding: 0;
+//   margin: 0;
+//   border: 1px solid hsl(210deg 8% 90%);
+//   border-radius: 3px 3px 3px 3px;
+//   background-color: #ffffff;
+//   margin-top: 150px;
+//   margin-left: -15px;
+//   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.1);
 
-  > h2 {
-    font-size: 15px;
-    border-bottom: 1px solid hsl(210deg 8% 90%);
-    font-weight: 400;
-    padding: 12px;
-    background-color: hsl(210deg 8% 98%);
-  }
-  > p {
-    font-size: 12px;
-    padding: 10px;
-    margin: 10px;
-  }
-`;
+//   > h2 {
+//     font-size: 15px;
+//     border-bottom: 1px solid hsl(210deg 8% 90%);
+//     font-weight: 400;
+//     padding: 12px;
+//     background-color: hsl(210deg 8% 98%);
+//   }
+//   > p {
+//     font-size: 12px;
+//     padding: 10px;
+//     margin: 10px;
+//   }
+// `;
 
 const TagScript = styled.div`
   padding: 0;
@@ -154,7 +154,7 @@ const TagScript = styled.div`
   border: 1px solid hsl(210deg 8% 90%);
   border-radius: 3px 3px 3px 3px;
   background-color: #ffffff;
-  margin-top: 65px;
+  margin-top: 165px;
   margin-left: -15px;
   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.1);
 
