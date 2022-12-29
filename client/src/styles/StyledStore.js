@@ -9,7 +9,7 @@ export const MainContainer = styled.section`
 `;
 
 export const MainWithSidebarContainer = styled.section`
-  background-color: #f1f2f3;
+  background-color: #ffffff;
   width: 100%;
   display: flex;
   flex-direction: row;

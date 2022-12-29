@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Main() {
+function TopQuestions() {
   const Askbtn = useNavigate();
 
   const handleAskBtn = () => {
@@ -19,11 +19,12 @@ function Main() {
   );
 }
 
-export default Main;
+export default TopQuestions;
 
 const MainBody = styled.div`
   background-color: #ffffff;
   margin-left: 250px;
+  margin-top: -30px;
   border-left: 1px solid hsl(210deg 8% 90%);
 `;
 
