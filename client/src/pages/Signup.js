@@ -144,24 +144,23 @@ function Signup() {
       process.env.REACT_APP_PROTOCOL +
         process.env.REACT_APP_HOST +
         process.env.REACT_APP_PORT +
-        process.env.REACT_APP_ENDPOINT_SIGNUP
+        process.env.REACT_APP_EP_SIGNUP
     );
     console.log('name: ' + userName);
     console.log('email: ' + userEmail);
     console.log('passwd: ' + userPassword);
     axios
       .post(
-        process.env.REACT_APP_PROTOCOL +
-          process.env.REACT_APP_HOST +
-          process.env.REACT_APP_PORT +
-          process.env.REACT_APP_ENDPOINT_SIGNUP,
+        process.env.REACT_APP_EP_SIGNUP,
         {
           userName: userName,
           userEmail: userEmail,
           userPassword: userPassword,
           userImageUrl: faker.image.avatar(),
         },
-        { 'Access-Control-Allow-Origin': '*' }
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         const { data } = response;
