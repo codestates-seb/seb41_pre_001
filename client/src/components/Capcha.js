@@ -25,6 +25,11 @@ const CenterDiv = styled.div`
   align-items: center;
 `;
 
+/**
+ * Created by @KimTank
+ * TODO Capcha - google
+ * @returns <CapchaContainer>
+ */
 function Capcha() {
   // capcha 일정시간 이후 자동체크풀림 진척도 너무걸려 무시
   const [isChecked, setIsChecked] = useState(false);

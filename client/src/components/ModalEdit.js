@@ -18,9 +18,15 @@ const customStyles = {
   },
 };
 
-//불러오는측에서
-// const [modalIsOpen, setIsOpen] = useState(false);
-//ReactModal.setAppElement('#app');
+/**
+ * Create by @KimTank
+ *
+ * 불러오는측에서
+ * const [modalIsOpen, setIsOpen] = useState(false);
+ * ReactModal.setAppElement('#app');
+ * @param { editModalIsOpen, setIsEditModalOpen }
+ * @returns <Modal>
+ */
 function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -62,47 +68,41 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
     setPasswordConfirm('');
   };
   return (
-    <div id="modalContainer">
-      <Modal
-        isOpen={editModalIsOpen}
-        /*  onAfterOpen={afterOpenModal} */
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Edit account modal"
-      >
-        <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>Edit Account</h2>
-        <div>Account edit</div>
-        <ColumnDiv>
-          <LabelInput
-            label={'Display Name'}
-            value={name}
-            onChange={handleName}
-          />
-          <LabelInput
-            label={'Password'}
-            value={password}
-            type={'password'}
-            onChange={handleEmail}
-          />
-          <LabelInput
-            label={'Password Confirm'}
-            value={passwordConfirm}
-            type={'password'}
-            onChange={handleEmailConfirm}
-          />
-        </ColumnDiv>
-        <CommonButton
-          buttonType={BUTTON_TYPE_USER_EDIT}
-          cont={'Edit'}
-          onClick={handleEdit}
+    <Modal
+      isOpen={editModalIsOpen}
+      /*  onAfterOpen={afterOpenModal} */
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Edit account modal"
+    >
+      <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>Edit Account</h2>
+      <div>Account edit</div>
+      <ColumnDiv>
+        <LabelInput label={'Display Name'} value={name} onChange={handleName} />
+        <LabelInput
+          label={'Password'}
+          value={password}
+          type={'password'}
+          onChange={handleEmail}
         />
-        <CommonButton
-          buttonType={BUTTON_TYPE_USER}
-          cont={'Close'}
-          onClick={closeModal}
+        <LabelInput
+          label={'Password Confirm'}
+          value={passwordConfirm}
+          type={'password'}
+          onChange={handleEmailConfirm}
         />
-      </Modal>
-    </div>
+      </ColumnDiv>
+      <CommonButton
+        buttonType={BUTTON_TYPE_USER_EDIT}
+        cont={'Edit'}
+        onClick={handleEdit}
+      />
+      <CommonButton
+        buttonType={BUTTON_TYPE_USER}
+        cont={'Close'}
+        onClick={closeModal}
+      />
+    </Modal>
   );
 }
 

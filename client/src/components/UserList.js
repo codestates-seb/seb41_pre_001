@@ -20,6 +20,11 @@ const ListTitle = styled.p`
   font-size: 21px;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { titleType = -1, conts = [] }
+ * @returns <ListContainer>
+ */
 const UserList = ({ titleType = -1, conts = [] }) => {
   if (titleType === -1) return false;
 
@@ -43,7 +48,6 @@ const UserList = ({ titleType = -1, conts = [] }) => {
     default:
       return false;
   }
-
   return (
     <ListContainer>
       <ListTitle>{typeValue.title}</ListTitle>

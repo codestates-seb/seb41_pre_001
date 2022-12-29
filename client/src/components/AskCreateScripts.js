@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+/**
+ * Created by @DG
+ * @returns <AskCreateScript>
+ */
 function AskCreateScripts() {
   return (
     <AskCreateScript>

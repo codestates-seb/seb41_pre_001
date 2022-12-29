@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+/**
+ * Created by @SW
+ * @returns <MainBody>
+ */
 function Main() {
   const Askbtn = useNavigate();
 
@@ -26,6 +30,7 @@ const MainBody = styled.div`
   margin-left: 250px;
   margin-top: -30px;
   border-left: 1px solid hsl(210deg 8% 90%);
+  /* 변경ty margin-left: 250px; */
 `;
 
 const MainTitle = styled.div`
@@ -51,5 +56,6 @@ const MainTitle = styled.div`
 const MainQuestionList = styled.div`
   padding: 100px;
   margin: 100px;
-  width: 750px;
+  /* 변경ty width: 750px; */
+  width: 700px;
 `;

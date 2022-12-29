@@ -5,6 +5,7 @@ export const MainContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   padding: 30px 0px;
 `;
 
@@ -13,6 +14,7 @@ export const MainWithSidebarContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   padding: 30px 0px;
 `;
 

@@ -1,3 +1,7 @@
+/**
+ * Created by @KimTank
+ * TODO 가데이터
+ */
 export const sidebarData = {
   section1: {
     type: 1,

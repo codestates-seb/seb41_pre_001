@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledLine = styled.hr`
+  width: 100%;
   background-color: ${(props) =>
     props.grey ? '#babfc4' : props.sideBarColor ? '#f1e5bc' : '#f48225'};
   height: ${(props) =>
@@ -9,6 +10,11 @@ const StyledLine = styled.hr`
   border: 0;
 `;
 
+/**
+ * Created by @KimTank
+ * @param { grey, sideBarColor }
+ * @returns <StyledLine>
+ */
 function Line({ grey, sideBarColor }) {
   return <StyledLine grey={grey} sideBarColor={sideBarColor} />;
 }
