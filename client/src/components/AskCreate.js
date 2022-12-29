@@ -98,7 +98,7 @@ function AskCreate() {
           20 characters.
         </p>
         <form action="/" method="post">
-          <Editor onChange={onChangeContent} />
+          <Editor value={content} setValue={onChangeContent} />
         </form>
       </AskContent>
       {/* <AskExpect className="ask-expect">
