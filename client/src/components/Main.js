@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import QuestionRow from './QuestionRow';
 
 /**
  * Created by @SW
@@ -18,7 +19,7 @@ function Main() {
         <h2>Top Questions</h2>
         <button onClick={() => handleAskBtn()}>Ask Question</button>
       </MainTitle>
-      <MainQuestionList></MainQuestionList>
+      <QuestionRow />
     </MainBody>
   );
 }
@@ -52,10 +53,4 @@ const MainTitle = styled.div`
   Button:hover {
     background-color: #0c63a9;
   }
-`;
-const MainQuestionList = styled.div`
-  padding: 100px;
-  margin: 100px;
-  /* 변경ty width: 750px; */
-  width: 700px;
 `;
