@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton, {
   BUTTON_TYPE_FACEBOOK,
@@ -18,6 +18,7 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
+import { setToken } from '../util/tokenHelper';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -34,6 +35,8 @@ const LoginContainer = styled.div`
 function Login() {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const email = 'Email';
   const password = 'Password';
@@ -81,13 +84,27 @@ function Login() {
         }
       )
       .then((response) => {
-        const { data } = response;
-        //TODO 로그인 처리
-        alert(response.status);
-        console.log(data);
-        //if(response.headers.)
+        // console.log(response.headers.authorization);
+        // alert(response.status);
+        setToken(response.headers.authorization);
+        navigate('/');
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        let errorText;
+        const { message } = error;
+        const code = Number(message.slice(-3));
+        switch (code) {
+          case 401:
+            errorText = 'Wrong Email or Password, check your Email or Password';
+            break;
+          case 500:
+            errorText = 'Sorry, We have problem for service. contact to us';
+            break;
+          default:
+            errorText = message;
+        }
+        return alert(errorText);
+      });
   };
   return (
     <MainContainer>
