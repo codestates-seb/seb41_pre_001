@@ -1,5 +1,9 @@
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { IS_ALIVE, logout } from '../util/tokenHelper';
+import { pushDefaultWithToken } from '../util/axiosHelper';
 import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_DELETE,
@@ -26,8 +30,10 @@ const customStyles = {
  * @param { deleteModalIsOpen, setIsDeleteModalOpen }
  * @returns <Modal>
  */
-function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
+function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
   const [text, setText] = useState('');
+
+  const navigate = useNavigate();
 
   //  let subtitle;
   // function afterOpenModal() {
@@ -44,9 +50,46 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen }) {
 
   const handleDelete = () => {
     if (text === verifyPoint) {
+      axios
+        .delete(
+          `${process.env.REACT_APP_EP_SIGNOUT}/${user.id}`,
+          pushDefaultWithToken()
+        )
+        .then(() => {
+          logout();
+          if (!IS_ALIVE()) {
+            alert('Succeed to delete your account, seeya');
+            navigate('signin');
+            closeModal();
+          } else {
+            alert(
+              'Have a problem to remove your token, please shutdown your brower'
+            );
+            closeModal();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          let errorText;
+          const { message } = error;
+          const code = Number(message.slice(-3));
+          switch (code) {
+            case 401:
+              errorText =
+                'Wrong Email or Password, check your Email or Password';
+              break;
+            case 404:
+            case 500:
+              errorText = 'Sorry, We have problem for service. contact to us';
+              break;
+            default:
+              errorText = message;
+          }
+          return alert(errorText);
+        });
       closeModal();
     } else {
-      alert('Nop');
+      alert(`Please input "${verifyPoint}"`);
     }
   };
 

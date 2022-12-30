@@ -20,14 +20,10 @@ export const setToken = (accessToken) =>
 /**
  * 토큰날리기
  */
-export const logout = () => {
-  localStorage.removeItem(ACCESS_TOKEN);
-};
+export const logout = () => localStorage.removeItem(ACCESS_TOKEN);
 
 /**
  * 토큰유효여부
  * @returns boolean
  */
-export const IS_ALIVE = () => {
-  return !!getToken();
-};
+export const IS_ALIVE = () => !!getToken();

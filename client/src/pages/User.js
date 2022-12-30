@@ -71,17 +71,6 @@ function User() {
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const [editModalIsOpen, setIsEditModalOpen] = useState(false);
 
-  useEffect(
-    () =>
-      setUser({
-        userName: '김씨',
-        userEmail: 'kim@c.com',
-        userImageUrl:
-          'https://item.kakaocdn.net/do/d7ab920d3b962fa83605beeaa670deeaf43ad912ad8dd55b04db6a64cddaf76d',
-      }),
-    []
-  );
-
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
@@ -176,6 +165,7 @@ function User() {
             cont={'Delete account'}
           />
           <ModalDelete
+            user={user}
             deleteModalIsOpen={deleteModalIsOpen}
             setIsDeleteModalOpen={setIsDeleteModalOpen}
           />

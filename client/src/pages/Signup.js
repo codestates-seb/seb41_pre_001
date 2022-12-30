@@ -144,10 +144,6 @@ function Signup() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(process.env.REACT_APP_EP_SIGNUP);
-    console.log('name: ' + userName);
-    console.log('email: ' + userEmail);
-    console.log('passwd: ' + userPassword);
     axios
       .post(
         process.env.REACT_APP_EP_SIGNUP,

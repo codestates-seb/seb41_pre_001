@@ -19,35 +19,33 @@ export const pushDefaultConfig = () => {
 export const pushDefaultWithToken = () => {
   const config = pushDefaultConfig();
   config.headers = { Authorization: getToken() };
-  console.log(pushDefaultWithToken);
-  console.log(config);
   return config;
 };
 
-/**
- * 추가로 axios config에 넣을값이 있을 때
- * @param {*} key 추가할 key
- * @param {*} value 추가할 value
- * @param {*} isDefualt withCredentials설정
- * @param {*} targetConfig 기존에 있는것에 추가할때
- * @returns
- */
-export const pushValueInConfig = (key, value, isDefualt, targetConfig) => {
-  const defaultConfig = pushDefaultConfig();
+// /**
+//  * 추가로 axios config에 넣을값이 있을 때
+//  * @param {*} key 추가할 key
+//  * @param {*} value 추가할 value
+//  * @param {*} isDefualt withCredentials설정
+//  * @param {*} targetConfig 기존에 있는것에 추가할때
+//  * @returns
+//  */
+// export const pushValueInConfig = (key, value, isDefualt, targetConfig) => {
+//   const defaultConfig = pushDefaultConfig();
 
-  if (targetConfig) {
-    if (!targetConfig[key]) {
-      targetConfig[key] = value;
-      if (isDefualt && !targetConfig.withCredentials) {
-        return { ...targetConfig, defaultConfig };
-      }
-      return targetConfig;
-    }
-  }
+//   if (targetConfig) {
+//     if (!targetConfig[key]) {
+//       targetConfig[key] = value;
+//       if (isDefualt && !targetConfig.withCredentials) {
+//         return { ...targetConfig, defaultConfig };
+//       }
+//       return targetConfig;
+//     }
+//   }
 
-  targetConfig = { key: value };
-  if (isDefualt) {
-    targetConfig = { ...targetConfig, defaultConfig };
-  }
-  return targetConfig;
-};
+//   targetConfig = { key: value };
+//   if (isDefualt) {
+//     targetConfig = { ...targetConfig, defaultConfig };
+//   }
+//   return targetConfig;
+// };
