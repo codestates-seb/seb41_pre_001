@@ -21,6 +21,7 @@ import { faker } from '@faker-js/faker';
 import { handleDonateMe } from '../util/alertStore';
 import { useState } from 'react';
 import { regDisplayName, regEmail } from '../util/regExp';
+import { useNavigate } from 'react-router-dom';
 
 const LeftContainer = styled.div`
   width: 470px;
@@ -82,6 +83,8 @@ function Signup() {
   const [userPassword, setUserPassword] = useState('');
   const [isCapchaChecked, setCapchaChecked] = useState(false);
 
+  const navigate = useNavigate();
+
   const name = 'Display name';
   const email = 'Email';
   const password = 'Password';
@@ -141,10 +144,7 @@ function Signup() {
     //   return false;
     // }
     console.log(
-      process.env.REACT_APP_PROTOCOL +
-        process.env.REACT_APP_HOST +
-        process.env.REACT_APP_PORT +
-        process.env.REACT_APP_EP_SIGNUP
+      process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_SIGNUP
     );
     console.log('name: ' + userName);
     console.log('email: ' + userEmail);
@@ -163,10 +163,28 @@ function Signup() {
         }
       )
       .then((response) => {
+        if (response.status === 500) {
+          alert('Email is already exist');
+          return false;
+        }
         const { data } = response;
-        alert(data);
+        console.log(data);
+        if (response.status === 201) {
+          alert(`Success created ${userEmail}`);
+          navigate('/login');
+          return false;
+        }
+        //TODO 로그인 처리
+        alert(response.status);
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        //이메일 중복처리
+        if (String(error).slice(-3) === '500') {
+          alert('Email is already exist');
+          return false;
+        }
+        alert(error);
+      });
   };
 
   return (

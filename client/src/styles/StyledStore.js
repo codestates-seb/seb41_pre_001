@@ -9,14 +9,15 @@ export const MainContainer = styled.section`
   padding: 30px 0px;
 `;
 
-export const MainWithSidebarContainer = styled.section`
-  background-color: #ffffff;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 30px 0px;
-`;
+// export const MainWithSidebarContainer = styled(MainContainer)`
+//  221230 DG 배경값변경
+//   background-color: #ffffff;
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   padding: 30px 0px;
+// `;
 
 export const RowDiv = styled.div`
   display: flex;
@@ -65,3 +66,7 @@ export const UserSpan = styled.span`
   padding: 8px;
   color: #6a737b;
 `;
+
+//TODO 중첩될때 DG
+
+//TODO 중첩될때 SW

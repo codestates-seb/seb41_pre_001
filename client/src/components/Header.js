@@ -119,6 +119,7 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
           <Btn to="signup">Sign up</Btn>
         </Span>
         <button onClick={() => setIsBugerVisible(!isBugerVisible)} />
+        <Link to="temp">aa</Link>
       </Navigation>
       <Line grey={'true'} />
     </NavigationContainer>
