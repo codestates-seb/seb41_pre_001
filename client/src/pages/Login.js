@@ -70,8 +70,8 @@ function Login() {
     //   return false;
     // }
     console.log(process.env.REACT_APP_EP_LOGIN);
-    console.log('email: ' + userEmail);
-    console.log('passwd: ' + userPassword);
+    console.log('username: ' + userEmail);
+    console.log('password: ' + userPassword);
     axios
       .post(
         process.env.REACT_APP_EP_LOGIN,
