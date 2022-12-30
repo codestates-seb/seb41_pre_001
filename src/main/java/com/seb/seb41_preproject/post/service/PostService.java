@@ -90,6 +90,12 @@ public class PostService {
 
     public Post findPost(long id) {
         Post findPost = findVerifiedPost(id);
+
+        //조회하려는 멤버와 작성한 멤버가 같은지 확인
+        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
+        if(memberService.getLoginMember().getId() != postMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
         findPost.setViews(findPost.getViews()+1);
 
         //views를 저장하기 위해 save
