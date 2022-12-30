@@ -66,9 +66,7 @@ function Login() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(
-      process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_SIGNUP
-    );
+    console.log(process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_LOGIN);
     console.log('email: ' + userEmail);
     console.log('passwd: ' + userPassword);
     axios
@@ -87,6 +85,7 @@ function Login() {
         //TODO 로그인 처리
         alert(response.status);
         console.log(data);
+        //if(response.headers.)
       })
       .catch((error) => alert(error));
   };

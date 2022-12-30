@@ -7,6 +7,7 @@ import Home from './pages/Home';
 // import main from './main.js';
 import Tags from './pages/Tags';
 import User from './pages/User';
+import QuestionDetail from './pages/QuestionDetail';
 import Companies from './components/Companies';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -15,6 +16,7 @@ import QuestionCreate from './pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import QuestionList from './pages/QuestionList';
+import Temp from './pages/Temp';
 
 const BodyContainer = styled.div`
   padding-top: 53px;
@@ -48,6 +50,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="questions" element={<QuestionList />} />
+          <Route path="temp" element={<Temp />} />
+          <Route path="questionDetail" element={<QuestionDetail />} />
           <Route path="main" element={<main />} />
           <Route path="tags" element={<Tags />} />
           <Route path="user" element={<User />} />
