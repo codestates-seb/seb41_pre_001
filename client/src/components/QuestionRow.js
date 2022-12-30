@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 function QuestionRow() {
   return (
     <>
@@ -18,12 +19,14 @@ function QuestionRow() {
           </QuestionLists>
         </QuestionStatus>
         <QuestionTitleBody>
-          <QuestionTitle>안녕</QuestionTitle>
+          <QuestionTitle to={'/questionDetail'}>title</QuestionTitle>
           <Info>
-            <QuestionTag>안녕</QuestionTag>
+            <QuestionTag>
+              {/* {tag.split(',').map((tag) => tag.id)} */}
+            </QuestionTag>
             <UserInfo>
-              <UserLink>David</UserLink>
-              <ManAndWhen>asked 2 mins ago</ManAndWhen>
+              <UserLink>{/* {id} */}</UserLink>
+              <ManAndWhen>{/* asked {createdAt} */}</ManAndWhen>
             </UserInfo>
           </Info>
         </QuestionTitleBody>
@@ -67,9 +70,9 @@ const QuestionLists = styled.div`
   }
 `;
 const QuestionTitleBody = styled.div``;
-const QuestionTitle = styled.div`
+const QuestionTitle = styled(Link)`
   text-decoration: none;
-  color: #3ca4ff;
+  color: #0074cc;
   font-size: 1.1rem;
   display: block;
   margin-bottom: 5px;
@@ -78,7 +81,7 @@ const QuestionTag = styled.span`
   display: inline-block;
   margin-right: 3px;
   background-color: #e1ecf4;
-  color: #9cc3db;
+  color: #39739d;
   padding: 5px;
   border-radius: 5px;
   font-size: 10px;

@@ -5,9 +5,10 @@ import { Tag } from './Tag';
 import { handleDiscard } from '../util/alertStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 /**
- * Created by @DG
+ * Created by @ldk199662
  * @returns <AskBody>
  */
 function AskCreate() {
@@ -17,7 +18,27 @@ function AskCreate() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [tag, setTag] = useState([]);
   const navigator = useNavigate();
+
+  function sendQuestion(e) {
+    e.preventDefault();
+    axios
+      .post(
+        '/board/posts',
+        {
+          title: title,
+          content: content,
+          tag: tag.map((tag) => tag.id),
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        const { data } = res;
+        alert(data);
+      })
+      .catch((error) => alert(error));
+  }
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -25,6 +46,9 @@ function AskCreate() {
 
   const onChangeContent = (content) => {
     setContent(content);
+  };
+  const onChangeTag = (tag) => {
+    setTag(tag);
   };
 
   const onClickDiscard = () => {
@@ -40,68 +64,70 @@ function AskCreate() {
   };
 
   return (
-    <AskBody className="ask-title">
+    <AskBody>
       <AskTitleH1>Ask a public question</AskTitleH1>
-      <AskTitle className="ask-info">
-        <AskTitleH2>Writing a good question</AskTitleH2>
-        <br />
-        <p>
-          You’re ready to{' '}
-          <a href="https://stackoverflow.com/help/how-to-ask">ask</a> a{' '}
-          <a href="https://stackoverflow.com/help/on-topic">
-            programming-related question
-          </a>{' '}
-          and this form will help guide you through the process.
-        </p>
-        <p>
-          Looking to ask a non-programming question? See{' '}
-          <a href="https://stackexchange.com/sites#technology">
-            the topics here
-          </a>{' '}
-          to find a relevant site.
-        </p>
-        <br />
-        <h5>Steps</h5>
-        <br />
-        <UlContent>
-          <li>Summarize your problem in a one-line title.</li>
-          <li>Describe your problem in more detail.</li>
-          <li>Describe what you tried and what you expected to happen.</li>
-          <li>
-            Add “tags” which help surface your question to members of the
-            community.
-          </li>
-          <li>Review your question and post it to the site.</li>
-        </UlContent>
-      </AskTitle>
-      <TitleContent className="title-content">
-        <h5>Title</h5>
-        <p>
-          Be specific and imagine you’re asking a question to another person.
-        </p>
-        <div className="input-title">
+      <form onSubmit={(e) => sendQuestion(e)}>
+        <AskTitle>
+          <AskTitleH2>Writing a good question</AskTitleH2>
+          <br />
+          <p>
+            You’re ready to{' '}
+            <a href="https://stackoverflow.com/help/how-to-ask">ask</a> a{' '}
+            <a href="https://stackoverflow.com/help/on-topic">
+              programming-related question
+            </a>{' '}
+            and this form will help guide you through the process.
+          </p>
+          <p>
+            Looking to ask a non-programming question? See{' '}
+            <a href="https://stackexchange.com/sites#technology">
+              the topics here
+            </a>{' '}
+            to find a relevant site.
+          </p>
+          <br />
+          <h5>Steps</h5>
+          <br />
+          <UlContent>
+            <li>Summarize your problem in a one-line title.</li>
+            <li>Describe your problem in more detail.</li>
+            <li>Describe what you tried and what you expected to happen.</li>
+            <li>
+              Add “tags” which help surface your question to members of the
+              community.
+            </li>
+            <li>Review your question and post it to the site.</li>
+          </UlContent>
+        </AskTitle>
+        <TitleContent>
+          <h5>Title</h5>
+          <p>
+            Be specific and imagine you’re asking a question to another person.
+          </p>
+          <div className="input-title">
+            <form action="/" method="post">
+              <StyledInput
+                id="title"
+                name="title"
+                type="text"
+                placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+                onChange={onChangeTitle}
+                value={title}
+              />
+            </form>
+          </div>
+        </TitleContent>
+        <AskContent>
+          <h5>What are the details of your problem?</h5>
+          <p>
+            Introduce the problem and expand on what you put in the title.
+            Minimum 20 characters.
+          </p>
           <form action="/" method="post">
-            <StyledInput
-              id="title"
-              name="title"
-              type="text"
-              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-              onChange={onChangeTitle}
-            />
+            <Editor value={content} setValue={onChangeContent} />
           </form>
-        </div>
-      </TitleContent>
-      <AskContent className="ask-content">
-        <h5>What are the details of your problem?</h5>
-        <p>
-          Introduce the problem and expand on what you put in the title. Minimum
-          20 characters.
-        </p>
-        <form action="/" method="post">
-          <Editor value={content} setValue={onChangeContent} />
-        </form>
-      </AskContent>
-      {/* <AskExpect className="ask-expect">
+        </AskContent>
+        {/* <AskExpect className="ask-expect">
         <h5>What did you try and what were you expecting?</h5>
         <p>
           Describe what you tried, what you expected to happen, and what
@@ -109,34 +135,35 @@ function AskCreate() {
         </p>
         <Editor />
       </AskExpect> */}
-      <AskTags className="ask-tags">
-        <h5>Tags</h5>
-        <p>
-          Add up to 5 tags to describe what your question is about. Start typing
-          to see suggestions.
-        </p>
-        <Tag />
-      </AskTags>
-      <Buttons>
-        <SubmitButton
-          className="submit-button"
-          type="button"
-          onClick={onClickSubmit}
-        >
-          Post your question
-        </SubmitButton>
+        <AskTags className="ask-tags">
+          <h5>Tags</h5>
+          <p>
+            Add up to 5 tags to describe what your question is about. Start
+            typing to see suggestions.
+          </p>
+          <Tag onChange={onChangeTag} />
+        </AskTags>
+        <Buttons>
+          <SubmitButton
+            className="submit-button"
+            type="button"
+            onClick={onClickSubmit}
+          >
+            Post your question
+          </SubmitButton>
 
-        <DiscardButton
-          className="dicard-button"
-          type="button"
-          onClick={() => {
-            handleClick();
-            onClickDiscard();
-          }}
-        >
-          Discard draft
-        </DiscardButton>
-      </Buttons>
+          <DiscardButton
+            className="dicard-button"
+            type="button"
+            onClick={() => {
+              handleClick();
+              onClickDiscard();
+            }}
+          >
+            Discard draft
+          </DiscardButton>
+        </Buttons>
+      </form>
     </AskBody>
   );
 }
