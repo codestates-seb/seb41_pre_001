@@ -1,3 +1,5 @@
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import QuestionRow from './QuestionRow';
@@ -13,12 +15,33 @@ function Main() {
     Askbtn('/questionCreate');
   };
 
+  // const [QuestionL, SetQuestionL] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get('board/posts?page=1&size=3', { withCredentials: true })
+  //     .then((res) => {
+  //       const { data } = res;
+  //       SetQuestionL(data);
+  //     })
+  //     .catch((error) => alert(error));
+  // }, []);
+
   return (
     <MainBody>
       <MainTitle>
         <h2>Top Questions</h2>
         <button onClick={() => handleAskBtn()}>Ask Question</button>
       </MainTitle>
+      {/* {QuestionL.map((list) => ( */}
+      <QuestionRow
+      // key={list.id}
+      // id={list.id}
+      // title={list.title}
+      // createdAt={list.createdAt}
+      // tag={list.tag}
+      />
+      {/* ))} */}
       <QuestionRow />
     </MainBody>
   );
@@ -28,7 +51,6 @@ export default Main;
 
 const MainBody = styled.div`
   background-color: #ffffff;
-  margin-left: 250px;
   margin-top: -30px;
   border-left: 1px solid hsl(210deg 8% 90%);
   /* 변경ty margin-left: 250px; */
