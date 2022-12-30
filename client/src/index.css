@@ -24,3 +24,19 @@ a:hover {
 a:active {
   opacity: 60%;
 }
+
+button:link,
+button:visited,
+button:hover,
+button:active,
+button:hover:not(.active) {
+  text-decoration: none;
+}
+
+button:hover {
+  opacity: 80%;
+}
+
+button:active {
+  opacity: 60%;
+}

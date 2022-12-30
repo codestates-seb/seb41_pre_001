@@ -25,7 +25,7 @@ const InputContainer = styled.div`
 
 const Input = styled.input`
   background-color: transparent;
-  width: 700px;
+  width: 300px;
   border: none;
   outline: none;
 `;

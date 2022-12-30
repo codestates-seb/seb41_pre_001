@@ -84,8 +84,6 @@ function Login() {
         }
       )
       .then((response) => {
-        // console.log(response.headers.authorization);
-        // alert(response.status);
         setToken(response.headers.authorization);
         navigate('/');
       })
