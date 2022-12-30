@@ -73,8 +73,8 @@ function Login() {
       .post(
         process.env.REACT_APP_EP_LOGIN,
         {
-          userEmail: userEmail,
-          userPassword: userPassword,
+          username: userEmail,
+          userpassword: userPassword,
         },
         {
           withCredentials: true,
