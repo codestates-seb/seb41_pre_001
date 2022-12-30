@@ -22,6 +22,7 @@ import { handleDonateMe } from '../util/alertStore';
 import { useState } from 'react';
 import { regDisplayName, regEmail } from '../util/regExp';
 import { useNavigate } from 'react-router-dom';
+import { pushDefaultConfig } from '../util/axiosHelper';
 
 const LeftContainer = styled.div`
   width: 470px;
@@ -143,12 +144,6 @@ function Signup() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(
-      process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_SIGNUP
-    );
-    console.log('name: ' + userName);
-    console.log('email: ' + userEmail);
-    console.log('passwd: ' + userPassword);
     axios
       .post(
         process.env.REACT_APP_EP_SIGNUP,
@@ -158,9 +153,7 @@ function Signup() {
           userPassword: userPassword,
           userImageUrl: faker.image.avatar(),
         },
-        {
-          withCredentials: true,
-        }
+        pushDefaultConfig()
       )
       .then((response) => {
         if (response.status === 500) {

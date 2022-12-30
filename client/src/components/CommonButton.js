@@ -34,22 +34,6 @@ const Button = styled.div`
   border: 1px #d6d9dc solid;
   border-radius: 5px;
   margin: 8px 0px;
-
-  :link,
-  :visited,
-  :hover,
-  :active,
-  :hover:not(.active) {
-    text-decoration: none;
-  }
-
-  :hover {
-    opacity: 80%;
-  }
-
-  :active {
-    opacity: 60%;
-  }
 `;
 
 /**

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton, {
   BUTTON_TYPE_FACEBOOK,
@@ -18,6 +18,8 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
+import { setToken } from '../util/tokenHelper';
+import { pushDefaultConfig } from '../util/axiosHelper';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -34,6 +36,8 @@ const LoginContainer = styled.div`
 function Login() {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const email = 'Email';
   const password = 'Password';
@@ -66,9 +70,9 @@ function Login() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_LOGIN);
-    console.log('email: ' + userEmail);
-    console.log('passwd: ' + userPassword);
+    console.log(process.env.REACT_APP_EP_LOGIN);
+    console.log('username: ' + userEmail);
+    console.log('password: ' + userPassword);
     axios
       .post(
         process.env.REACT_APP_EP_LOGIN,
@@ -76,18 +80,30 @@ function Login() {
           username: userEmail,
           password: userPassword,
         },
-        {
-          withCredentials: true,
-        }
+        pushDefaultConfig()
       )
       .then((response) => {
-        const { data } = response;
-        //TODO 로그인 처리
-        alert(response.status);
-        console.log(data);
-        //if(response.headers.)
+        setToken(response.headers.authorization);
+        navigate('/');
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        console.log(error);
+        let errorText;
+        const { message } = error;
+        const code = Number(message.slice(-3));
+        switch (code) {
+          case 401:
+            errorText = 'Wrong Email or Password, check your Email or Password';
+            break;
+          case 404:
+          case 500:
+            errorText = 'Sorry, We have problem for service. contact to us';
+            break;
+          default:
+            errorText = message;
+        }
+        return alert(errorText);
+      });
   };
   return (
     <MainContainer>

@@ -41,9 +41,6 @@ function Temp() {
       })
       .then((response) => {
         const { data } = response;
-        console.log('Temp.js/Temp()/useEffect/data.data: ');
-        console.log(data.data);
-        console.log(`======================================`);
         setPosts(data.data);
       })
       .catch((error) => alert(error));

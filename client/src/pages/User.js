@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton, {
   BUTTON_TYPE_USER_DELETE,
@@ -19,6 +19,7 @@ import {
   RowDiv,
   UserSpan,
 } from '../styles/StyledStore';
+import { pushDefaultWithToken } from '../util/axiosHelper';
 
 const Title = styled.p`
   font-size: 34px;
@@ -66,25 +67,85 @@ const UserButtonDiv = styled(ColumnCenterDiv)`
  * @returns <MainContainer>
  */
 function User() {
+  const [user, setUser] = useState({});
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const [editModalIsOpen, setIsEditModalOpen] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        let errorText;
+        const { message } = error;
+        const code = Number(message.slice(-3));
+        switch (code) {
+          case 401:
+            errorText = 'Wrong Email or Password, check your Email or Password';
+            break;
+          case 404:
+          case 500:
+            errorText = 'Sorry, We have problem for service. contact to us';
+            break;
+          default:
+            errorText = message;
+        }
+        return alert(errorText);
+      });
+  }, []);
+
   const handleDeletePrompt = () => {
     setIsDeleteModalOpen(true);
   };
+
   const handleEditPrompt = () => {
     setIsEditModalOpen(true);
   };
+
   return (
     <MainContainer>
       <Container>
         <RowDiv>
-          <AvatarImg src={faker.image.avatar()} alt="avatar" />
+          <AvatarImg src={user.userImageUrl} alt="avatar" />
           <ColumnCenterDiv>
-            <Title>userID</Title>
+            <Title>
+              {user.userName}({user.userEmail})
+            </Title>
             <UserDescriptionDiv>
-              <UserDetail cont={'Member for 9 days'} />
-              <UserDetail cont={'Last seen this week'} />
-              <UserDetail cont={'Visited 8 days, 1 consecutive'} />
+              <UserDetail
+                cont={`Member for ${Math.floor(Math.random() * 22) + 1} ${
+                  Math.random() < 0.5 ? 'days' : 'years'
+                }`}
+              />
+              <UserDetail
+                cont={`Last seen ${Math.floor(Math.random() * 22) + 1} ${
+                  Math.random() < 0.2
+                    ? 'years'
+                    : Math.random() < 0.4
+                    ? 'months'
+                    : Math.random() < 0.6
+                    ? 'days'
+                    : Math.random() < 0.8
+                    ? 'hours'
+                    : 'minutes'
+                }`}
+              />
+              <UserDetail
+                cont={`Visited ${Math.floor(Math.random() * 22) + 1} ${
+                  Math.random() < 0.2
+                    ? 'years'
+                    : Math.random() < 0.4
+                    ? 'months'
+                    : Math.random() < 0.6
+                    ? 'days'
+                    : Math.random() < 0.8
+                    ? 'hours'
+                    : 'minutes'
+                }`}
+              />
             </UserDescriptionDiv>
           </ColumnCenterDiv>
         </RowDiv>
@@ -104,6 +165,7 @@ function User() {
             cont={'Delete account'}
           />
           <ModalDelete
+            user={user}
             deleteModalIsOpen={deleteModalIsOpen}
             setIsDeleteModalOpen={setIsDeleteModalOpen}
           />

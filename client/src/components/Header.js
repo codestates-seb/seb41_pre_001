@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useRef } from 'react';
 import { ReactComponent as ILogo } from '../asset/logo/logo-stackoverflow.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Twirl as Hamburger } from 'hamburger-react';
 import Line from '../components/Line';
 import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
@@ -9,6 +9,7 @@ import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
 import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
+import { IS_ALIVE, logout } from '../util/tokenHelper';
 
 const HamburgerContainer = styled.div`
   display: ${(props) => (props.isBugerVisible ? 'inline-block' : 'none')};
@@ -44,8 +45,9 @@ const LogoContainer = styled.div`
 `;
 
 const Btn = styled(Link)`
-  width: 60px;
+  height: 35px;
   padding: 6px 8px;
+  margin: 0px 4px;
   background-color: ${(props) => (props.fill ? '#e1ecf4' : '#169aff')};
   color: ${(props) => (props.fill ? '#39739d' : 'white')};
   border: ${(props) => (props.fill ? '#39739d' : '169aff')} solid 1px;
@@ -53,8 +55,15 @@ const Btn = styled(Link)`
   text-align: center;
 `;
 
-const Span = styled.span`
-  padding: 6px 4px;
+const Logout = styled.button`
+  height: 35px;
+  padding: 6px 8px;
+  background-color: #e36049;
+  color: white;
+  border: #39739d solid 1px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 16px;
 `;
 
 /**
@@ -63,9 +72,15 @@ const Span = styled.span`
  * @returns <NavigationContainer>
  */
 function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
+  const ref = useRef(null);
+  const navigate = useNavigate();
   const outCo = 'https://stackoverflow.co/';
   const outCoTe = 'https://stackoverflow.co/teams/';
-  const ref = useRef(null);
+  const handleLogout = () => {
+    //로그아웃 서버에 토큰저장안함.
+    logout();
+    navigate('/login');
+  };
 
   return (
     <NavigationContainer>
@@ -104,22 +119,19 @@ function Header({ isOpen, setOpen, isBugerVisible, setIsBugerVisible }) {
           placeholder={'Search...'}
           type={INPUT_TYPE_SEARCH}
         />
-        <Span>
-          <a href={outCo}>About</a>
-        </Span>
-        <Span>
-          <a href={outCoTe}>For Teams</a>
-        </Span>
-        <Span>
-          <Btn fill="true" to="login">
-            Log in
-          </Btn>
-        </Span>
-        <Span>
-          <Btn to="signup">Sign up</Btn>
-        </Span>
+        <a href={outCo} style={{ margin: '0px 4px' }}>
+          About
+        </a>
+        <a href={outCoTe} style={{ margin: '0px 4px' }}>
+          For Teams
+        </a>
+        <Btn fill="true" to="login">
+          Log in
+        </Btn>
+        <Btn to="signup">Sign up</Btn>
+        {IS_ALIVE() ? <Logout onClick={handleLogout}>Log out</Logout> : ''}
         <button onClick={() => setIsBugerVisible(!isBugerVisible)} />
-        <Link to="temp">aa</Link>
+        <Link to="temp">임시</Link>
       </Navigation>
       <Line grey={'true'} />
     </NavigationContainer>
