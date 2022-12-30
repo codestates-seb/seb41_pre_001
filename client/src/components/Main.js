@@ -42,7 +42,6 @@ function Main() {
       // tag={list.tag}
       />
       {/* ))} */}
-      <QuestionRow />
     </MainBody>
   );
 }

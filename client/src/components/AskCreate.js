@@ -19,6 +19,7 @@ function AskCreate() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tag, setTag] = useState([]);
+
   const navigator = useNavigate();
 
   function sendQuestion(e) {
@@ -34,10 +35,12 @@ function AskCreate() {
         { withCredentials: true }
       )
       .then((res) => {
-        const { data } = res;
-        alert(data);
+        console.log(res.data);
+        navigator('/');
       })
-      .catch((error) => alert(error));
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   const onChangeTitle = (e) => {
@@ -105,16 +108,14 @@ function AskCreate() {
             Be specific and imagine you’re asking a question to another person.
           </p>
           <div className="input-title">
-            <form action="/" method="post">
-              <StyledInput
-                id="title"
-                name="title"
-                type="text"
-                placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-                onChange={onChangeTitle}
-                value={title}
-              />
-            </form>
+            <StyledInput
+              id="title"
+              name="title"
+              type="text"
+              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+              onChange={onChangeTitle}
+              value={title}
+            />
           </div>
         </TitleContent>
         <AskContent>
@@ -123,9 +124,8 @@ function AskCreate() {
             Introduce the problem and expand on what you put in the title.
             Minimum 20 characters.
           </p>
-          <form action="/" method="post">
-            <Editor value={content} setValue={onChangeContent} />
-          </form>
+
+          <Editor value={content} setValue={onChangeContent} />
         </AskContent>
         {/* <AskExpect className="ask-expect">
         <h5>What did you try and what were you expecting?</h5>
