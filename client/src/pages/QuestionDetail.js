@@ -7,6 +7,8 @@ import CommonButton, {
 } from '../components/CommonButton';
 import Sidebar from '../components/Sidebar';
 import { MainContainer } from '../styles/StyledStore';
+import Comment from '../components/Comment';
+import styled from 'styled-components';
 
 const Comments = ({ comments = [] }) => {
   return (
@@ -70,7 +72,7 @@ function QuestionDetail() {
       .catch((error) => alert(error));
   }, []);
   return (
-    <MainContainer>
+    <QuestionDetailBody>
       <div>
         <div>
           <div id="buttons">
@@ -96,11 +98,17 @@ function QuestionDetail() {
             <div>{post.content}</div>
           </div>
           <Comments comments={post.comments} />
+          <Comment />
         </div>
       </div>
+
       <Sidebar />
-    </MainContainer>
+    </QuestionDetailBody>
   );
 }
 
 export default QuestionDetail;
+
+const QuestionDetailBody = styled(MainContainer)`
+  background: #ffffff;
+`;

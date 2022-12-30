@@ -1,36 +1,84 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 function QuestionRow() {
+  const [posts, setPosts] = useState([]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get('/board/posts', {
+        withCredentials: true,
+        params: {
+          page: 1,
+          size: 10,
+        },
+      })
+      .then((response) => {
+        const { data } = response;
+        console.log('Temp.js/Temp()/useEffect/data.data: ');
+        console.log(data.data);
+        console.log(`======================================`);
+        setPosts(data.data);
+      })
+      .catch((error) => alert(error));
+  }, []);
   return (
     <>
-      <MainQuestionList>
-        <QuestionStatus>
-          <QuestionLists>
-            <span>0</span>
-            <span>vote</span>
-          </QuestionLists>
-          <QuestionLists>
-            <span>1</span>
-            <span>answers</span>
-          </QuestionLists>
-          <QuestionLists>
-            <span>6</span>
-            <span>views</span>
-          </QuestionLists>
-        </QuestionStatus>
-        <QuestionTitleBody>
-          <QuestionTitle to={'/questionDetail'}>title</QuestionTitle>
-          <Info>
-            <QuestionTag>
-              {/* {tag.split(',').map((tag) => tag.id)} */}
-            </QuestionTag>
-            <UserInfo>
-              <UserLink>{/* {id} */}</UserLink>
-              <ManAndWhen>{/* asked {createdAt} */}</ManAndWhen>
-            </UserInfo>
-          </Info>
-        </QuestionTitleBody>
-      </MainQuestionList>
+      {posts.length === 0 ? (
+        <div>not empty</div>
+      ) : (
+        posts.map((post) => (
+          <div key={post.id}>
+            <div
+              role="presentation"
+              onClick={() =>
+                navigate('/questionDetail', { state: { post: post } })
+              }
+              onKeyDown={() =>
+                navigate('/questionDetail', { state: { post: post } })
+              }
+            >
+              <MainQuestionList>
+                <QuestionStatus>
+                  <QuestionLists>
+                    <span>{post.likeCount}</span>
+                    <span>like</span>
+                  </QuestionLists>
+                  <QuestionLists>
+                    <span>0</span>
+                    <span>answers</span>
+                  </QuestionLists>
+                  <QuestionLists>
+                    <span>{post.views}</span>
+                    <span>views</span>
+                  </QuestionLists>
+                </QuestionStatus>
+
+                <QuestionTitleBody>
+                  <QuestionTitle>Title: {post.title}</QuestionTitle>
+                  <Info>
+                    <QuestionTag>
+                      {post.tags.length === 0 ? (
+                        <p>No tags</p>
+                      ) : (
+                        <p>data.tags[0]</p>
+                        // <ul>
+                        //   data.tags.map((tag, index) => (<li key={index}>tag</li>))
+                        // </ul>
+                      )}
+                    </QuestionTag>
+                    <UserInfo>
+                      <ManAndWhen>Asked{post.createdAt}</ManAndWhen>
+                    </UserInfo>
+                  </Info>
+                </QuestionTitleBody>
+              </MainQuestionList>
+            </div>
+          </div>
+        ))
+      )}
     </>
   );
 }
@@ -39,7 +87,7 @@ export default QuestionRow;
 
 const MainQuestionList = styled.div`
   position: relative;
-  display: flex;
+  display: grid;
   border-bottom: 1px solid hsl(210, 8%, 90%);
   padding: 16px;
 `;
@@ -47,7 +95,7 @@ const MainQuestionList = styled.div`
 const QuestionStatus = styled.div`
   gap: calc(6px * 1);
   margin-right: calc(16px * 1);
-  margin-bottom: 4px;
+  margin-bottom: -10px;
   width: calc(calc(96px * 1) + calc(12px * 1));
   display: flex;
   flex-direction: column;
@@ -69,23 +117,29 @@ const QuestionLists = styled.div`
     font-size: 13px;
   }
 `;
-const QuestionTitleBody = styled.div``;
-const QuestionTitle = styled(Link)`
+
+const QuestionTitleBody = styled.div`
+  display: block;
+`;
+const QuestionTitle = styled.div`
   text-decoration: none;
+
   color: #0074cc;
   font-size: 1.1rem;
   display: block;
-  margin-bottom: 5px;
+  margin-top: -50px;
+  margin-left: 160px;
 `;
 const QuestionTag = styled.span`
   display: inline-block;
   margin-right: 3px;
   background-color: #e1ecf4;
+  flex-direction: row;
   color: #39739d;
   padding: 5px;
   border-radius: 5px;
   font-size: 10px;
-  margin-top: -10px;
+  margin-left: 160px;
 `;
 const Info = styled.div`
   display: flex;
@@ -94,7 +148,6 @@ const Info = styled.div`
   flex-wrap: wrap;
   column-gap: 400px;
   row-gap: 8px;
-  margin-top: 25px;
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -114,16 +167,7 @@ const ManAndWhen = styled.div`
   gap: 4px;
   margin: 2px;
   font-size: 12px;
+  margin-top: 40px;
   color: hsl(210, 8%, 45%);
   cursor: pointer;
-`;
-const UserLink = styled.div`
-  white-space: nowrap;
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
-  color: hsl(210, 8%, 45%);
-  font-size: 12px;
-  a {
-    color: hsl(210, 8%, 45%);
-  }
 `;
