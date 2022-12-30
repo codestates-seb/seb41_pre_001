@@ -19,6 +19,7 @@ import {
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
 import { setToken } from '../util/tokenHelper';
+import { pushDefaultConfig } from '../util/axiosHelper';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -79,9 +80,7 @@ function Login() {
           username: userEmail,
           password: userPassword,
         },
-        {
-          withCredentials: true,
-        }
+        pushDefaultConfig()
       )
       .then((response) => {
         setToken(response.headers.authorization);
