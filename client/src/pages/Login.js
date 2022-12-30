@@ -66,7 +66,7 @@ function Login() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(process.env.REACT_APP_BASEURL + process.env.REACT_APP_EP_LOGIN);
+    console.log(process.env.REACT_APP_EP_LOGIN);
     console.log('email: ' + userEmail);
     console.log('passwd: ' + userPassword);
     axios
