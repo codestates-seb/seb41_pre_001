@@ -98,6 +98,7 @@ function Login() {
           case 401:
             errorText = 'Wrong Email or Password, check your Email or Password';
             break;
+          case 404:
           case 500:
             errorText = 'Sorry, We have problem for service. contact to us';
             break;
