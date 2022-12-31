@@ -17,6 +17,7 @@ const HamburgerContainer = styled.div`
 
 const NavigationContainer = styled.div`
   position: fixed;
+  z-index: 100;
   width: 100vw;
   background-color: #f8f9f9;
   display: flex;
