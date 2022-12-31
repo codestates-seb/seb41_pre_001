@@ -2,24 +2,53 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { RowDiv } from '../styles/StyledStore';
 import { IS_ALIVE } from '../util/tokenHelper';
 import QuestionRow from './QuestionRow';
 
-const PaginationContainer = styled(RowDiv)`
-  margin: 4px 8px;
-  width: 100%;
-  justify-content: end;
-`;
+// const PaginationContainer = styled(RowDiv)`
+//   margin: 4px 8px;
+//   width: 100%;
+//   justify-content: end;
+// `;
 
-const PaginationButton = styled.button`
-  font-size: 15px;
-  border: 1px solid grey;
-  background-color: transparent;
-  width: 50px;
-  height: 50px;
-  margin: 4px;
-`;
+// const PaginationButton = styled.button`
+//   font-size: 15px;
+//   border: 1px solid grey;
+//   background-color: ${(props) => (props.select ? 'orange' : 'white')};
+//   width: 50px;
+//   height: 50px;
+//   margin: 4px;
+// `;
+
+// const Pagination = ({ page, handleChangePage, data }) => {
+//   let getPages = () => {
+//     const pages = [];
+//     for (let i = 0; i < data.pageInfo.totalPages; i++) {
+//       pages.push(i + 1);
+//     }
+//     return pages;
+//   };
+
+//   return (
+//     <>
+//       <PaginationContainer>
+//         {getPages().map((pageButton, index) =>
+//           pageButton ? (
+//             <PaginationButton
+//               key={index}
+//               select={page === pageButton}
+//               onClick={(e) => handleChangePage(e, pageButton)}
+//             >
+//               {pageButton}
+//             </PaginationButton>
+//           ) : (
+//             ''
+//           )
+//         )}
+//       </PaginationContainer>
+//     </>
+//   );
+// };
 
 /**
  * - Created by @ldk199662
@@ -27,28 +56,36 @@ const PaginationButton = styled.button`
  * @returns <Main>
  */
 function Main() {
-  const [posts, setPosts] = useState([]);
+  const [data, setData] = useState({});
+  // const [page, setPage] = useState(1);
   const navigate = useNavigate();
 
-  const handleAskBtn = () => {
-    navigate('/questionCreate');
-  };
+  const linePageSizeNumber = 20;
+  //페이지가 변경될때
   useEffect(() => {
     axios
       .get('/board/posts', {
         withCredentials: true,
         params: {
           page: 1,
-          size: 10,
+          size: linePageSizeNumber,
         },
       })
       .then((response) => {
         const { data } = response;
-        console.log(data.data);
-        setPosts(data.data);
+        console.log(data);
+        setData(data);
       })
       .catch((error) => alert(error));
   }, []);
+
+  // const handleChangePage = (e, buttonNumber) => {
+  //   setPage(buttonNumber);
+  // };
+
+  const handleAskBtn = () => {
+    navigate('/questionCreate');
+  };
 
   return (
     <MainBody>
@@ -60,14 +97,12 @@ function Main() {
           ''
         )}
       </MainTitle>
-      <QuestionRow posts={posts} />
-      <PaginationContainer>
-        <PaginationButton>1</PaginationButton>
-        <PaginationButton>2</PaginationButton>
-        <PaginationButton>3</PaginationButton>
-        <PaginationButton>4</PaginationButton>
-        <PaginationButton>5</PaginationButton>
-      </PaginationContainer>
+      <QuestionRow posts={data.data} />
+      {/* <Pagination
+        page={page}
+        handleChangePage={handleChangePage}
+        pageInfo={data}
+      /> */}
     </MainBody>
   );
 }
