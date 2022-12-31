@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { pushDefaultWithToken } from '../util/axiosHelper';
-import CommentModule from './CommentModule';
 import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_DELETE,
 } from './CommonButton';
+import Editor from './Editors';
 
 const customStyles = {
   content: {
@@ -28,16 +29,26 @@ const customStyles = {
  * @returns <Modal>
  */
 function ModalCommentEdit({
-  commentDeleteModalIsOpen,
-  setCommentDeleteModalOpen,
+  commentEditModalIsOpen,
+  setCommentEditModalOpen,
   postId,
-  commentId,
+  comment,
   setPost,
 }) {
+  const [cont, setCont] = useState('');
+
+  useEffect(() => {
+    setCont(comment.content);
+  }, []);
+
+  const handleCont = (cont) => {
+    setCont(cont);
+  };
+
   const handleDelete = () => {
     axios
       .delete(
-        `${process.env.REACT_APP_EP_COMMENT_DELETE}/${postId}${process.env.REACT_APP_EP_COMMENT}/${commentId}`,
+        `${process.env.REACT_APP_EP_COMMENT_DELETE}/${postId}${process.env.REACT_APP_EP_COMMENT}/${comment.id}`,
         pushDefaultWithToken()
       )
       .then(() => {
@@ -67,17 +78,17 @@ function ModalCommentEdit({
   };
 
   const closeModal = () => {
-    setCommentDeleteModalOpen(false);
+    setCommentEditModalOpen(false);
   };
   return (
     <Modal
-      isOpen={commentDeleteModalIsOpen}
+      isOpen={commentEditModalIsOpen}
       onRequestClose={closeModal}
       style={customStyles}
       contentLabel="Delete Comment"
     >
       <h2>Edit Comment</h2>
-      <CommentModule />
+      <Editor value={cont} setValue={handleCont} />
       <CommonButton
         buttonType={BUTTON_TYPE_USER_DELETE}
         onClick={handleDelete}

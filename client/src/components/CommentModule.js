@@ -34,6 +34,8 @@ function CommentModule({
   handleCommentDelete,
   commentDeleteModalIsOpen,
   setCommentDeleteModalOpen,
+  commentEditModalIsOpen,
+  setCommentEditModalOpen,
 }) {
   const [comment, setComment] = useState('');
 
@@ -100,7 +102,13 @@ function CommentModule({
                   cont={'Edit'}
                   onClick={handleCommentDelete}
                 />
-                <ModalCommentEdit ssss />
+                <ModalCommentEdit
+                  commentEditModalIsOpen={commentEditModalIsOpen}
+                  setCommentEditModalOpen={setCommentEditModalOpen}
+                  postId={postId}
+                  comment={comment}
+                  setPost={setPost}
+                />
                 <CommonButton
                   buttonType={BUTTON_TYPE_USER_DELETE}
                   cont={'Delete'}

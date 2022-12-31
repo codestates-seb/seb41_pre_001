@@ -43,6 +43,7 @@ function QuestionDetail() {
   const [post, setPost] = useState({});
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const [commentDeleteModalIsOpen, setCommentDeleteModalOpen] = useState(false);
+  const [commentEditModalIsOpen, setCommentEditModalOpen] = useState(false);
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -136,6 +137,8 @@ function QuestionDetail() {
                 handleCommentDelete={handleCommentDelete}
                 commentDeleteModalIsOpen={commentDeleteModalIsOpen}
                 setCommentDeleteModalOpen={setCommentDeleteModalOpen}
+                commentEditModalIsOpen={commentEditModalIsOpen}
+                setCommentEditModalOpen={setCommentEditModalOpen}
               />
             </div>
           ) : (
