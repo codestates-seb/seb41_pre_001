@@ -131,7 +131,6 @@ function AskCreate() {
           Introduce the problem and expand on what you put in the title. Minimum
           20 characters.
         </p>
-
         <Editor value={content} setValue={onChangeContent} />
       </AskContent>
       {/* <AskExpect className="ask-expect">

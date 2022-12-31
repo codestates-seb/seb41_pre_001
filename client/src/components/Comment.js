@@ -2,6 +2,9 @@ import Editor from './Editors';
 import styled from 'styled-components';
 import { RowDiv } from '../styles/StyledStore';
 import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { pushDefaultWithToken } from '../util/axiosHelper';
 
 /* 
   "comments": [
@@ -22,8 +25,43 @@ import { useState } from 'react';
 function Comment({ comments = [] }) {
   const [comment, setComment] = useState('');
 
+  const navigate = useNavigate();
+
   const handleComment = (comment) => {
     setComment(comment);
+  };
+
+  const onClickSubmit = async () => {
+    if (comment.length < 10) {
+      alert('내용을 최소 10글자 이상 적어주세요');
+      return false;
+    }
+
+    axios
+      .post(
+        process.env.REACT_APP_EP_POSTS_CREATE,
+        {
+          content: comment,
+        },
+        pushDefaultWithToken()
+      )
+      .then(() => {
+        navigate('/questionDetail');
+      })
+      .catch((error) => {
+        console.log(error);
+        let errorText;
+        const { message } = error;
+        const code = Number(message.slice(-3));
+        switch (code) {
+          case 401:
+          case 404:
+          case 500:
+          default:
+            errorText = message;
+        }
+        return alert(errorText);
+      });
   };
 
   return (
@@ -74,7 +112,13 @@ function Comment({ comments = [] }) {
         </p>
       </CommetHelp>
       <Buttons>
-        <PostButton>Post Your Answer</PostButton>
+        <PostButton
+          className="submit-button"
+          type="button"
+          onClick={onClickSubmit}
+        >
+          Post Your Answer
+        </PostButton>
       </Buttons>
       <CommentLast>
         <p>

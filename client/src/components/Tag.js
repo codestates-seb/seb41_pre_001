@@ -62,6 +62,7 @@ export const TagsInput = styled.div`
     margin-top: 7px;
     background-color: #e1ecf4;
     border-radius: 3px;
+    margin-top: 2px;
     > .tag {
       width: auto;
       height: 32px;
@@ -92,7 +93,7 @@ export const TagsInput = styled.div`
   > input {
     flex: 1;
     border: none;
-    height: 46px;
+    height: 35px;
     font-size: 14px;
     padding: 4px 0 0 0;
     :focus {
@@ -101,6 +102,8 @@ export const TagsInput = styled.div`
   }
 
   &:focus-within {
-    border: 1px solid var(--coz-purple-600);
+    border-color: #aedafc;
+    box-shadow: 0 0 0 4px hsla(206, 100%, 40%, 0.15);
+    outline: 0;
   }
 `;
