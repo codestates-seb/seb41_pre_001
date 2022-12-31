@@ -131,7 +131,7 @@ public class LikesService {
 
 
     public void increaseCommentLikes(Likes likes, Long commentId, Long postId, String userEmail, int likeCheck) {
-
+        Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
@@ -140,9 +140,10 @@ public class LikesService {
 
         switch (likeCheck) {
             case 0 -> {
+                likes.setPost(findPost);
                 likes.setComment(findComment);
-                likes.setLikeCheck(1);
                 likes.setMember(findMember);
+                likes.setLikeCheck(1);
                 likes.setCount(likes.getCount());
                 findComment.setLikeCount(count + 1);
                 likesRepository.save(likes);
@@ -173,17 +174,20 @@ public class LikesService {
 
     //  댓글 비추천 기능
     public void decreaseCommentLikes(Likes likes, Long commentId, Long postId, int likeCheck, String userEmail) {
+        Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
         int count = findComment.getLikeCount();
+
         Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
         Likes findLike = optionalLikes.orElse(likes);
 
         switch (likeCheck) {
             case 0 -> {
+                likes.setPost(findPost);
                 likes.setComment(findComment);
-                likes.setLikeCheck(2);
                 likes.setMember(findMember);
+                likes.setLikeCheck(2);
                 likes.setCount(likes.getCount());
                 findComment.setLikeCount(count - 1);
                 likesRepository.save(likes);

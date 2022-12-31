@@ -121,4 +121,12 @@ public class MemberService {
 
         memberRepository.save(findMember);
     }
+    public Member findMemberByMemberEmail(String memberEmail) {
+        return findMemberEmail(memberEmail);
+    }
+
+    private Member findMemberEmail(String memberEmail) {
+        Optional<Member> optionalMember = memberRepository.findByUserEmail(memberEmail);
+        return optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
 }

@@ -88,4 +88,18 @@ public class MemberController {
                 =====================""");
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping
+    public ResponseEntity getCurrentMember(@AuthenticationPrincipal String memberEmail) {
+        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
+        MemberGetDto memberGetDto = memberMapper.MemberToMemberGetResponseDto(findMember);
+
+        log.info("""
+                
+                =====================
+                ## 멤버 정보 전달
+                =====================
+                
+                """);
+        return new ResponseEntity<>(memberMapper.MemberGetDtoResponse(memberGetDto), HttpStatus.OK);
+    }
 }
