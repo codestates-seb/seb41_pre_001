@@ -32,6 +32,7 @@ function CommentModule({
   comments = [],
   setPost,
   handleCommentDelete,
+  handleCommentEdit,
   commentDeleteModalIsOpen,
   setCommentDeleteModalOpen,
   commentEditModalIsOpen,
@@ -100,7 +101,7 @@ function CommentModule({
                 <CommonButton
                   buttonType={BUTTON_TYPE_USER_EDIT}
                   cont={'Edit'}
-                  onClick={handleCommentDelete}
+                  onClick={handleCommentEdit}
                 />
                 <ModalCommentEdit
                   commentEditModalIsOpen={commentEditModalIsOpen}

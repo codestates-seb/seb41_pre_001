@@ -75,6 +75,7 @@ function User() {
     axios
       .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
       .then((response) => {
+        console.log(response.data);
         setUser(response.data);
       })
       .catch((error) => {

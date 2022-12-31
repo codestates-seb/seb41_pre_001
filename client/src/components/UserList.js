@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { UserSpan } from '../styles/StyledStore';
 
-const Item = styled.li``;
+const Item = styled.li`
+  height: 10px;
+`;
 
 const ListContainer = styled.div`
   padding: 8px 0px;
@@ -14,6 +16,7 @@ export const TITLE_TYPE_TAGS = 3;
 const List = styled.ul`
   border: 1px solid #babfc4;
   border-radius: 5px;
+  height: 200px;
 `;
 
 const ListTitle = styled.p`
@@ -48,20 +51,23 @@ const UserList = ({ titleType = -1, conts = [] }) => {
     default:
       return false;
   }
+
   return (
     <ListContainer>
       <ListTitle>{typeValue.title}</ListTitle>
       <List>
         {conts.length === 0 ? (
-          <Item>
-            <UserSpan>
-              You have not {typeValue.verb} any {typeValue.noun}
-            </UserSpan>
-          </Item>
+          <UserSpan>
+            You have not {typeValue.verb} any {typeValue.noun}
+          </UserSpan>
         ) : (
           conts.map((cont, index) => {
             <Item key={index}>
-              <UserSpan>{cont}</UserSpan>
+              {titleType === TITLE_TYPE_TAGS ? (
+                <div>{cont}</div>
+              ) : (
+                <div>| {cont} |</div>
+              )}
             </Item>;
           })
         )}

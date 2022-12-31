@@ -10,8 +10,7 @@ import { MainContainer, RowDiv } from '../styles/StyledStore';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
 import ModalPostDelete from '../components/ModalPostDelete';
-import { IoIosArrowUp } from 'react-icons/io';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import CommentModule from '../components/CommentModule';
 
 const Tags = ({ tags = [] }) => {
@@ -55,6 +54,7 @@ function QuestionDetail() {
       })
       .then((response) => {
         const { data } = response;
+        console.log(response);
         setPost(data);
       })
       .catch((error) => alert(error));
@@ -66,6 +66,10 @@ function QuestionDetail() {
 
   const handleEdit = () => {
     navigate('/questionEdit', { state: { post: post } });
+  };
+
+  const handleCommentEdit = () => {
+    setCommentEditModalOpen(!commentEditModalIsOpen);
   };
 
   const handleCommentDelete = () => {
@@ -135,6 +139,7 @@ function QuestionDetail() {
                 comments={post.comments}
                 setPost={setPost}
                 handleCommentDelete={handleCommentDelete}
+                handleCommentEdit={handleCommentEdit}
                 commentDeleteModalIsOpen={commentDeleteModalIsOpen}
                 setCommentDeleteModalOpen={setCommentDeleteModalOpen}
                 commentEditModalIsOpen={commentEditModalIsOpen}
