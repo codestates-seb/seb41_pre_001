@@ -1,6 +1,11 @@
+import { faker } from '@faker-js/faker';
+import axios from 'axios';
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { ColumnDiv } from '../styles/StyledStore';
+import { pushDefaultWithToken } from '../util/axiosHelper';
+import { regDisplayName } from '../util/regExp';
+import { IS_ALIVE } from '../util/tokenHelper';
 import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_EDIT,
@@ -27,8 +32,8 @@ const customStyles = {
  * @param { editModalIsOpen, setIsEditModalOpen }
  * @returns <Modal>
  */
-function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
-  const [name, setName] = useState('');
+function ModalEdit({ editModalIsOpen, setIsEditModalOpen, user }) {
+  const [userName, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
@@ -42,26 +47,86 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
     setName(e.target.value);
   };
 
-  const handleEmail = (e) => {
+  const handlePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleEmailConfirm = (e) => {
+  const handlePasswordConfirm = (e) => {
     setPasswordConfirm(e.target.value);
   };
 
   const handleEdit = () => {
-    if (name.length === 0 || password.length === 0 || passwordConfirm === 0) {
+    if (
+      userName.length === 0 ||
+      password.length === 0 ||
+      passwordConfirm === 0
+    ) {
       alert('empty is not allowed');
+      return false;
+    }
+    if (userName.length === 0) {
+      alert('DisplayName is empty');
+      return false;
+    }
+    if (userName.length < 3 || userName.length > 20) {
+      alert('DisplayName is over 4 letters, under 20 letters');
+      return false;
+    }
+    if (!regDisplayName.test(userName)) {
+      alert('DisplayName is allowed by English or number');
       return false;
     }
     if (password !== passwordConfirm) {
       alert('password is not matched');
       return false;
     }
-    alert(`'이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.
-
-    영국에서 HGXWCH이라는 사람은 1930년에 이 편지를 받았습니다. 그는 비서에게 복사해서 보내라고 했습니다. 며칠 뒤에 복권이 당첨되어 20억을 받았습니다. 어떤 이는 이 편지를 받았으나 96시간 이내 자신의 손에서 떠나야 한다는 사실을 잊었습니다. 그는 곧 사직되었습니다. 나중에야 이 사실을 알고 7통의 편지를 보냈는데 다시 좋은 직장을 얻었습니다. 미국의 케네디 대통령은 이 편지를 받았지만 그냥 버렸습니다. 결국 9일 후 그는 암살당했습니다. 기억해 주세요. 이 편지를 보내면 7년의 행운이 있을 것이고 그렇지 않으면 3년의 불행이 있을 것입니다. 그리고 이 편지를 버리거나 낙서를 해서는 절대로 안됩니다. 7통입니다. 이 편지를 받은 사람은 행운이 깃들것입니다. 힘들겠지만 좋은게 좋다고 생각하세요. 7년의 행운을 빌면서...'`);
+    //TODO 비밀번호 검증
+    // if (!regPassword.test(userPassword)) {
+    //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
+    //   return false;
+    // }
+    //TODO 비밀번호 확인 검증
+    // if (!regPassword.test(userPassword)) {
+    //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
+    //   return false;
+    // }
+    console.log(user);
+    console.log(userName);
+    console.log(passwordConfirm);
+    console.log(faker.image.avatar());
+    console.log(IS_ALIVE());
+    axios
+      .patch(
+        `${process.env.REACT_APP_EP_USER_EDIT}/${user.id}`,
+        {
+          userName: userName,
+          userPassword: passwordConfirm,
+          userImageUrl: faker.image.avatar(),
+        },
+        pushDefaultWithToken()
+      )
+      .then((response) => {
+        //TODO 성공처리
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        // let errorText;
+        // const { message } = error;
+        // const code = Number(message.slice(-3));
+        // switch (code) {
+        //   case 401:
+        //     errorText = 'Wrong Email or Password, check your Email or Password';
+        //     break;
+        //   case 404:
+        //   case 500:
+        //     errorText = 'Sorry, We have problem for service. contact to us';
+        //     break;
+        //   default:
+        //     errorText = message;
+        // }
+        return alert(error);
+      });
     closeModal();
   };
 
@@ -81,18 +146,22 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen }) {
       <h2 /*  ref={(_subtitle) => (subtitle = _subtitle)} */>Edit Account</h2>
       <div>Account edit</div>
       <ColumnDiv>
-        <LabelInput label={'Display Name'} value={name} onChange={handleName} />
+        <LabelInput
+          label={'Display Name'}
+          value={userName}
+          onChange={handleName}
+        />
         <LabelInput
           label={'Password'}
           value={password}
           type={'password'}
-          onChange={handleEmail}
+          onChange={handlePassword}
         />
         <LabelInput
           label={'Password Confirm'}
           value={passwordConfirm}
           type={'password'}
-          onChange={handleEmailConfirm}
+          onChange={handlePasswordConfirm}
         />
       </ColumnDiv>
       <CommonButton

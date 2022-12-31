@@ -156,6 +156,7 @@ function User() {
             cont={'Edit profile'}
           />
           <ModalEdit
+            user={user}
             editModalIsOpen={editModalIsOpen}
             setIsEditModalOpen={setIsEditModalOpen}
           />

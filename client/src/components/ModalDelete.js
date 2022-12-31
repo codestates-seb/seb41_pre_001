@@ -87,7 +87,6 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
           }
           return alert(errorText);
         });
-      closeModal();
     } else {
       alert(`Please input "${verifyPoint}"`);
     }
