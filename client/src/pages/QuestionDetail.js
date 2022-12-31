@@ -109,8 +109,9 @@ function QuestionDetail() {
           </div>
           <Tags tags={post.tags} />
           <div id="title">
-            <strong>TITLE:</strong> {post.title}
+            <strong>TITLE</strong>
           </div>
+          <div>{post.title}</div>
           <div id="cont">
             <div>
               <strong>CONTENT</strong>

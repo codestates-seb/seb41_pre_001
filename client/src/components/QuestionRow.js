@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { RowDiv } from '../styles/StyledStore';
 /**
  * Created by @ldk199662
+ * Modified by @KimTank
  * @returns <QuestionRow>
  */
 
@@ -38,18 +40,18 @@ function QuestionRow({ posts = [] }) {
                     <span>views</span>
                   </QuestionLists>
                 </QuestionStatus>
-
                 <QuestionTitleBody>
-                  <QuestionTitle>Title: {post.title}</QuestionTitle>
+                  <QuestionTitle>{post.title}</QuestionTitle>
                   <Info>
                     <QuestionTag>
                       {post.tags.length === 0 ? (
                         <p>No tags</p>
                       ) : (
-                        <p>data.tags[0]</p>
-                        // <ul>
-                        //   data.tags.map((tag, index) => (<li key={index}>tag</li>))
-                        // </ul>
+                        <RowDiv>
+                          {post.tags.map((tag, index) => (
+                            <li key={index}>{tag}</li>
+                          ))}
+                        </RowDiv>
                       )}
                     </QuestionTag>
                     <UserInfo>

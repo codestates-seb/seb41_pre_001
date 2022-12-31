@@ -5,7 +5,7 @@
   margin: 0;
 }
 
-ul {
+ul, div {
   list-style: none;
 }
 
