@@ -23,9 +23,6 @@ public class Post {
     private Long id;
 
     @Column(nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
     private String Title;
 
     @Column(nullable = false)

@@ -30,7 +30,6 @@ public class CommentService {
         Member findMember = findVerifiedMember(memberEmail);
         Post findPost = findVerifiedPost(postId);
 
-        comment.setUserName(findMember.getUserName());
         comment.setPost(findPost);
         comment.setMember(findMember);
 
