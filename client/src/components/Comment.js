@@ -1,50 +1,50 @@
 import Editor from './Editors';
 import styled from 'styled-components';
+import { RowDiv } from '../styles/StyledStore';
 import { useState } from 'react';
-import { IS_ALIVE } from '../util/tokenHelper';
+
+/* 
+  "comments": [
+    {
+      "id": 1,
+      "createdAt": "2022-12-28T17:35:22.259912",
+      "likes": [],
+      "content": " 댓글 내용입니다 ",
+      "likeCount": 0
+    },
+*/
 
 /**
  * Created by @ldk199662
+ * Modified by @KimTank
  * @returns <Comment>
  */
-function Comment() {
-  // const [content, setContent] = useState({
-  //   content: '',
-  // });
-  const [viewContent, setViewContent] = useState([]);
-  console.log(setViewContent);
+function Comment({ comments = [] }) {
+  const [comment, setComment] = useState('');
 
-  // const onChangeContent = (content) => {
-  //   setContent(content);
-  //   console.log(content);
-  // };
-
-  const [movieContent, setMovieContent] = useState({
-    content: '',
-  });
+  const handleComment = (comment) => {
+    setComment(comment);
+  };
 
   return (
     <CommentBody>
       <CommentArea>
-        {viewContent.map((element) => (
-          <div key="id">{element.content}</div>
+        {comments.map((comment) => (
+          <CommentItem key={comment.id}>
+            <RowDiv>
+              <div>like: {comment.likeCount} | </div>
+              <button>like |</button>
+              <button>unlike |</button>
+            </RowDiv>
+            <div>{comment.content}</div>
+          </CommentItem>
         ))}
       </CommentArea>
       <CommentTiTle>
         <h2>Your Answer</h2>
       </CommentTiTle>
       <div>
-        <Editor
-          value={movieContent}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log({ event, editor, data });
-            setMovieContent({
-              ...movieContent,
-              content: data,
-            });
-          }}
-        />
+        <Editor value={comment} setValue={handleComment} />
       </div>
       <CommetHelp>
         <p>Thanks for contributing an answer to Stack Overflow!</p>
@@ -73,13 +73,9 @@ function Comment() {
           .
         </p>
       </CommetHelp>
-      {IS_ALIVE() ? (
-        <Buttons>
-          <PostButton>Post Your Answer</PostButton>
-        </Buttons>
-      ) : (
-        ''
-      )}
+      <Buttons>
+        <PostButton>Post Your Answer</PostButton>
+      </Buttons>
       <CommentLast>
         <p>
           Not the answer you&apos;re looking for? Browse other questions tagged{' '}
@@ -103,9 +99,14 @@ const CommentBody = styled.div`
   background-color: #ffffff;
   margin-left: 20px;
 `;
-const CommentArea = styled.div`
+const CommentArea = styled.ul`
   padding: 30px;
   margin: 30px;
+`;
+
+const CommentItem = styled.li`
+  border: 1px solid grey;
+  margin: 4px;
 `;
 
 const CommentTiTle = styled.div`

@@ -119,7 +119,7 @@ function QuestionDetail() {
             <div>{post.content}</div>
           </div>
           <Comments comments={post.comments} />
-          <Comment />
+          {IS_ALIVE() ? <Comment /> : ''}
         </div>
       </QuestionDetails>
 
