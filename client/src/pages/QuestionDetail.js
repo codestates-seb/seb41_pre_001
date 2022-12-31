@@ -9,6 +9,7 @@ import Sidebar from '../components/Sidebar';
 import { MainContainer } from '../styles/StyledStore';
 import Comment from '../components/Comment';
 import styled from 'styled-components';
+import { IS_ALIVE } from '../util/tokenHelper';
 
 const Comments = ({ comments = [] }) => {
   return (
@@ -75,13 +76,21 @@ function QuestionDetail() {
     <QuestionDetailBody>
       <QuestionDetails>
         <div>
-          <div id="buttons">
-            <CommonButton buttonType={BUTTON_TYPE_USER_EDIT} cont="Edit post" />
-            <CommonButton
-              buttonType={BUTTON_TYPE_USER_DELETE}
-              cont="Delete post"
-            />
-          </div>
+          {/* TODO user정보접속 -> 게시물정보접속 -> userid동일할때 뷰가 보여야됨*/}
+          {IS_ALIVE() ? (
+            <div id="buttons">
+              <CommonButton
+                buttonType={BUTTON_TYPE_USER_EDIT}
+                cont="Edit post"
+              />
+              <CommonButton
+                buttonType={BUTTON_TYPE_USER_DELETE}
+                cont="Delete post"
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <div id="etcs">
             <div>{post.createdAt}</div>
             <div>LIKES: {post.likeCount}</div>

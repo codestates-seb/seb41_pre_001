@@ -2,6 +2,7 @@
 // import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { IS_ALIVE } from '../util/tokenHelper';
 import QuestionRow from './QuestionRow';
 
 /**
@@ -31,7 +32,11 @@ function Main() {
     <MainBody>
       <MainTitle>
         <h2>Top Questions</h2>
-        <button onClick={() => handleAskBtn()}>Ask Question</button>
+        {IS_ALIVE() ? (
+          <button onClick={() => handleAskBtn()}>Ask Question</button>
+        ) : (
+          ''
+        )}
       </MainTitle>
       {/* {QuestionL.map((list) => ( */}
       <QuestionRow

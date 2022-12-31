@@ -15,8 +15,6 @@ import ExploreCollectives from './pages/ExploreCollectives';
 import QuestionCreate from './pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
 import ReactModal from 'react-modal';
-import QuestionList from './pages/QuestionList';
-import Temp from './pages/Temp';
 
 const BodyContainer = styled.div`
   padding-top: 53px;
@@ -34,7 +32,7 @@ const AppContainer = styled.div`
 
 function App() {
   const [isOpen, setOpen] = useState(false);
-  const [isBugerVisible, setIsBugerVisible] = useState(true);
+  const [isBugerVisible] = useState(true);
 
   // useEffect(() => , [isOpen]);
 
@@ -44,13 +42,10 @@ function App() {
         isOpen={isOpen}
         setOpen={setOpen}
         isBugerVisible={isBugerVisible}
-        setIsBugerVisible={setIsBugerVisible}
       />
       <BodyContainer>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="questions" element={<QuestionList />} />
-          <Route path="temp" element={<Temp />} />
           <Route path="questionDetail" element={<QuestionDetail />} />
           <Route path="main" element={<main />} />
           <Route path="tags" element={<Tags />} />
