@@ -1,38 +1,19 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 /**
  * Created by @ldk199662
  * @returns <QuestionRow>
  */
-function QuestionRow() {
-  const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get('/board/posts', {
-        withCredentials: true,
-        params: {
-          page: 1,
-          size: 10,
-        },
-      })
-      .then((response) => {
-        const { data } = response;
-        console.log(data.data);
-        setPosts(data.data);
-      })
-      .catch((error) => alert(error));
-  }, []);
+function QuestionRow({ posts = [] }) {
+  const navigate = useNavigate();
   return (
-    <>
+    <ul>
       {posts.length === 0 ? (
-        <div>not empty</div>
+        <div>Posts are empty</div>
       ) : (
         posts.map((post) => (
-          <div key={post.id}>
+          <li key={post.id}>
             <div
               role="presentation"
               onClick={() =>
@@ -78,10 +59,10 @@ function QuestionRow() {
                 </QuestionTitleBody>
               </MainQuestionList>
             </div>
-          </div>
+          </li>
         ))
       )}
-    </>
+    </ul>
   );
 }
 

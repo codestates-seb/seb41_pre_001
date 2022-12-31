@@ -1,32 +1,54 @@
-// import axios from 'axios';
-// import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { RowDiv } from '../styles/StyledStore';
 import { IS_ALIVE } from '../util/tokenHelper';
 import QuestionRow from './QuestionRow';
 
+const PaginationContainer = styled(RowDiv)`
+  margin: 4px 8px;
+  width: 100%;
+  justify-content: end;
+`;
+
+const PaginationButton = styled.button`
+  font-size: 15px;
+  border: 1px solid grey;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  margin: 4px;
+`;
+
 /**
- * Created by @ldk199662
+ * - Created by @ldk199662
+ * - Modified by @KimTank 221231
  * @returns <Main>
  */
 function Main() {
-  const Askbtn = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const handleAskBtn = () => {
-    Askbtn('/questionCreate');
+    navigate('/questionCreate');
   };
-
-  // const [QuestionL, SetQuestionL] = useState([]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('board/posts?page=1&size=3', { withCredentials: true })
-  //     .then((res) => {
-  //       const { data } = res;
-  //       SetQuestionL(data);
-  //     })
-  //     .catch((error) => alert(error));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('/board/posts', {
+        withCredentials: true,
+        params: {
+          page: 1,
+          size: 10,
+        },
+      })
+      .then((response) => {
+        const { data } = response;
+        console.log(data.data);
+        setPosts(data.data);
+      })
+      .catch((error) => alert(error));
+  }, []);
 
   return (
     <MainBody>
@@ -38,15 +60,14 @@ function Main() {
           ''
         )}
       </MainTitle>
-      {/* {QuestionL.map((list) => ( */}
-      <QuestionRow
-      // key={list.id}
-      // id={list.id}
-      // title={list.title}
-      // createdAt={list.createdAt}
-      // tag={list.tag}
-      />
-      {/* ))} */}
+      <QuestionRow posts={posts} />
+      <PaginationContainer>
+        <PaginationButton>1</PaginationButton>
+        <PaginationButton>2</PaginationButton>
+        <PaginationButton>3</PaginationButton>
+        <PaginationButton>4</PaginationButton>
+        <PaginationButton>5</PaginationButton>
+      </PaginationContainer>
     </MainBody>
   );
 }
