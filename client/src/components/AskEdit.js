@@ -2,22 +2,35 @@ import styled from 'styled-components';
 import Editor from './Editors';
 import StyledInput from './StyledInput';
 import { Tag } from './Tag';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+
+/*
+  "title": "질문글 제목입니다 ",
+  "content": " 질문글 내용입니다 ",
+  "createdAt": "2022-12-28T17:35:16.59537"
+*/
 
 /**
  * Created by @ldk199662
  * Modified by @KimTank
  * @returns <AskCreate>
  */
-function AskEdit() {
+function AskEdit({ post }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(post);
+    setTitle(post.title);
+    setContent(post.content);
+    setTags(post.tags);
+  }, []);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -46,8 +59,8 @@ function AskEdit() {
     }
 
     axios
-      .post(
-        process.env.REACT_APP_EP_POSTS_CREATE,
+      .patch(
+        `${process.env.REACT_APP_EP_POSTS_EDIT}/${post.id}`,
         {
           title: title,
           content: content,
@@ -56,7 +69,7 @@ function AskEdit() {
         pushDefaultWithToken()
       )
       .then(() => {
-        navigate('/');
+        navigate(-1);
       })
       .catch((error) => {
         console.log(error);
