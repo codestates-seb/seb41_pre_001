@@ -34,6 +34,8 @@ const Button = styled.div`
   border: 1px #d6d9dc solid;
   border-radius: 5px;
   margin: 8px 0px;
+  width: 80px;
+  border-radius: 3px;
 `;
 
 /**
