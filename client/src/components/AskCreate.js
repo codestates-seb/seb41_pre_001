@@ -24,27 +24,6 @@ function AskCreate() {
 
   const navigater = useNavigate();
 
-  function sendQuestion(e) {
-    e.preventDefault();
-    axios
-      .post(
-        '/board/posts',
-        {
-          title: title,
-          content: content,
-          tag: tags.map((tag) => tag.id),
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res.data);
-        navigator('/');
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  }
-
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -103,7 +82,7 @@ function AskCreate() {
   return (
     <AskBody>
       <AskTitleH1>Ask a public question</AskTitleH1>
-      <form onSubmit={(e) => sendQuestion(e)}>
+      <form>
         <AskTitle>
           <AskTitleH2>Writing a good question</AskTitleH2>
           <br />
