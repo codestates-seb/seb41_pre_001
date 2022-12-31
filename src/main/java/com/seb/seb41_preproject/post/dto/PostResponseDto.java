@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class PostResponseDto {
     private long id;
-    private String userName;
     private String title;
     private String content;
     private List<String> tags;
