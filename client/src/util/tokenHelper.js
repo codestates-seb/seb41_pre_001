@@ -2,6 +2,7 @@
  * 토큰 key
  */
 const ACCESS_TOKEN = 'accessToken';
+const USER = 'USER';
 
 /**
  * 토큰불러오기
@@ -20,10 +21,16 @@ export const setToken = (accessToken) =>
 /**
  * 토큰날리기
  */
-export const logout = () => localStorage.removeItem(ACCESS_TOKEN);
+export const logout = () => {
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(USER);
+};
 
 /**
  * 토큰유효여부
  * @returns boolean
  */
 export const IS_ALIVE = () => !!getToken();
+
+export const getUser = () => localStorage.getItem(USER);
+export const setUser = (user) => localStorage.setItem(USER, user);

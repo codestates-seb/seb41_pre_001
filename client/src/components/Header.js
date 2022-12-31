@@ -9,7 +9,7 @@ import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
 import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
-import { IS_ALIVE, logout } from '../util/tokenHelper';
+import { getUser, IS_ALIVE, logout } from '../util/tokenHelper';
 import { RowDiv } from '../styles/StyledStore';
 
 const HamburgerContainer = styled.div`
@@ -80,7 +80,9 @@ function Header({ isOpen, setOpen, isBugerVisible }) {
   const outCoTe = 'https://stackoverflow.co/teams/';
   const handleLogout = () => {
     //로그아웃 서버에 토큰저장안함.
+    console.log(`Header log out before: ${getUser()}`);
     logout();
+    console.log(`Header log out after: ${getUser()}`);
     navigate('/login');
   };
 

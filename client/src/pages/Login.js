@@ -18,8 +18,8 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
-import { setToken } from '../util/tokenHelper';
-import { pushDefaultConfig } from '../util/axiosHelper';
+import { setToken, setUser } from '../util/tokenHelper';
+import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -84,7 +84,29 @@ function Login() {
       )
       .then((response) => {
         setToken(response.headers.authorization);
-        navigate('/');
+        console.log(11111);
+        axios
+          .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
+          .then((response) => {
+            console.log(22222222222);
+            console.log(response.data);
+            setUser(response.data);
+            navigate('/');
+          })
+          .catch((error) => {
+            console.log(error);
+            let errorText;
+            const { message } = error;
+            const code = Number(message.slice(-3));
+            switch (code) {
+              case 401:
+              case 404:
+              case 500:
+              default:
+                errorText = message;
+            }
+            return alert(errorText);
+          });
       })
       .catch((error) => {
         console.log(error);
