@@ -33,7 +33,7 @@ function Main() {
         setData(data);
       })
       .catch((error) => alert(error));
-  }, []);
+  }, [state]);
 
   const handlePageChange = (buttonNumber) => {
     setState({ activePage: buttonNumber });

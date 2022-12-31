@@ -6,10 +6,11 @@ import CommonButton, {
   BUTTON_TYPE_USER_EDIT,
 } from '../components/CommonButton';
 import Sidebar from '../components/Sidebar';
-import { MainContainer } from '../styles/StyledStore';
+import { MainContainer, RowDiv } from '../styles/StyledStore';
 import Comment from '../components/Comment';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
+import ModalPostDelete from '../components/ModalPostDelete';
 
 const Comments = ({ comments = [] }) => {
   return (
@@ -39,11 +40,11 @@ const Tags = ({ tags = [] }) => {
         {tags.length === 0 ? (
           <span>No tags</span>
         ) : (
-          <ul>
+          <RowDiv>
             {tags.map((tag, index) => (
               <li key={index}>{tag}</li>
             ))}
-          </ul>
+          </RowDiv>
         )}
       </div>
     </div>
@@ -57,6 +58,7 @@ const Tags = ({ tags = [] }) => {
  */
 function QuestionDetail() {
   const [post, setPost] = useState({});
+  const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const { state } = useLocation();
 
   useEffect(() => {
@@ -67,11 +69,14 @@ function QuestionDetail() {
       .then((response) => {
         const { data } = response;
         setPost(data);
-        console.log(`========================`);
-        console.log(data.tags);
       })
       .catch((error) => alert(error));
   }, []);
+
+  const handleDelete = () => {
+    setIsDeleteModalOpen(!deleteModalIsOpen);
+  };
+
   return (
     <QuestionDetailBody>
       <QuestionDetails>
@@ -86,6 +91,12 @@ function QuestionDetail() {
               <CommonButton
                 buttonType={BUTTON_TYPE_USER_DELETE}
                 cont="Delete post"
+                onClick={handleDelete}
+              />
+              <ModalPostDelete
+                deleteModalIsOpen={deleteModalIsOpen}
+                setIsDeleteModalOpen={setIsDeleteModalOpen}
+                post={post}
               />
             </div>
           ) : (

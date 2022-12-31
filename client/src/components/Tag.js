@@ -1,14 +1,10 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 /**
  * Created by @ldk199662
  * @returns <Tag>
  */
-export const Tag = () => {
-  const initialTags = [];
-
-  const [tags, setTags] = useState(initialTags);
+export const Tag = ({ tags, setTags }) => {
   const removeTags = (indexToRemove) => {
     let filterd = tags.filter((el, index) => index !== indexToRemove);
     setTags(filterd);

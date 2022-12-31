@@ -1,8 +1,11 @@
-import Sidebar from '../components/Sidebar';
+import AskCreate from '../components/AskCreate';
+
+import AskCreateScripts from '../components/AskCreateScripts';
+
 import { MainContainer } from '../styles/StyledStore';
 
 /**
- * # QuestionEdit
+ * # QuestionCreate
  *
  * ## init
  *
@@ -14,15 +17,16 @@ import { MainContainer } from '../styles/StyledStore';
  *
  * ## description
  *
- * 질문 수정
+ * - 질문 리스트
+ * - nested route(중첩 라우트로 목록눌렀을 때 상세로 이동)
  *
- * @returns QuestionEdit
+ * @returns QuestionCreate
  */
 function QuestionEdit() {
   return (
     <MainContainer>
-      <div>질문 수정</div>
-      <Sidebar />
+      <AskCreate />
+      <AskCreateScripts />
     </MainContainer>
   );
 }

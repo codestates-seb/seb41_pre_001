@@ -6,6 +6,7 @@ import { handleDiscard } from '../util/alertStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { pushDefaultWithToken } from '../util/axiosHelper';
 
 /**
  * Created by @ldk199662
@@ -18,9 +19,9 @@ function AskCreate() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [tag, setTag] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  const navigator = useNavigate();
+  const navigater = useNavigate();
 
   function sendQuestion(e) {
     e.preventDefault();
@@ -30,7 +31,7 @@ function AskCreate() {
         {
           title: title,
           content: content,
-          tag: tag.map((tag) => tag.id),
+          tag: tags.map((tag) => tag.id),
         },
         { withCredentials: true }
       )
@@ -51,7 +52,7 @@ function AskCreate() {
     setContent(content);
   };
   const onChangeTag = (tag) => {
-    setTag(tag);
+    setTags(tag);
   };
 
   const onClickDiscard = () => {
@@ -61,9 +62,41 @@ function AskCreate() {
   const onClickSubmit = async () => {
     if (title.length < 10) {
       alert('제목을 최소 10글자 이상 적어주세요');
-    } else if (content.length < 20) {
-      alert('내용을 최소 20글자 이상 적어주세요');
+      return false;
     }
+
+    if (content.length < 20) {
+      alert('내용을 최소 20글자 이상 적어주세요');
+      return false;
+    }
+
+    axios
+      .post(
+        process.env.REACT_APP_EP_POSTS_CREATE,
+        {
+          title: title,
+          content: content,
+          tag: tags.toString(),
+        },
+        pushDefaultWithToken()
+      )
+      .then(() => {
+        navigater('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        let errorText;
+        const { message } = error;
+        const code = Number(message.slice(-3));
+        switch (code) {
+          case 401:
+          case 404:
+          case 500:
+          default:
+            errorText = message;
+        }
+        return alert(errorText);
+      });
   };
 
   return (
@@ -141,7 +174,7 @@ function AskCreate() {
             Add up to 5 tags to describe what your question is about. Start
             typing to see suggestions.
           </p>
-          <Tag onChange={onChangeTag} />
+          <Tag tags={tags} setTags={setTags} onChange={onChangeTag} />
         </AskTags>
         <Buttons>
           <SubmitButton
