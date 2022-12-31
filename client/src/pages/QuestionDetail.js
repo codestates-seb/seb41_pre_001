@@ -87,6 +87,8 @@ function QuestionDetail() {
             <div>| {post.createdAt} |</div>
             <div>| LIKES: {post.likeCount} |</div>
             <div>| VIEWS: {post.views} |</div>
+            <button>| LIEK |</button>
+            <button>| UNLKIED |</button>
           </RowDiv>
           <Tags tags={post.tags} />
           <div id="title">

@@ -33,8 +33,8 @@ function Comment({ comments = [] }) {
           <CommentItem key={comment.id}>
             <RowDiv>
               <div>like: {comment.likeCount} | </div>
-              <button>like |</button>
-              <button>unlike |</button>
+              <button>| like |</button>
+              <button>| unlike |</button>
             </RowDiv>
             <div>{comment.content}</div>
           </CommentItem>
