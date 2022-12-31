@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
+/**
+ * Created by @ldk199662
+ * @returns <Tag>
+ */
 export const Tag = () => {
   const initialTags = [];
 

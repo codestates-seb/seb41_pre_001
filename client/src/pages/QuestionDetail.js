@@ -73,7 +73,7 @@ function QuestionDetail() {
   }, []);
   return (
     <QuestionDetailBody>
-      <div>
+      <QuestionDetails>
         <div>
           <div id="buttons">
             <CommonButton buttonType={BUTTON_TYPE_USER_EDIT} cont="Edit post" />
@@ -100,7 +100,7 @@ function QuestionDetail() {
           <Comments comments={post.comments} />
           <Comment />
         </div>
-      </div>
+      </QuestionDetails>
 
       <Sidebar />
     </QuestionDetailBody>
@@ -111,4 +111,7 @@ export default QuestionDetail;
 
 const QuestionDetailBody = styled(MainContainer)`
   background: #ffffff;
+`;
+const QuestionDetails = styled.div`
+  border-left: 1px solid hsl(210deg 8% 90%);
 `;

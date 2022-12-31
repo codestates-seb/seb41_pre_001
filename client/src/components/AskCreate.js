@@ -9,7 +9,7 @@ import axios from 'axios';
 
 /**
  * Created by @ldk199662
- * @returns <AskBody>
+ * @returns <AskCreate>
  */
 function AskCreate() {
   const handleClick = () => {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 /**
- * Created by @DG
+ * Created by @ldk199662
  * @returns <AskCreateScript>
  */
 function AskCreateScripts() {

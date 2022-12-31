@@ -1,20 +1,49 @@
 import Editor from './Editors';
 import styled from 'styled-components';
 import { useState } from 'react';
-function Comment() {
-  const [content, setContent] = useState('');
 
-  const onChangeContent = (content) => {
-    setContent(content);
-  };
+/**
+ * Created by @ldk199662
+ * @returns <Comment>
+ */
+function Comment() {
+  // const [content, setContent] = useState({
+  //   content: '',
+  // });
+  const [viewContent, setViewContent] = useState([]);
+  console.log(setViewContent);
+
+  // const onChangeContent = (content) => {
+  //   setContent(content);
+  //   console.log(content);
+  // };
+
+  const [movieContent, setMovieContent] = useState({
+    content: '',
+  });
 
   return (
     <CommentBody>
+      <CommentArea>
+        {viewContent.map((element) => (
+          <div key="id">{element.content}</div>
+        ))}
+      </CommentArea>
       <CommentTiTle>
         <h2>Your Answer</h2>
       </CommentTiTle>
       <div>
-        <Editor value={content} setValue={onChangeContent} />
+        <Editor
+          value={movieContent}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            console.log({ event, editor, data });
+            setMovieContent({
+              ...movieContent,
+              content: data,
+            });
+          }}
+        />
       </div>
       <CommetHelp>
         <p>Thanks for contributing an answer to Stack Overflow!</p>
@@ -67,6 +96,11 @@ export default Comment;
 
 const CommentBody = styled.div`
   background-color: #ffffff;
+  margin-left: 20px;
+`;
+const CommentArea = styled.div`
+  padding: 30px;
+  margin: 30px;
 `;
 
 const CommentTiTle = styled.div`
@@ -106,7 +140,7 @@ const Buttons = styled.div`
   display: flex;
 `;
 
-const PostButton = styled.div`
+const PostButton = styled.button`
   background-color: hsl(206deg 100% 52%);
   border-radius: 3px;
   border: none;
