@@ -11,6 +11,8 @@ import Comment from '../components/Comment';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
 import ModalPostDelete from '../components/ModalPostDelete';
+import { IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowDown } from 'react-icons/io';
 
 const Tags = ({ tags = [] }) => {
   return (
@@ -61,19 +63,49 @@ function QuestionDetail() {
   return (
     <QuestionDetailBody>
       <QuestionDetails>
+        <QuestionDetailTitle id="title">
+          <strong>TITLE</strong>
+          <div>{post.title}</div>
+          <QuestionDetailStatus>
+            <div>Asked {post.createdAt} </div>
+            <div>Likes {post.likeCount}</div>
+            <div>Viewed {post.views}</div>
+          </QuestionDetailStatus>
+        </QuestionDetailTitle>
         <div>
+          <QuestionDetailBox>
+            <QuestionDetailLikebtn>
+              <button>
+                <IoIosArrowUp size={40} />
+              </button>
+              <button>
+                <IoIosArrowDown size={40} />
+              </button>
+            </QuestionDetailLikebtn>
+            <QuestionDetailContent id="cont">
+              <div>
+                <strong>CONTENT</strong>
+              </div>
+              <div>{post.content}</div>
+              <QuestionDetailTag>
+                <Tags tags={post.tags} />
+              </QuestionDetailTag>
+            </QuestionDetailContent>
+          </QuestionDetailBox>
           {/* TODO user정보접속 -> 게시물정보접속 -> userid동일할때 뷰가 보여야됨*/}
           {IS_ALIVE() ? (
             <div id="buttons">
-              <CommonButton
-                buttonType={BUTTON_TYPE_USER_EDIT}
-                cont="Edit post"
-              />
-              <CommonButton
-                buttonType={BUTTON_TYPE_USER_DELETE}
-                cont="Delete post"
-                onClick={handleDelete}
-              />
+              <EditDeleteBtn>
+                <CommonButton
+                  buttonType={BUTTON_TYPE_USER_EDIT}
+                  cont="Edit post"
+                />
+                <CommonButton
+                  buttonType={BUTTON_TYPE_USER_DELETE}
+                  cont="Delete post"
+                  onClick={handleDelete}
+                />
+              </EditDeleteBtn>
               <ModalPostDelete
                 deleteModalIsOpen={deleteModalIsOpen}
                 setIsDeleteModalOpen={setIsDeleteModalOpen}
@@ -83,24 +115,6 @@ function QuestionDetail() {
           ) : (
             ''
           )}
-          <RowDiv id="etcs">
-            <div>| {post.createdAt} |</div>
-            <div>| LIKES: {post.likeCount} |</div>
-            <div>| VIEWS: {post.views} |</div>
-            <button>| LIEK |</button>
-            <button>| UNLKIED |</button>
-          </RowDiv>
-          <Tags tags={post.tags} />
-          <div id="title">
-            <strong>TITLE</strong>
-          </div>
-          <div>{post.title}</div>
-          <div id="cont">
-            <div>
-              <strong>CONTENT</strong>
-            </div>
-            <div>{post.content}</div>
-          </div>
           {IS_ALIVE() ? <Comment comments={post.comments} /> : ''}
         </div>
       </QuestionDetails>
@@ -117,4 +131,47 @@ const QuestionDetailBody = styled(MainContainer)`
 `;
 const QuestionDetails = styled.div`
   border-left: 1px solid hsl(210deg 8% 90%);
+  margin-top: -30px;
+`;
+const QuestionDetailTitle = styled.div`
+  padding: 30px;
+  border-bottom: 1px solid hsl(210deg 8% 90%);
+`;
+const QuestionDetailStatus = styled.div`
+  display: flex;
+  padding: 10px 0px;
+  margin-bottom: -20px;
+  color: hsl(210, 8%, 5%);
+  gap: 0.3em;
+  align-items: center;
+  white-space: nowrap;
+  > div {
+    font-weight: 400;
+    font-size: 13px;
+  }
+`;
+const QuestionDetailBox = styled.div`
+  display: flex;
+`;
+const QuestionDetailContent = styled.div`
+  padding: 70px;
+  margin-left: -70px;
+  width: 100%;
+`;
+const QuestionDetailTag = styled.div`
+  padding: 70px 0px; ;
+`;
+const QuestionDetailLikebtn = styled.div`
+  padding: 30px;
+  display: grid;
+  font-size: 40px;
+  margin-bottom: 60px;
+  > button {
+    background-color: #ffffff;
+    border: none;
+  }
+`;
+const EditDeleteBtn = styled.div`
+  display: flex;
+  margin-left: 30px;
 `;
