@@ -45,14 +45,25 @@ public class MemberDto {
     @Setter
     @NoArgsConstructor
     public static class MemberGetDto {
+
         private Long id;
         private String userName;
         private String userEmail;
         private String userImageUrl;
         private MemberStatus memberStatus;
-        private List<Post> posts = new ArrayList<>();
-        private List<Comment> comments = new ArrayList<>();
-        private List<Likes> likes = new ArrayList<>();
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class MemberPostResponseDto{
+
+        private Long id;
+        private String userName;
+        private String userEmail;
+        private String userImageUrl;
+        private MemberStatus memberStatus;
         private List<String> roles = new ArrayList<>();
+
     }
 }

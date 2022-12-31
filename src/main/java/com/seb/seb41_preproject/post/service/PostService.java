@@ -66,6 +66,7 @@ public class PostService {
         findPost.setTag(Arrays.stream(findPost.getTag().toLowerCase().replaceAll(" ", "").split(","))
                 .distinct()
                 .collect(Collectors.joining(", ")));
+
         //List tag 생성 (처음 리스트를 만들때 new로 만든게 아니라 수정하려면 오류가 나므로 새로 생성해서 저장)
         findPost.setTags(new ArrayList<>(Arrays.asList(findPost.getTag().split(", "))));
 

@@ -32,6 +32,7 @@ public class Comment {
 
     @Column
     private int LikeCount;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -46,18 +47,4 @@ public class Comment {
     @JoinColumn(name="POST_ID")
     private Post post;
 
-    public void setPost(Post post) {
-        if (this.post != null) {
-            this.post.getComments().remove(this);
-        }
-        this.post = post;
-        post.getComments().add(this);
-    }
-    public void setMember(Member member) {
-        if (this.member != null) {
-            this.member.getComments().remove(this);
-        }
-        this.member = member;
-        member.getComments().add(this);
-    }
 }

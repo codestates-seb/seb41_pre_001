@@ -3,8 +3,7 @@ spring:
     console:
       path: /h2
       enabled: true
-  profiles:
-    include: jwt
+
   datasource:
     url: jdbc:h2:tcp://localhost/~/PreProject
     username: sa
@@ -13,11 +12,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
+    show_sql: true
     properties:
       hibernate:
         format_sql: true
-        show_sql: true
+
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
@@ -27,4 +26,4 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-        transaction: DEBUG
+

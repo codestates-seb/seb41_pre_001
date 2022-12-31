@@ -21,4 +21,4 @@ logging:
           jpa: DEBUG
         transaction: DEBUG
 server:
-  port: 8080
+  port: 8881

@@ -1,9 +1,11 @@
 package com.seb.seb41_preproject.post.controller;
 
-import com.seb.seb41_preproject.post.dto.BoardResponseDto;
-import com.seb.seb41_preproject.post.dto.PostAllDto;
-import com.seb.seb41_preproject.post.dto.PostDto;
-import com.seb.seb41_preproject.post.dto.PostPatchDto;
+import com.seb.seb41_preproject.dto.MultiResponseDto;
+import com.seb.seb41_preproject.member.dto.MemberDto;
+import com.seb.seb41_preproject.member.entity.Member;
+import com.seb.seb41_preproject.member.mapper.MemberMapper;
+import com.seb.seb41_preproject.member.service.MemberService;
+import com.seb.seb41_preproject.post.dto.*;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.mapper.PostMapper;
 import com.seb.seb41_preproject.post.page.PageInfo;
@@ -13,10 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.seb.seb41_preproject.member.dto.MemberDto.*;
 
 @RestController
 @RequestMapping("/board/posts")
@@ -24,22 +29,36 @@ import java.util.stream.Collectors;
 public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
+    private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
-    public PostController(PostService postService, PostMapper postMapper) {
+    public PostController(PostService postService, PostMapper postMapper, MemberService memberService, MemberMapper memberMapper) {
         this.postService = postService;
         this.postMapper = postMapper;
+        this.memberService = memberService;
+        this.memberMapper = memberMapper;
     }
 
     @PostMapping
-    public ResponseEntity postPost(@RequestBody PostDto postDto) {
+    public ResponseEntity postPost(@RequestBody PostDto postDto,
+                                   @AuthenticationPrincipal String memberEmail) {
+
         Post response = postService.createPost(postMapper.postDtoToPost(postDto));
+        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
+
+        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(findMember);
+        Member member = memberMapper.MemberPostResponseDtoToMember(memberPostResponseDto);
 
         log.info("""
                                 
                 =====================
                 ## 게시물 작성 완료
-                =====================""");
-        return new ResponseEntity(postMapper.postToPostResponseDto(response), HttpStatus.CREATED);
+                =====================
+                
+                """);
+
+        return new ResponseEntity(
+                new MultiResponseDto(postMapper.postToPostResponseDto(response),member), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post_id}")

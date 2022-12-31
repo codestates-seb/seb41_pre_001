@@ -23,6 +23,9 @@ public class Likes {
     private int LikeCheck;
 
     @Column
+    private int CommentLikeCheck;
+
+    @Column
     private int Count;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

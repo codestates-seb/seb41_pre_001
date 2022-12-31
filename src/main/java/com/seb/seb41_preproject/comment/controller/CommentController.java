@@ -1,9 +1,13 @@
 package com.seb.seb41_preproject.comment.controller;
 
-import com.seb.seb41_preproject.comment.dto.CommentDto;
 import com.seb.seb41_preproject.comment.entity.Comment;
 import com.seb.seb41_preproject.comment.mapper.CommentMapper;
 import com.seb.seb41_preproject.comment.service.CommentService;
+import com.seb.seb41_preproject.dto.MultiResponseDto;
+import com.seb.seb41_preproject.member.dto.MemberDto.MemberPostResponseDto;
+import com.seb.seb41_preproject.member.entity.Member;
+import com.seb.seb41_preproject.member.mapper.MemberMapper;
+import com.seb.seb41_preproject.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +25,14 @@ public class CommentController {
 
     private final CommentService commentService;
     private final CommentMapper commentMapper;
+    private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
-    public CommentController(CommentService commentService, CommentMapper commentMapper) {
+    public CommentController(CommentService commentService, CommentMapper commentMapper, MemberService memberService, MemberMapper memberMapper) {
         this.commentService = commentService;
         this.commentMapper = commentMapper;
+        this.memberService = memberService;
+        this.memberMapper = memberMapper;
     }
 
     @PostMapping
@@ -34,6 +42,12 @@ public class CommentController {
 
         Comment comment = commentMapper.CommentPostDtoToComment(commentPostDto);
         Comment response = commentService.CreateComment(comment, post_id,memberEmail);
+
+        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
+        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(findMember);
+        Member member = memberMapper.MemberPostResponseDtoToMember(memberPostResponseDto);
+
+
         log.info("""
                 
                 =====================
@@ -42,7 +56,8 @@ public class CommentController {
                 
                 """);
 
-        return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new MultiResponseDto(commentMapper.CommentToCommentResponseDto(response), member), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{comment_id}")

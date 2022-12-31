@@ -33,13 +33,23 @@ public class LikesService {
         this.memberRepository = memberRepository;
     }
 
-    public int getLikeCheck(Likes likes, Long postId, String userEmail) {
+    public int getLikeCheck(Long postId, String userEmail) {
 
-        Post findPost = findVerifiedPost(postId);
         Member findMember = findVerifyMember(userEmail);
         Long memberId = findMember.getId();
 
         Optional<Integer> likeCheck = likesRepository.findLikeCheck(postId, memberId);
+
+        if (likeCheck.isEmpty()) {
+            return 0;
+        }
+        return likeCheck.get();
+    }
+    public int getCommentLikeCheck(Long postId, String userEmail, Long commentId) {
+
+        Member findMember = findVerifyMember(userEmail);
+        Long memberId = findMember.getId();
+        Optional<Integer> likeCheck = likesRepository.findCommentLikeCheck(postId, memberId,commentId);
 
         if (likeCheck.isEmpty()) {
             return 0;
@@ -63,8 +73,8 @@ public class LikesService {
         switch (likeCheck) {
             case 0 -> {
                 likes.setPost(findPost);
-                likes.setLikeCheck(1);
                 likes.setMember(findMember);
+                likes.setLikeCheck(4);
                 likes.setCount(likes.getCount());
                 findPost.setLikeCount(count + 1);
                 likesRepository.save(likes);
@@ -75,15 +85,21 @@ public class LikesService {
                 findPost.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
-            case 3, 4 -> {
-                findLike.setLikeCheck(1);
+            case 3 -> {
+                findLike.setLikeCheck(4);
                 findLike.setCount(findLike.getCount() + 1);
                 findPost.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
             case 1 -> {
+                findLike.setCount(findLike.getCount() + 1);
+                findLike.setLikeCheck(4);
+                findPost.setLikeCount(count + 1);
+                likesRepository.save(findLike);
+            }
+            case 4 -> {
+                findLike.setLikeCheck(3);
                 findLike.setCount(findLike.getCount() - 1);
-                findLike.setLikeCheck(2);
                 findPost.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
@@ -94,8 +110,8 @@ public class LikesService {
 
         Post findPost = findVerifiedPost(postId);
         Member findMember = findVerifyMember(userEmail);
-        int count = findPost.getLikeCount();
         Long memberId = findMember.getId();
+        int count = findPost.getLikeCount();
         Optional<Likes> optionalLikes = likesRepository.existsLikes(postId, memberId);
         Likes findLike = optionalLikes.orElse(likes);
 
@@ -109,20 +125,26 @@ public class LikesService {
                 likesRepository.save(likes);
             }
             case 1 -> {
-                findLike.setLikeCheck(3);
+                findLike.setLikeCheck(2);
                 findLike.setCount(findLike.getCount() - 1);
                 findPost.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
             case 3 -> {
                 findLike.setCount(findLike.getCount() - 1);
-                findLike.setLikeCheck(4);
+                findLike.setLikeCheck(2);
                 findPost.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
-            case 4, 2 -> {
-                findLike.setCount(findLike.getCount() + 1);
+            case 4 -> {
+                findLike.setCount(findLike.getCount() - 1);
                 findLike.setLikeCheck(3);
+                findPost.setLikeCount(count - 1);
+                likesRepository.save(findLike);
+            }
+            case 2 -> {
+                findLike.setCount(findLike.getCount() + 1);
+                findLike.setLikeCheck(1);
                 findPost.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
@@ -131,11 +153,14 @@ public class LikesService {
 
 
     public void increaseCommentLikes(Likes likes, Long commentId, Long postId, String userEmail, int likeCheck) {
+
         Post findPost = findVerifiedPost(postId);
-        Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
+        Long memberId = findMember.getId();
+        Comment findComment = findVerifiedComment(commentId);
         int count = findComment.getLikeCount();
-        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
+
+        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId,memberId);
         Likes findLike = optionalLikes.orElse(likes);
 
         switch (likeCheck) {
@@ -143,26 +168,36 @@ public class LikesService {
                 likes.setPost(findPost);
                 likes.setComment(findComment);
                 likes.setMember(findMember);
-                likes.setLikeCheck(1);
+                likes.setCommentLikeCheck(4);
                 likes.setCount(likes.getCount());
                 findComment.setLikeCount(count + 1);
                 likesRepository.save(likes);
             }
             case 2 -> {
                 findLike.setCount(findLike.getCount() + 1);
-                findLike.setLikeCheck(1);
+                findLike.setComment(findComment);
+                findLike.setCommentLikeCheck(1);
                 findComment.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
-            case 3, 4 -> {
-                findLike.setLikeCheck(1);
+            case 3 -> {
+                findLike.setCommentLikeCheck(4);
+                findLike.setComment(findComment);
                 findLike.setCount(findLike.getCount() + 1);
                 findComment.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
             case 1 -> {
+                findLike.setCount(findLike.getCount() + 1);
+                findLike.setCommentLikeCheck(4);
+                findLike.setComment(findComment);
+                findComment.setLikeCount(count + 1);
+                likesRepository.save(findLike);
+            }
+            case 4 -> {
+                findLike.setCommentLikeCheck(3);
+                findLike.setComment(findComment);
                 findLike.setCount(findLike.getCount() - 1);
-                findLike.setLikeCheck(2);
                 findComment.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
@@ -177,40 +212,52 @@ public class LikesService {
         Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(commentId);
         Member findMember = findVerifyMember(userEmail);
+        Long memberId = findMember.getId();
         int count = findComment.getLikeCount();
 
-        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId);
+        Optional<Likes> optionalLikes = likesRepository.existCommentLikes(postId,commentId,memberId);
         Likes findLike = optionalLikes.orElse(likes);
 
         switch (likeCheck) {
             case 0 -> {
                 likes.setPost(findPost);
-                likes.setComment(findComment);
+                likes.setCommentLikeCheck(2);
                 likes.setMember(findMember);
-                likes.setLikeCheck(2);
+                findLike.setComment(findComment);
                 likes.setCount(likes.getCount());
                 findComment.setLikeCount(count - 1);
                 likesRepository.save(likes);
             }
             case 1 -> {
-                findLike.setLikeCheck(3);
+                findLike.setCommentLikeCheck(2);
+                findLike.setComment(findComment);
                 findLike.setCount(findLike.getCount() - 1);
                 findComment.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
             case 3 -> {
                 findLike.setCount(findLike.getCount() - 1);
-                findLike.setLikeCheck(4);
+                findLike.setCommentLikeCheck(2);
+                findLike.setComment(findComment);
                 findComment.setLikeCount(count - 1);
                 likesRepository.save(findLike);
             }
-            case 4, 2 -> {
+            case 4 -> {
+                findLike.setCount(findLike.getCount() - 1);
+                findLike.setCommentLikeCheck(3);
+                findLike.setComment(findComment);
+                findComment.setLikeCount(count - 1);
+                likesRepository.save(findLike);
+            }
+            case 2 -> {
                 findLike.setCount(findLike.getCount() + 1);
-                findLike.setLikeCheck(3);
+                findLike.setCommentLikeCheck(1);
+                findLike.setComment(findComment);
                 findComment.setLikeCount(count + 1);
                 likesRepository.save(findLike);
             }
         }
+
     }
 
 

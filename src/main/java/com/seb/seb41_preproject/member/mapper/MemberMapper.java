@@ -18,4 +18,8 @@ public interface MemberMapper {
     Member MemberGetDtoResponse(MemberGetDto memberGetDto);
 
     Member MemberToMemberResponseDto(Member member);
+
+    MemberPostResponseDto MemberToMemberPostResponseDto(Member member);
+
+    Member MemberPostResponseDtoToMember(MemberPostResponseDto MemberPostResponseDto);
 }
