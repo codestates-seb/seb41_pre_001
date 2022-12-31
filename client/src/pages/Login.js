@@ -84,7 +84,6 @@ function Login() {
       )
       .then((response) => {
         setToken(response.headers.authorization);
-        console.log(11111);
         axios
           .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
           .then((response) => {
