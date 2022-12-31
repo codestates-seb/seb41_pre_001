@@ -40,6 +40,7 @@ const Tags = ({ tags = [] }) => {
 function QuestionDetail() {
   const [post, setPost] = useState({});
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
+  const [commentDeleteModalIsOpen, setCommentDeleteModalOpen] = useState(false);
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -62,6 +63,10 @@ function QuestionDetail() {
 
   const handleEdit = () => {
     navigate('/questionEdit', { state: { post: post } });
+  };
+
+  const handleCommentDelete = () => {
+    setCommentDeleteModalOpen(!commentDeleteModalIsOpen);
   };
 
   return (
@@ -109,7 +114,16 @@ function QuestionDetail() {
             <div>{post.content}</div>
           </div>
           {IS_ALIVE() ? (
-            <CommentModule postId={post.id} comments={post.comments} />
+            <div>
+              <CommentModule
+                postId={post.id}
+                comments={post.comments}
+                setPost={setPost}
+                handleCommentDelete={handleCommentDelete}
+                commentDeleteModalIsOpen={commentDeleteModalIsOpen}
+                setCommentDeleteModalOpen={setCommentDeleteModalOpen}
+              />
+            </div>
           ) : (
             ''
           )}

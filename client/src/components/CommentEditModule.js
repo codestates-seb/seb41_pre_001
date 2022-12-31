@@ -27,13 +27,12 @@ import ModalCommentEdit from './ModalCommentEdit';
  * Modified by @KimTank
  * @returns <Comment>
  */
-function CommentModule({
+function CommentEditModule({
   postId,
-  comments = [],
+  comment,
   setPost,
-  handleCommentDelete,
-  commentDeleteModalIsOpen,
-  setCommentDeleteModalOpen,
+  commentEditModalIsOpen,
+  setCommentEditModalOpen,
 }) {
   const [comment, setComment] = useState('');
 
@@ -85,100 +84,23 @@ function CommentModule({
 
   return (
     <CommentBody>
-      <CommentArea>
-        {comments.length === 0 ? (
-          <div>No comment</div>
-        ) : (
-          comments.map((comment) => (
-            <CommentItem key={comment.id}>
-              <RowDiv>
-                <div>like: {comment.likeCount} | </div>
-                <button>| like |</button>
-                <button>| unlike |</button>
-                <CommonButton
-                  buttonType={BUTTON_TYPE_USER_EDIT}
-                  cont={'Edit'}
-                  onClick={handleCommentDelete}
-                />
-                <ModalCommentEdit ssss />
-                <CommonButton
-                  buttonType={BUTTON_TYPE_USER_DELETE}
-                  cont={'Delete'}
-                  onClick={handleCommentDelete}
-                />
-                <ModalCommentDelete
-                  commentDeleteModalIsOpen={commentDeleteModalIsOpen}
-                  setCommentDeleteModalOpen={setCommentDeleteModalOpen}
-                  postId={postId}
-                  commentId={comment.id}
-                  setPost={setPost}
-                />
-              </RowDiv>
-              <div>{comment.content}</div>
-            </CommentItem>
-          ))
-        )}
-      </CommentArea>
-      <CommentTiTle>
-        <h2>Your Answer</h2>
-      </CommentTiTle>
       <div>
         <Editor value={comment} setValue={handleComment} />
       </div>
-      <CommentHelp>
-        <p>Thanks for contributing an answer to Stack Overflow!</p>
-        <ul>
-          <li>
-            Please be sure to answer the question. Provide details and share
-            your research!
-          </li>
-          <p>
-            But <em>avoid</em>
-            ...
-          </p>
-          <li>
-            Asking for help, clarification, or responding to other answers.
-          </li>
-          <li>
-            Making statements based on opinion; back them up with references or
-            personal experience.
-          </li>
-        </ul>
-        <p>
-          To learn more, see our{' '}
-          <a href="https://stackoverflow.com/help/how-to-answer">
-            tips on writing great answers
-          </a>
-          .
-        </p>
-      </CommentHelp>
       <Buttons>
         <PostButton
           className="submit-button"
           type="button"
           onClick={onClickSubmit}
         >
-          Post Your Answer
+          Edit Your Answer
         </PostButton>
       </Buttons>
-      <CommentLast>
-        <p>
-          Not the answer you&apos;re looking for? Browse other questions tagged{' '}
-          <CommentLastBox href="https://stackoverflow.com/questions/tagged/shopware6">
-            shopware6
-          </CommentLastBox>{' '}
-          or{' '}
-          <a href="https://stackoverflow.com/questions/ask">
-            ask your own question
-          </a>
-          .
-        </p>
-      </CommentLast>
     </CommentBody>
   );
 }
 
-export default CommentModule;
+export default CommentEditModule;
 
 const CommentBody = styled.div`
   background-color: #ffffff;
