@@ -1,6 +1,7 @@
-import AskEdit from '../components/AskCreate';
+import { useLocation } from 'react-router';
+import AskEdit from '../components/AskEdit';
 
-import AskEditScripts from '../components/AskCreateScripts';
+import AskEditScripts from '../components/AskEditScripts';
 
 import { MainContainer } from '../styles/StyledStore';
 
@@ -23,9 +24,11 @@ import { MainContainer } from '../styles/StyledStore';
  * @returns QuestionCreate
  */
 function QuestionEdit() {
+  const location = useLocation();
+
   return (
     <MainContainer>
-      <AskEdit />
+      <AskEdit post={location.state.post} />
       <AskEditScripts />
     </MainContainer>
   );

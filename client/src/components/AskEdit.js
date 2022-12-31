@@ -3,7 +3,7 @@ import Editor from './Editors';
 import StyledInput from './StyledInput';
 import { Tag } from './Tag';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
 
@@ -18,21 +18,18 @@ import { pushDefaultWithToken } from '../util/axiosHelper';
  * Modified by @KimTank
  * @returns <AskCreate>
  */
-function AskEdit() {
+function AskEdit({ post }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const post = location.state.post;
-  console.log('====================================');
-  console.log(post);
 
   useEffect(() => {
+    console.log(post);
     setTitle(post.title);
     setContent(post.content);
+    setTags(post.tags);
   }, []);
 
   const onChangeTitle = (e) => {
@@ -62,8 +59,8 @@ function AskEdit() {
     }
 
     axios
-      .post(
-        process.env.REACT_APP_EP_POSTS_CREATE,
+      .patch(
+        `${process.env.REACT_APP_EP_POSTS_EDIT}/${post.id}`,
         {
           title: title,
           content: content,
@@ -72,7 +69,7 @@ function AskEdit() {
         pushDefaultWithToken()
       )
       .then(() => {
-        navigate('/');
+        navigate(-1);
       })
       .catch((error) => {
         console.log(error);
