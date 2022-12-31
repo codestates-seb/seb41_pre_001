@@ -17,9 +17,7 @@ function AskCreate() {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
 
-
   const navigate = useNavigate();
-
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -79,63 +77,6 @@ function AskCreate() {
   return (
     <AskBody>
       <AskTitleH1>Ask a public question</AskTitleH1>
-<<<<<<< HEAD
-      <form>
-        <AskTitle>
-          <AskTitleH2>Writing a good question</AskTitleH2>
-          <br />
-          <p>
-            You’re ready to{' '}
-            <a href="https://stackoverflow.com/help/how-to-ask">ask</a> a{' '}
-            <a href="https://stackoverflow.com/help/on-topic">
-              programming-related question
-            </a>{' '}
-            and this form will help guide you through the process.
-          </p>
-          <p>
-            Looking to ask a non-programming question? See{' '}
-            <a href="https://stackexchange.com/sites#technology">
-              the topics here
-            </a>{' '}
-            to find a relevant site.
-          </p>
-          <br />
-          <h5>Steps</h5>
-          <br />
-          <UlContent>
-            <li>Summarize your problem in a one-line title.</li>
-            <li>Describe your problem in more detail.</li>
-            <li>Describe what you tried and what you expected to happen.</li>
-            <li>
-              Add “tags” which help surface your question to members of the
-              community.
-            </li>
-            <li>Review your question and post it to the site.</li>
-          </UlContent>
-        </AskTitle>
-        <TitleContent>
-          <h5>Title</h5>
-          <p>
-            Be specific and imagine you’re asking a question to another person.
-          </p>
-          <div className="input-title">
-            <StyledInput
-              id="title"
-              name="title"
-              type="text"
-              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-              onChange={onChangeTitle}
-              value={title}
-            />
-          </div>
-        </TitleContent>
-        <AskContent>
-          <h5>What are the details of your problem?</h5>
-          <p>
-            Introduce the problem and expand on what you put in the title.
-            Minimum 20 characters.
-          </p>
-=======
       <AskTitle>
         <AskTitleH2>Writing a good question</AskTitleH2>
         <br />
@@ -190,8 +131,6 @@ function AskCreate() {
           Introduce the problem and expand on what you put in the title. Minimum
           20 characters.
         </p>
->>>>>>> 339c90c8fc22301f69e7aac28e94d194b6818d63
-
         <Editor value={content} setValue={onChangeContent} />
       </AskContent>
       {/* <AskExpect className="ask-expect">
