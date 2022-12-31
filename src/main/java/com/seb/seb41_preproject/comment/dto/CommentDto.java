@@ -39,7 +39,6 @@ public class CommentDto {
     public static class CommentResponseDto{
 
         private Long id;
-        private String userName;
         private String content;
         private LocalDateTime createdAt;
     }

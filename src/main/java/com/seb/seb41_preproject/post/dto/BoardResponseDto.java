@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardResponseDto {
     private long id;
-    private String userName;
     private String title;
     private List<String> tags;
     private LocalDateTime createdAt;
