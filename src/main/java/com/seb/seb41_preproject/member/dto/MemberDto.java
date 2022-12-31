@@ -23,4 +23,14 @@ public class MemberDto {
 
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class MemberPatchDto {
+
+        private String userName;
+        private String userPassword;
+        private String userImageUrl;
+
+    }
 }

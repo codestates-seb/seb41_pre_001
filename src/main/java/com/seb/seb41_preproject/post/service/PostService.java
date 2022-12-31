@@ -37,9 +37,9 @@ public class PostService {
         post.setTags(Arrays.asList(post.getTag().split(", ")));
         post.setViews(1);
 
-//        //로그인 중인 멤버로 작성
-//        Member loginMember = memberService.getLoginMember();
-//        post.setMember(loginMember);
+        //로그인 중인 멤버로 작성
+        Member loginMember = memberService.getLoginMember();
+        post.setMember(loginMember);
 
         return postRepository.save(post);
     }
@@ -47,10 +47,10 @@ public class PostService {
     public Post updatePost(Post post) {
         Post findPost = findVerifiedPost(post.getId());
 
-//        //수정하는 멤버와 작성한 멤버가 같은지 확인
-//        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
-//        if(memberService.getLoginMember().getId() != postMember.getId())
-//            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+        //수정하는 멤버와 작성한 멤버가 같은지 확인
+        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
+        if(memberService.getLoginMember().getId() != postMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
         findPost.setCreatedAt(findPost.getCreatedAt());
         findPost.setViews(findPost.getViews()+1);
@@ -75,10 +75,10 @@ public class PostService {
     public void deletePost(long id) {
         Post findPost = findVerifiedPost(id);
 
-//        //삭제하는 멤버와 작성한 멤버가 같은지 확인
-//        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
-//        if(memberService.getLoginMember().getId() != postMember.getId())
-//            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+        //삭제하는 멤버와 작성한 멤버가 같은지 확인
+        Member postMember = memberService.verifyExistUserId(findPost.getMember().getId());
+        if(memberService.getLoginMember().getId() != postMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
         postRepository.deleteById(findPost.getId());
     }

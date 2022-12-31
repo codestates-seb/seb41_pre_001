@@ -49,6 +49,22 @@ public class MemberController {
         return new ResponseEntity<>(memberMapper.MemberToMemberResponseDto(responseMember), HttpStatus.CREATED);
     }
 
+    @PatchMapping("/edit/{user_id}")
+    public ResponseEntity PatchMember(@PathVariable("user_id") Long userId,
+                                      @RequestBody MemberPatchDto patchDto) {
+
+        Member member = memberMapper.MemberPatchDtoToMember(patchDto);
+        Member responseMember = memberService.editMember(userId, member);
+        log.info("""
+                                
+                =====================
+                ## 멤버 수정 완료
+                =====================
+                
+                """);
+        return new ResponseEntity<>(memberMapper.MemberToMemberResponseDto(responseMember), HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/signout/{user_id}")
     public ResponseEntity DeleteMember(@PathVariable("user_id") Long userId, @AuthenticationPrincipal String memberEmail) {
         memberService.deleteMember(userId,memberEmail);

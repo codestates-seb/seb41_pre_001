@@ -70,6 +70,28 @@ public class MemberService {
         findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
     }
 
+    public Member editMember(Long userId, Member member) {
+        Member findMember = verifyExistUserId(userId);
+
+        //수정 요청한 멤버와 로그인 중인 멤버가 일치하는지 확인
+        if(findMember.getId() != getLoginMember().getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
+
+        //같으면 수정
+        Optional.ofNullable(member.getUserName())
+                .ifPresent(name -> findMember.setUserName(name));
+        Optional.ofNullable(member.getUserPassword())
+                .ifPresent(pw -> findMember.setUserPassword(pw));
+        Optional.ofNullable(member.getUserImageUrl())
+                .ifPresent(url -> findMember.setUserImageUrl(url));
+
+        //Password 암호화
+        String encryptedPassword = passwordEncoder.encode(member.getUserPassword());
+        member.setUserPassword(encryptedPassword);
+
+        return memberRepository.save(findMember);
+    }
+
     //로그인 중인 멤버 찾기
     public Member getLoginMember() {
         //토큰이 있는지 확인
