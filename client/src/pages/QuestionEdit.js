@@ -1,6 +1,6 @@
-import AskCreate from '../components/AskCreate';
+import AskEdit from '../components/AskCreate';
 
-import AskCreateScripts from '../components/AskCreateScripts';
+import AskEditScripts from '../components/AskCreateScripts';
 
 import { MainContainer } from '../styles/StyledStore';
 
@@ -25,8 +25,8 @@ import { MainContainer } from '../styles/StyledStore';
 function QuestionEdit() {
   return (
     <MainContainer>
-      <AskCreate />
-      <AskCreateScripts />
+      <AskEdit />
+      <AskEditScripts />
     </MainContainer>
   );
 }

@@ -12,7 +12,7 @@ import { pushDefaultWithToken } from '../util/axiosHelper';
  * Modified by @KimTank
  * @returns <AskCreate>
  */
-function AskCreate() {
+function AskEdit() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
@@ -76,7 +76,7 @@ function AskCreate() {
 
   return (
     <AskBody>
-      <AskTitleH1>Ask a public question</AskTitleH1>
+      <AskTitleH1>Edit Question</AskTitleH1>
       <AskTitle>
         <AskTitleH2>Writing a good question</AskTitleH2>
         <br />
@@ -170,7 +170,7 @@ function AskCreate() {
     </AskBody>
   );
 }
-export default AskCreate;
+export default AskEdit;
 
 const AskBody = styled.div`
   background-color: #f1f2f3;
