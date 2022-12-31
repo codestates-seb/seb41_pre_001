@@ -201,4 +201,5 @@ const QuestionDetailLikebtn = styled.div`
 const EditDeleteBtn = styled.div`
   display: flex;
   margin-left: 30px;
+  gap: 1%;
 `;
