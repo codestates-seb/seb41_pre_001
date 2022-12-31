@@ -12,26 +12,6 @@ import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
 import ModalPostDelete from '../components/ModalPostDelete';
 
-const Comments = ({ comments = [] }) => {
-  return (
-    <div id="comments">
-      {/* <TODO md editor />  */}
-      <div>
-        {comments.length === 0 ? (
-          <span>No comments</span>
-        ) : (
-          <ul>
-            {comments.map((comment, index) => {
-              <li key={index}>
-                <div>COMMENT: {comment}</div>
-              </li>;
-            })}
-          </ul>
-        )}
-      </div>
-    </div>
-  );
-};
 const Tags = ({ tags = [] }) => {
   return (
     <div id="tags">
@@ -42,7 +22,7 @@ const Tags = ({ tags = [] }) => {
         ) : (
           <RowDiv>
             {tags.map((tag, index) => (
-              <li key={index}>{tag}</li>
+              <li key={index}>| {tag} |</li>
             ))}
           </RowDiv>
         )}
@@ -54,6 +34,7 @@ const Tags = ({ tags = [] }) => {
 /**
  * made by @ldk199662
  * since 22-12-30
+ * modified by @KimTank
  * @returns
  */
 function QuestionDetail() {
@@ -102,11 +83,11 @@ function QuestionDetail() {
           ) : (
             ''
           )}
-          <div id="etcs">
-            <div>{post.createdAt}</div>
-            <div>LIKES: {post.likeCount}</div>
-            <div>VIEWS: {post.views}</div>
-          </div>
+          <RowDiv id="etcs">
+            <div>| {post.createdAt} |</div>
+            <div>| LIKES: {post.likeCount} |</div>
+            <div>| VIEWS: {post.views} |</div>
+          </RowDiv>
           <Tags tags={post.tags} />
           <div id="title">
             <strong>TITLE</strong>
@@ -118,8 +99,7 @@ function QuestionDetail() {
             </div>
             <div>{post.content}</div>
           </div>
-          <Comments comments={post.comments} />
-          {IS_ALIVE() ? <Comment /> : ''}
+          {IS_ALIVE() ? <Comment comments={post.comments} /> : ''}
         </div>
       </QuestionDetails>
 
