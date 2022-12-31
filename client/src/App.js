@@ -12,6 +12,7 @@ import Signup from './pages/Signup';
 import QuestionCreate from './pages/QuestionCreate';
 import { Route, Routes } from 'react-router-dom';
 import ReactModal from 'react-modal';
+import QuestionEdit from './pages/QuestionEdit';
 
 const BodyContainer = styled.div`
   padding-top: 53px;
@@ -50,6 +51,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="questionCreate" element={<QuestionCreate />} />
+          <Route path="questionEdit" element={<QuestionEdit />} />
         </Routes>
       </BodyContainer>
       <Footer />

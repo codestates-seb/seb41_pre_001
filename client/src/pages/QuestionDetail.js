@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CommonButton, {
   BUTTON_TYPE_USER_DELETE,
   BUTTON_TYPE_USER_EDIT,
@@ -42,6 +42,8 @@ function QuestionDetail() {
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const { state } = useLocation();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get('/board/posts/' + state.post.id, {
@@ -58,6 +60,10 @@ function QuestionDetail() {
     setIsDeleteModalOpen(!deleteModalIsOpen);
   };
 
+  const handleEdit = () => {
+    navigate('/questionEdit', { state: { post: post } });
+  };
+
   return (
     <QuestionDetailBody>
       <QuestionDetails>
@@ -68,6 +74,7 @@ function QuestionDetail() {
               <CommonButton
                 buttonType={BUTTON_TYPE_USER_EDIT}
                 cont="Edit post"
+                onClick={handleEdit}
               />
               <CommonButton
                 buttonType={BUTTON_TYPE_USER_DELETE}
@@ -104,7 +111,6 @@ function QuestionDetail() {
           {IS_ALIVE() ? <Comment comments={post.comments} /> : ''}
         </div>
       </QuestionDetails>
-
       <Sidebar />
     </QuestionDetailBody>
   );

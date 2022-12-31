@@ -2,10 +2,16 @@ import styled from 'styled-components';
 import Editor from './Editors';
 import StyledInput from './StyledInput';
 import { Tag } from './Tag';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+
+/*
+  "title": "질문글 제목입니다 ",
+  "content": " 질문글 내용입니다 ",
+  "createdAt": "2022-12-28T17:35:16.59537"
+*/
 
 /**
  * Created by @ldk199662
@@ -18,6 +24,16 @@ function AskEdit() {
   const [tags, setTags] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const post = location.state.post;
+  console.log('====================================');
+  console.log(post);
+
+  useEffect(() => {
+    setTitle(post.title);
+    setContent(post.content);
+  }, []);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
