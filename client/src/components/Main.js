@@ -85,7 +85,7 @@ const MainTitle = styled.div`
     border-radius: 3px;
     border: none;
     color: #ffffff;
-    margin-left: 600px;
+    margin-left: 700px;
     margin-top: -60px;
     padding: 10px;
   }
