@@ -40,6 +40,7 @@ public class PostService {
         //로그인 중인 멤버로 작성
         Member loginMember = memberService.getLoginMember();
         post.setMember(loginMember);
+        post.setUserName(loginMember.getUserName());
 
         return postRepository.save(post);
     }

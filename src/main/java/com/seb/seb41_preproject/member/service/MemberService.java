@@ -86,8 +86,8 @@ public class MemberService {
                 .ifPresent(url -> findMember.setUserImageUrl(url));
 
         //Password 암호화
-        String encryptedPassword = passwordEncoder.encode(member.getUserPassword());
-        member.setUserPassword(encryptedPassword);
+        String encryptedPassword = passwordEncoder.encode(findMember.getUserPassword());
+        findMember.setUserPassword(encryptedPassword);
 
         return memberRepository.save(findMember);
     }

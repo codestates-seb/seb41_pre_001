@@ -1,5 +1,6 @@
 package com.seb.seb41_preproject.comment.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,7 @@ public class CommentDto {
     public static class CommentResponseDto{
 
         private Long id;
+        private String userName;
         private String content;
         private LocalDateTime createdAt;
     }
