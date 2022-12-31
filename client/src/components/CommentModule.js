@@ -4,6 +4,7 @@ import { RowDiv } from '../styles/StyledStore';
 import { useState } from 'react';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+import CommonButton from './CommonButton';
 
 /* 
   "comments": [
@@ -74,6 +75,7 @@ function CommentModule({ postId, comments = [] }) {
                 <button>| like |</button>
                 <button>| unlike |</button>
               </RowDiv>
+              <CommonButton></CommonButton>
               <div>{comment.content}</div>
             </CommentItem>
           ))
