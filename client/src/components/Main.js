@@ -3,24 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
+import Pagination from './lib/Pagination';
 import QuestionRow from './QuestionRow';
-import Pagination from 'react-js-pagination';
-import { RowDiv } from '../styles/StyledStore';
-
-// const PaginationContainer = styled(RowDiv)`
-//   margin: 4px 8px;
-//   width: 100%;
-//   justify-content: end;
-// `;
-
-// const PaginationButton = styled.button`
-//   font-size: 15px;
-//   border: 1px solid grey;
-//   background-color: ${(props) => (props.select ? 'orange' : 'white')};
-//   width: 50px;
-//   height: 50px;
-//   margin: 4px;
-// `;
 
 /**
  * - Created by @ldk199662
@@ -28,7 +12,7 @@ import { RowDiv } from '../styles/StyledStore';
  * @returns <Main>
  */
 function Main() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ pageInfo: { totalElements: 0 } });
   const [state, setState] = useState({ activePage: 1 });
   const navigate = useNavigate();
 
@@ -70,15 +54,13 @@ function Main() {
         )}
       </MainTitle>
       <QuestionRow posts={data.data} />
-      <RowDiv>
-        <Pagination
-          activePage={state.activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={1000}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange}
-        />
-      </RowDiv>
+      <Pagination
+        activePage={state.activePage}
+        itemsCountPerPage={linePageSizeNumber}
+        totalItemsCount={data.pageInfo.totalElements}
+        pageRangeDisplayed={5}
+        onChange={handlePageChange}
+      />
     </MainBody>
   );
 }
