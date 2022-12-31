@@ -1,6 +1,7 @@
 import Editor from './Editors';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { IS_ALIVE } from '../util/tokenHelper';
 
 /**
  * Created by @ldk199662
@@ -72,9 +73,13 @@ function Comment() {
           .
         </p>
       </CommetHelp>
-      <Buttons>
-        <PostButton>Post Your Answer</PostButton>
-      </Buttons>
+      {IS_ALIVE() ? (
+        <Buttons>
+          <PostButton>Post Your Answer</PostButton>
+        </Buttons>
+      ) : (
+        ''
+      )}
       <CommentLast>
         <p>
           Not the answer you&apos;re looking for? Browse other questions tagged{' '}

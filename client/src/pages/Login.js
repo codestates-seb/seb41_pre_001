@@ -145,7 +145,7 @@ function Login() {
         </InputFormContainer>
         <Last>
           <LabelDescription>
-            Don’t have an account? <Link to="signup">Sign up</Link>
+            Don’t have an account? <Link to="/signup">Sign up</Link>
           </LabelDescription>
           <LabelDescription style={{ paddingTop: '10px' }}>
             Are you an employer?{' '}

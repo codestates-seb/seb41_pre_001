@@ -57,7 +57,7 @@ function NavSidebar() {
           <ul>
             <CommonLi>
               <IconGlobe width="20px" height="15px" />
-              <Link to="questions"> Questions</Link>
+              <Link to="/"> Questions</Link>
             </CommonLi>
             <SubLi>
               {/* <Link to="tags">Tags</Link> */}
