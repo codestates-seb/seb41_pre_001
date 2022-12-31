@@ -47,4 +47,5 @@ public class Comment {
     @JoinColumn(name="POST_ID")
     private Post post;
 
+
 }

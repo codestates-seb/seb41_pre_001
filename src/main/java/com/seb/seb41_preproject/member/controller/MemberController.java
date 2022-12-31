@@ -25,12 +25,15 @@ public class MemberController {
 
     @GetMapping("/{user_id}")
     public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId, @AuthenticationPrincipal String memberEmail) {
+
         Member responseMember = memberService.findMember(userId,memberEmail);
         log.info("""
                                 
                 =====================
                 ## 멤버 정보 불러오기
-                =====================""");
+                =====================
+                
+                """);
         return new ResponseEntity<>(memberMapper.MemberToMemberResponseDto(responseMember), HttpStatus.OK);
     }
 

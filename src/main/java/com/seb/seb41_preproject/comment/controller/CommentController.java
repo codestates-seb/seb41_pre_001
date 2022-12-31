@@ -61,20 +61,30 @@ public class CommentController {
     }
 
     @PatchMapping("/{comment_id}")
-    public ResponseEntity UpdateComment(@PathVariable("comment_id")@Positive long commentId,
-                                        @Valid @RequestBody CommentPatchDto commentPatchDto) {
+    public ResponseEntity UpdateComment(@PathVariable("post_id") Long post_id,
+                                        @PathVariable("comment_id")@Positive long commentId,
+                                        @Valid @RequestBody CommentPatchDto commentPatchDto,
+                                        @AuthenticationPrincipal String memberEmail) {
 
         commentPatchDto.setId(commentId);
-        Comment response = commentService.UpdateComment(commentMapper.CommentPatchDtoToComment(commentPatchDto));
+        commentPatchDto.setPostId(post_id);
+        Comment comment = commentMapper.CommentPatchDtoToComment(commentPatchDto);
+        Comment response = commentService.UpdateComment(comment, post_id, memberEmail);
+
+        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
+        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(findMember);
+        Member member = memberMapper.MemberPostResponseDtoToMember(memberPostResponseDto);
+
         log.info("""
-                
+
                 =====================
                 ## 댓글 수정됨
                 =====================
-                
+
                 """);
 
-        return new ResponseEntity<>(commentMapper.CommentToCommentResponseDto(response), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto(commentMapper.CommentToCommentResponseDto(response), member), HttpStatus.OK);
     }
 
     @DeleteMapping("/{comment_id}")

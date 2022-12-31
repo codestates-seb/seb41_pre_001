@@ -111,14 +111,22 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ResponseEntity getPost(@PathVariable("post_id") long id) {
+    public ResponseEntity getPost(@PathVariable("post_id") long id,
+                                  @AuthenticationPrincipal String memberEmail) {
+
         Post response = postService.findPost(id);
+
+        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
+        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(findMember);
+        Member member = memberMapper.MemberPostResponseDtoToMember(memberPostResponseDto);
 
         log.info("""
                                 
                 =====================
                 ## 특정 게시글 조회
                 =====================""");
-        return new ResponseEntity(postMapper.postToPostCommentResponseDto(response), HttpStatus.OK);
+
+        return new ResponseEntity(
+                new MultiResponseDto(postMapper.postToPostCommentResponseDto(response), member),HttpStatus.OK);
     }
 }

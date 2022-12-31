@@ -38,9 +38,15 @@ public class CommentService {
 
 
 
-    public Comment UpdateComment(Comment comment) {
+    public Comment UpdateComment(Comment comment, Long postId, String memberEmail) {
+        Member findMember = findVerifiedMember(memberEmail);
+        Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(comment.getId());
+
         Optional.ofNullable(comment.getContent()).ifPresent(Content -> findComment.setContent(Content));
+
+        comment.setPost(findPost);
+        comment.setMember(findMember);
 
         return commentRepository.save(findComment);
     }

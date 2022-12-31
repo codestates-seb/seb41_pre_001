@@ -26,11 +26,15 @@ public class CommentDto {
 
         private Long id;
 
+        private Long postId;
         @NotNull
         private String content;
 
         public void setId(Long id) {
             this.id = id;
+        }
+
+        public void setPostId(Long post_id) {
         }
     }
 

@@ -262,6 +262,7 @@ public class LikesService {
 
 
     private Comment findVerifiedComment(Long commentId) {
+
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         Comment findComment = optionalComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
         return findComment;
