@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { RowDiv } from '../styles/StyledStore';
+
+const Tag = styled.li`
+  padding: 4px 8px;
+  margin: 0px 2px;
+  background-color: #e1ecf4;
+  color: #39739d;
+  border-radius: 5px;
+`;
+
 /**
  * Created by @ldk199662
  * Modified by @KimTank
  * @returns <QuestionRow>
  */
-
 function QuestionRow({ posts = [] }) {
   const navigate = useNavigate();
   return (
@@ -49,7 +57,7 @@ function QuestionRow({ posts = [] }) {
                       ) : (
                         <RowDiv>
                           {post.tags.map((tag, index) => (
-                            <li key={index}>{tag}</li>
+                            <Tag key={index}>{tag}</Tag>
                           ))}
                         </RowDiv>
                       )}
@@ -118,11 +126,8 @@ const QuestionTitle = styled.div`
 const QuestionTag = styled.span`
   display: inline-block;
   margin-right: 3px;
-  background-color: #e1ecf4;
   flex-direction: row;
-  color: #39739d;
   padding: 5px;
-  border-radius: 5px;
   font-size: 10px;
   margin-left: 160px;
 `;
