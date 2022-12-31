@@ -1,8 +1,8 @@
 import MDEditor from '@uiw/react-md-editor';
 
 /**
- * Created by @DG
- * @returns <div>
+ * Created by @ldk199662
+ * @returns <Editors>
  */
 function Editor({ value, setValue }) {
   return (

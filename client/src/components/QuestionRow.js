@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+/**
+ * Created by @ldk199662
+ * @returns <QuestionRow>
+ */
 function QuestionRow() {
   const [posts, setPosts] = useState([]);
-
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get('/board/posts', {
@@ -17,9 +21,7 @@ function QuestionRow() {
       })
       .then((response) => {
         const { data } = response;
-        console.log('Temp.js/Temp()/useEffect/data.data: ');
         console.log(data.data);
-        console.log(`======================================`);
         setPosts(data.data);
       })
       .catch((error) => alert(error));
@@ -70,7 +72,7 @@ function QuestionRow() {
                       )}
                     </QuestionTag>
                     <UserInfo>
-                      <ManAndWhen>Asked{post.createdAt}</ManAndWhen>
+                      <ManAndWhen>Asked {post.createdAt}</ManAndWhen>
                     </UserInfo>
                   </Info>
                 </QuestionTitleBody>

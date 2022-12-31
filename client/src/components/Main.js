@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import QuestionRow from './QuestionRow';
 
 /**
- * Created by @SW
- * @returns <MainBody>
+ * Created by @ldk199662
+ * @returns <Main>
  */
 function Main() {
   const Askbtn = useNavigate();
@@ -57,7 +57,6 @@ const MainBody = styled.div`
 
 const MainTitle = styled.div`
   padding: 30px;
-  margin-right: 40px;
   border-bottom: 1px solid hsl(210deg 8% 90%);
   > h2 {
     font-weight: 500;

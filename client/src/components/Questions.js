@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+
+/**
+ * Created by @ldk199662
+ * @returns <Questions>
+ */
+
 function Questions() {
   return (
     <QuestionsBody>
