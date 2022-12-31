@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { RowDiv } from '../styles/StyledStore';
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { pushDefaultWithToken } from '../util/axiosHelper';
 
 /* 
@@ -22,10 +21,8 @@ import { pushDefaultWithToken } from '../util/axiosHelper';
  * Modified by @KimTank
  * @returns <Comment>
  */
-function Comment({ comments = [] }) {
+function CommentModule({ postId, comments = [] }) {
   const [comment, setComment] = useState('');
-
-  const navigate = useNavigate();
 
   const handleComment = (comment) => {
     setComment(comment);
@@ -39,14 +36,14 @@ function Comment({ comments = [] }) {
 
     axios
       .post(
-        process.env.REACT_APP_EP_POSTS_CREATE,
+        `${process.env.REACT_APP_EP_COMMENT_CREATE}/${postId}${process.env.REACT_APP_EP_COMMENT}`,
         {
           content: comment,
         },
         pushDefaultWithToken()
       )
-      .then(() => {
-        navigate('/questionDetail');
+      .then((response) => {
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -67,16 +64,20 @@ function Comment({ comments = [] }) {
   return (
     <CommentBody>
       <CommentArea>
-        {comments.map((comment) => (
-          <CommentItem key={comment.id}>
-            <RowDiv>
-              <div>like: {comment.likeCount} | </div>
-              <button>| like |</button>
-              <button>| unlike |</button>
-            </RowDiv>
-            <div>{comment.content}</div>
-          </CommentItem>
-        ))}
+        {comments.length === 0 ? (
+          <div>No comment</div>
+        ) : (
+          comments.map((comment) => (
+            <CommentItem key={comment.id}>
+              <RowDiv>
+                <div>like: {comment.likeCount} | </div>
+                <button>| like |</button>
+                <button>| unlike |</button>
+              </RowDiv>
+              <div>{comment.content}</div>
+            </CommentItem>
+          ))
+        )}
       </CommentArea>
       <CommentTiTle>
         <h2>Your Answer</h2>
@@ -84,7 +85,7 @@ function Comment({ comments = [] }) {
       <div>
         <Editor value={comment} setValue={handleComment} />
       </div>
-      <CommetHelp>
+      <CommentHelp>
         <p>Thanks for contributing an answer to Stack Overflow!</p>
         <ul>
           <li>
@@ -110,7 +111,7 @@ function Comment({ comments = [] }) {
           </a>
           .
         </p>
-      </CommetHelp>
+      </CommentHelp>
       <Buttons>
         <PostButton
           className="submit-button"
@@ -137,7 +138,7 @@ function Comment({ comments = [] }) {
   );
 }
 
-export default Comment;
+export default CommentModule;
 
 const CommentBody = styled.div`
   background-color: #ffffff;
@@ -162,7 +163,7 @@ const CommentTiTle = styled.div`
     font-weight: 400;
   }
 `;
-const CommetHelp = styled.div`
+const CommentHelp = styled.div`
   padding: 0px;
   margin: 0px;
   margin-top: 10px;

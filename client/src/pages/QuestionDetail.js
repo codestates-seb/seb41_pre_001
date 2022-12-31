@@ -7,10 +7,10 @@ import CommonButton, {
 } from '../components/CommonButton';
 import Sidebar from '../components/Sidebar';
 import { MainContainer, RowDiv } from '../styles/StyledStore';
-import Comment from '../components/Comment';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
 import ModalPostDelete from '../components/ModalPostDelete';
+import CommentModule from '../components/CommentModule';
 
 const Tags = ({ tags = [] }) => {
   return (
@@ -46,7 +46,7 @@ function QuestionDetail() {
 
   useEffect(() => {
     axios
-      .get('/board/posts/' + state.post.id, {
+      .get(`${process.env.REACT_APP_EP_POSTS_DETAIL}/${state.post.id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -108,7 +108,11 @@ function QuestionDetail() {
             </div>
             <div>{post.content}</div>
           </div>
-          {IS_ALIVE() ? <Comment comments={post.comments} /> : ''}
+          {IS_ALIVE() ? (
+            <CommentModule postId={post.id} comments={post.comments} />
+          ) : (
+            ''
+          )}
         </div>
       </QuestionDetails>
       <Sidebar />
