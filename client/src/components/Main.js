@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IS_ALIVE } from '../util/tokenHelper';
 import QuestionRow from './QuestionRow';
+import Pagination from 'react-js-pagination';
+import { RowDiv } from '../styles/StyledStore';
 
 // const PaginationContainer = styled(RowDiv)`
 //   margin: 4px 8px;
@@ -20,36 +22,6 @@ import QuestionRow from './QuestionRow';
 //   margin: 4px;
 // `;
 
-// const Pagination = ({ page, handleChangePage, data }) => {
-//   let getPages = () => {
-//     const pages = [];
-//     for (let i = 0; i < data.pageInfo.totalPages; i++) {
-//       pages.push(i + 1);
-//     }
-//     return pages;
-//   };
-
-//   return (
-//     <>
-//       <PaginationContainer>
-//         {getPages().map((pageButton, index) =>
-//           pageButton ? (
-//             <PaginationButton
-//               key={index}
-//               select={page === pageButton}
-//               onClick={(e) => handleChangePage(e, pageButton)}
-//             >
-//               {pageButton}
-//             </PaginationButton>
-//           ) : (
-//             ''
-//           )
-//         )}
-//       </PaginationContainer>
-//     </>
-//   );
-// };
-
 /**
  * - Created by @ldk199662
  * - Modified by @KimTank 221231
@@ -57,7 +29,7 @@ import QuestionRow from './QuestionRow';
  */
 function Main() {
   const [data, setData] = useState({});
-  // const [page, setPage] = useState(1);
+  const [state, setState] = useState({ activePage: 1 });
   const navigate = useNavigate();
 
   const linePageSizeNumber = 20;
@@ -67,7 +39,7 @@ function Main() {
       .get('/board/posts', {
         withCredentials: true,
         params: {
-          page: 1,
+          page: state.activePage,
           size: linePageSizeNumber,
         },
       })
@@ -79,9 +51,9 @@ function Main() {
       .catch((error) => alert(error));
   }, []);
 
-  // const handleChangePage = (e, buttonNumber) => {
-  //   setPage(buttonNumber);
-  // };
+  const handlePageChange = (buttonNumber) => {
+    setState({ activePage: buttonNumber });
+  };
 
   const handleAskBtn = () => {
     navigate('/questionCreate');
@@ -98,11 +70,15 @@ function Main() {
         )}
       </MainTitle>
       <QuestionRow posts={data.data} />
-      {/* <Pagination
-        page={page}
-        handleChangePage={handleChangePage}
-        pageInfo={data}
-      /> */}
+      <RowDiv>
+        <Pagination
+          activePage={state.activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={1000}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </RowDiv>
     </MainBody>
   );
 }
