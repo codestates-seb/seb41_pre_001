@@ -33,6 +33,12 @@ public class Comment {
     @Column
     private int LikeCount;
 
+    @Column
+    private String userName;
+
+    @Column
+    private String userImageUrl;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")

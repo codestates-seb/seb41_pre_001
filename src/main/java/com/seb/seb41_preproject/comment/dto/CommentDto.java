@@ -29,6 +29,8 @@ public class CommentDto {
         private Long postId;
         @NotNull
         private String content;
+        private String userName;
+        private String userImageUrl;
 
         public void setId(Long id) {
             this.id = id;
@@ -46,6 +48,8 @@ public class CommentDto {
         private Long id;
         private String content;
         private LocalDateTime createdAt;
+        private String userName;
+        private String userImageUrl;
 
     }
 

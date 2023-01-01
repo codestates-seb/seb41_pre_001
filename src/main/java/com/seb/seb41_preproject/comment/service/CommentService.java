@@ -10,6 +10,7 @@ import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,10 @@ public class CommentService {
 
         comment.setPost(findPost);
         comment.setMember(findMember);
+        String userName = findMember.getUserName();
+        String userEmail = findMember.getUserEmail();
+        comment.setUserImageUrl(userEmail);
+        comment.setUserName(userName);
 
         return commentRepository.save(comment);
     }
@@ -44,9 +49,13 @@ public class CommentService {
         Comment findComment = findVerifiedComment(comment.getId());
 
         Optional.ofNullable(comment.getContent()).ifPresent(Content -> findComment.setContent(Content));
-
-        comment.setPost(findPost);
+        comment.setCreatedAt(LocalDateTime.now());
         comment.setMember(findMember);
+        comment.setPost(findPost);
+        String userName = findMember.getUserName();
+        String userEmail = findMember.getUserEmail();
+        comment.setUserImageUrl(userEmail);
+        comment.setUserName(userName);
 
         return commentRepository.save(findComment);
     }
