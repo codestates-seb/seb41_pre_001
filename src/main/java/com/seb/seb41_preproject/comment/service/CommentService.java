@@ -31,12 +31,7 @@ public class CommentService {
         Member findMember = findVerifiedMember(memberEmail);
         Post findPost = findVerifiedPost(postId);
 
-        comment.setPost(findPost);
-        comment.setMember(findMember);
-        String userName = findMember.getUserName();
-        String userEmail = findMember.getUserEmail();
-        comment.setUserImageUrl(userEmail);
-        comment.setUserName(userName);
+        setCommentInfo(comment, findMember, findPost);
 
         return commentRepository.save(comment);
     }
@@ -44,18 +39,15 @@ public class CommentService {
 
 
     public Comment UpdateComment(Comment comment, Long postId, String memberEmail) {
+
         Member findMember = findVerifiedMember(memberEmail);
         Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(comment.getId());
 
         Optional.ofNullable(comment.getContent()).ifPresent(Content -> findComment.setContent(Content));
         comment.setCreatedAt(LocalDateTime.now());
-        comment.setMember(findMember);
-        comment.setPost(findPost);
-        String userName = findMember.getUserName();
-        String userEmail = findMember.getUserEmail();
-        comment.setUserImageUrl(userEmail);
-        comment.setUserName(userName);
+
+        setCommentInfo(findComment,findMember,findPost);
 
         return commentRepository.save(findComment);
     }
@@ -83,5 +75,13 @@ public class CommentService {
         Optional<Member> byUserEmail = memberRepository.findByUserEmail(memberEmail);
         Member member = byUserEmail.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return member;
+    }
+    private static void setCommentInfo(Comment comment, Member findMember, Post findPost) {
+        String userEmail = findMember.getUserEmail();
+        String userName = findMember.getUserName();
+        comment.setPost(findPost);
+        comment.setMember(findMember);
+        comment.setUserImageUrl(userEmail);
+        comment.setUserName(userName);
     }
 }
