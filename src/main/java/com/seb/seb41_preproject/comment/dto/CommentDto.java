@@ -42,7 +42,7 @@ public class CommentDto {
 
 
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class CommentResponseDto{
 
         private Long id;
