@@ -218,7 +218,7 @@ const CommentArea = styled.ul`
 `;
 
 const CommentItem = styled.li`
-  border: 1px solid grey;
+  border-top: 1px solid hsl(210deg 8% 90%);
   margin: 4px;
 `;
 
@@ -283,4 +283,17 @@ const CommentLastBox = styled.a`
   padding: 4.8px 6px;
   background-color: #e1ecf4;
   border-radius: 3px;
+`;
+const CommentEditDelete = styled.div`
+  display: flex;
+  box-sizing: content-box;
+  padding: 10px;
+  margin-top: 10px;
+`;
+const LikeBtn = styled.div`
+  text-align: start;
+`;
+const ConmmentContent = styled.div`
+  box-sizing: content-box;
+  width: 100%;
 `;
