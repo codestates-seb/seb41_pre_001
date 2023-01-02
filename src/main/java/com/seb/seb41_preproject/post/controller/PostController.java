@@ -111,13 +111,11 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ResponseEntity getPost(@PathVariable("post_id") long id,
-                                  @AuthenticationPrincipal String memberEmail) {
+    public ResponseEntity getPost(@PathVariable("post_id") long id) {
 
         Post response = postService.findPost(id);
-
-        Member findMember = memberService.findMemberByMemberEmail(memberEmail);
-        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(findMember);
+        Member member1 = response.getMember();
+        MemberPostResponseDto memberPostResponseDto = memberMapper.MemberToMemberPostResponseDto(member1);
         Member member = memberMapper.MemberPostResponseDtoToMember(memberPostResponseDto);
 
         log.info("""
