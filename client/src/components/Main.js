@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IS_ALIVE } from '../util/tokenHelper';
+import { getIS_ALIVE } from '../util/tokenHelper';
 import Pagination from './lib/Pagination';
 import QuestionRow from './QuestionRow';
 
@@ -47,7 +47,7 @@ function Main() {
     <MainBody>
       <MainTitle>
         <h2>Top Questions</h2>
-        {IS_ALIVE() ? (
+        {getIS_ALIVE() ? (
           <button onClick={() => handleAskBtn()}>Ask Question</button>
         ) : (
           ''

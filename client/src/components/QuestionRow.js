@@ -123,7 +123,7 @@ const QuestionTitle = styled.div`
   margin-top: -50px;
   margin-left: 160px;
 `;
-const QuestionTag = styled.span`
+const QuestionTag = styled.ul`
   display: inline-block;
   margin-right: 3px;
   flex-direction: row;

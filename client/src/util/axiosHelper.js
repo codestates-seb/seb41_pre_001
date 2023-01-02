@@ -1,4 +1,4 @@
-import { getToken } from './tokenHelper';
+import { getTOKEN } from './tokenHelper';
 
 /**
  * https://junglast.com/blog/http-ajax-withcredential
@@ -18,7 +18,7 @@ export const pushDefaultConfig = () => {
  */
 export const pushDefaultWithToken = () => {
   const config = pushDefaultConfig();
-  config.headers = { Authorization: getToken() };
+  config.headers = { Authorization: getTOKEN() };
   return config;
 };
 

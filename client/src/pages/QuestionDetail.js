@@ -8,10 +8,10 @@ import CommonButton, {
 import Sidebar from '../components/Sidebar';
 import { MainContainer, RowDiv } from '../styles/StyledStore';
 import styled from 'styled-components';
-import { IS_ALIVE } from '../util/tokenHelper';
 import ModalPostDelete from '../components/ModalPostDelete';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import CommentModule from '../components/CommentModule';
+import { getIS_ALIVE } from '../util/tokenHelper';
 
 const Tags = ({ tags = [] }) => {
   return (
@@ -109,7 +109,7 @@ function QuestionDetail() {
             </QuestionDetailContent>
           </QuestionDetailBox>
           {/* TODO user정보접속 -> 게시물정보접속 -> userid동일할때 뷰가 보여야됨*/}
-          {IS_ALIVE() ? (
+          {getIS_ALIVE() ? (
             <div id="buttons">
               <EditDeleteBtn>
                 <CommonButton
@@ -132,7 +132,7 @@ function QuestionDetail() {
           ) : (
             ''
           )}
-          {IS_ALIVE() ? (
+          {getIS_ALIVE() ? (
             <div>
               <CommentModule
                 postId={post.id}

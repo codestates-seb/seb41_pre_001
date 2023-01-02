@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Modal from 'react-modal';
-import { IS_ALIVE, logout } from '../util/tokenHelper';
+import { getIS_ALIVE, setLOGOUT } from '../util/tokenHelper';
 import { pushDefaultWithToken } from '../util/axiosHelper';
 import CommonButton, {
   BUTTON_TYPE_USER,
@@ -56,8 +56,8 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
           pushDefaultWithToken()
         )
         .then(() => {
-          logout();
-          if (!IS_ALIVE()) {
+          setLOGOUT();
+          if (!getIS_ALIVE()) {
             alert('Succeed to delete your account, seeya');
             navigate('signin');
             closeModal();

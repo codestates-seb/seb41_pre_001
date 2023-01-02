@@ -9,7 +9,7 @@ import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
 import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
-import { getUser, IS_ALIVE, logout } from '../util/tokenHelper';
+import { getUser, getIS_ALIVE, setLOGOUT } from '../util/tokenHelper';
 import { RowDiv } from '../styles/StyledStore';
 
 const HamburgerContainer = styled.div`
@@ -81,7 +81,7 @@ function Header({ isOpen, setOpen, isBugerVisible }) {
   const handleLogout = () => {
     //로그아웃 서버에 토큰저장안함.
     console.log(`Header log out before: ${getUser()}`);
-    logout();
+    setLOGOUT();
     console.log(`Header log out after: ${getUser()}`);
     navigate('/login');
   };
@@ -90,7 +90,7 @@ function Header({ isOpen, setOpen, isBugerVisible }) {
     <NavigationContainer>
       <Line />
       <Navigation>
-        {IS_ALIVE() ? (
+        {getIS_ALIVE() ? (
           <HamburgerContainer
             ref={ref}
             onPointerEnter={() => setOpen(true)}
@@ -134,7 +134,7 @@ function Header({ isOpen, setOpen, isBugerVisible }) {
         <a href={outCoTe} style={{ margin: '0px 4px' }}>
           For Teams
         </a>
-        {IS_ALIVE() ? (
+        {getIS_ALIVE() ? (
           <Logout onClick={handleLogout}>Log out</Logout>
         ) : (
           <RowDiv>

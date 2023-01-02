@@ -18,7 +18,7 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
-import { setToken, setUser } from '../util/tokenHelper';
+import { setTOKEN, setUser } from '../util/tokenHelper';
 import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
 
 const LoginContainer = styled.div`
@@ -83,7 +83,7 @@ function Login() {
         pushDefaultConfig()
       )
       .then((response) => {
-        setToken(response.headers.authorization);
+        setTOKEN(response.headers.authorization);
         axios
           .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
           .then((response) => {
