@@ -6,6 +6,7 @@ import com.seb.seb41_preproject.exception.BusinessLogicException;
 import com.seb.seb41_preproject.exception.ExceptionCode;
 import com.seb.seb41_preproject.member.entity.Member;
 import com.seb.seb41_preproject.member.repository.MemberRepository;
+import com.seb.seb41_preproject.member.service.MemberService;
 import com.seb.seb41_preproject.post.entity.Post;
 import com.seb.seb41_preproject.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository, MemberRepository memberRepository) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository,
+                          MemberRepository memberRepository, MemberService memberService) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     public Comment CreateComment(Comment comment, Long postId, String memberEmail) {
@@ -36,13 +39,15 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-
-
     public Comment UpdateComment(Comment comment, Long postId, String memberEmail) {
 
         Member findMember = findVerifiedMember(memberEmail);
         Post findPost = findVerifiedPost(postId);
         Comment findComment = findVerifiedComment(comment.getId());
+
+        //수정하는 멤버와 작성한 멤버가 같은지 확인
+        if(memberService.getLoginMember().getId() != findMember.getId())
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED);
 
         Optional.ofNullable(comment.getContent()).ifPresent(Content -> findComment.setContent(Content));
         comment.setCreatedAt(LocalDateTime.now());
