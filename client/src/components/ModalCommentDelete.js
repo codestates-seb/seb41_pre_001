@@ -47,7 +47,8 @@ function ModalCommentDelete({
           })
           .then((response) => {
             const { data } = response;
-            setPost(data);
+            console.log(data);
+            setPost(data.postToPostCommentResponseDto);
             closeModal();
           })
           .catch((error) => alert(error));

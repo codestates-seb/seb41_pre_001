@@ -55,14 +55,17 @@ function ModalCommentEdit({
         },
         pushDefaultWithToken()
       )
-      .then(() => {
+      .then((response) => {
+        console.log(response.data);
         axios
           .get(getPOSTS_DETAIL({ postId: postId }), {
             withCredentials: true,
           })
           .then((response) => {
             const { data } = response;
-            setPost(data);
+            console.log(data);
+
+            setPost(data.postToPostCommentResponseDto);
             closeModal();
           })
           .catch((error) => alert(error));

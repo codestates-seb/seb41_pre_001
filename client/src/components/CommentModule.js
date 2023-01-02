@@ -66,7 +66,9 @@ function CommentModule({
           })
           .then((response) => {
             const { data } = response;
-            setPost(data);
+            console.log(data);
+
+            setPost(data.postToPostCommentResponseDto);
             setComment('');
           })
           .catch((error) => alert(error));
