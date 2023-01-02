@@ -34,6 +34,9 @@ public class Comment {
     private int LikeCount;
 
     @Column
+    private String userId;
+
+    @Column
     private String userName;
 
     @Column

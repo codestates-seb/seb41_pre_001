@@ -48,6 +48,7 @@ public class CommentDto {
         private Long id;
         private String content;
         private LocalDateTime createdAt;
+        private String userId;
         private String userName;
         private String userImageUrl;
 

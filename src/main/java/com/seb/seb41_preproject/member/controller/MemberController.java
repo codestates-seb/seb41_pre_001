@@ -24,7 +24,8 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{user_id}")
-    public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId, @AuthenticationPrincipal String memberEmail) {
+    public ResponseEntity getUserInfo(@PathVariable("user_id") Long userId,
+                                      @AuthenticationPrincipal String memberEmail) {
 
         Member responseMember = memberService.findMember(userId,memberEmail);
         log.info("""

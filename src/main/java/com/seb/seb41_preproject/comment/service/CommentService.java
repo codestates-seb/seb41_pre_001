@@ -77,11 +77,11 @@ public class CommentService {
         return member;
     }
     private static void setCommentInfo(Comment comment, Member findMember, Post findPost) {
-        String userEmail = findMember.getUserEmail();
+        String userImageUrl = findMember.getUserImageUrl();
         String userName = findMember.getUserName();
         comment.setPost(findPost);
         comment.setMember(findMember);
-        comment.setUserImageUrl(userEmail);
+        comment.setUserImageUrl(userImageUrl);
         comment.setUserName(userName);
     }
 }
