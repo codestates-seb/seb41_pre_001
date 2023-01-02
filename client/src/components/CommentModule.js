@@ -98,35 +98,41 @@ function CommentModule({
           comments.map((comment) => (
             <CommentItem key={comment.id}>
               <RowDiv>
-                <div>like: {comment.likeCount} | </div>
-                <button>| like |</button>
-                <button>| unlike |</button>
-                <CommonButton
-                  buttonType={BUTTON_TYPE_USER_EDIT}
-                  cont={'Edit'}
-                  onClick={handleCommentEdit}
-                />
-                <ModalCommentEdit
-                  commentEditModalIsOpen={commentEditModalIsOpen}
-                  setCommentEditModalOpen={setCommentEditModalOpen}
-                  postId={postId}
-                  comment={comment}
-                  setPost={setPost}
-                />
-                <CommonButton
-                  buttonType={BUTTON_TYPE_USER_DELETE}
-                  cont={'Delete'}
-                  onClick={handleCommentDelete}
-                />
-                <ModalCommentDelete
-                  commentDeleteModalIsOpen={commentDeleteModalIsOpen}
-                  setCommentDeleteModalOpen={setCommentDeleteModalOpen}
-                  postId={postId}
-                  commentId={comment.id}
-                  setPost={setPost}
-                />
+                <ConmmentContent>
+                  <div>{comment.content}</div>
+                  <CommentEditDelete>
+                    <CommonButton
+                      buttonType={BUTTON_TYPE_USER_EDIT}
+                      cont={'Edit'}
+                      onClick={handleCommentEdit}
+                    />
+                    <ModalCommentEdit
+                      commentEditModalIsOpen={commentEditModalIsOpen}
+                      setCommentEditModalOpen={setCommentEditModalOpen}
+                      postId={postId}
+                      comment={comment}
+                      setPost={setPost}
+                    />
+                    <CommonButton
+                      buttonType={BUTTON_TYPE_USER_DELETE}
+                      cont={'Delete'}
+                      onClick={handleCommentDelete}
+                    />
+                    <ModalCommentDelete
+                      commentDeleteModalIsOpen={commentDeleteModalIsOpen}
+                      setCommentDeleteModalOpen={setCommentDeleteModalOpen}
+                      postId={postId}
+                      commentId={comment.id}
+                      setPost={setPost}
+                    />
+                  </CommentEditDelete>
+                </ConmmentContent>
+                <LikeBtn>
+                  <div>like: {comment.likeCount} </div>
+                  <button> like </button>
+                  <button> unlike </button>
+                </LikeBtn>
               </RowDiv>
-              <div>{comment.content}</div>
             </CommentItem>
           ))
         )}
@@ -202,7 +208,7 @@ const CommentArea = styled.ul`
 `;
 
 const CommentItem = styled.li`
-  border: 1px solid grey;
+  border-top: 1px solid hsl(210deg 8% 90%);
   margin: 4px;
 `;
 
@@ -267,4 +273,17 @@ const CommentLastBox = styled.a`
   padding: 4.8px 6px;
   background-color: #e1ecf4;
   border-radius: 3px;
+`;
+const CommentEditDelete = styled.div`
+  display: flex;
+  box-sizing: content-box;
+  padding: 10px;
+  margin-top: 10px;
+`;
+const LikeBtn = styled.div`
+  text-align: start;
+`;
+const ConmmentContent = styled.div`
+  box-sizing: content-box;
+  width: 100%;
 `;
