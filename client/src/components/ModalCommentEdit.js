@@ -61,6 +61,7 @@ function ModalCommentEdit({
       )
       .then((response) => {
         console.log(response.data);
+        console.log(getPOSTS_DETAIL({ postId: postId }));
         axios
           .get(getPOSTS_DETAIL({ postId: postId }), {
             withCredentials: true,

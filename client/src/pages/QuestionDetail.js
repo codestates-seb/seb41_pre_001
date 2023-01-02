@@ -50,17 +50,17 @@ function QuestionDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('--------=================---------------------');
+    console.log(state.post.id);
+    console.log(getPOSTS_DETAIL({ postId: state.post.id }));
     axios
       .get(getPOSTS_DETAIL({ postId: state.post.id }), {
         withCredentials: true,
       })
       .then((response) => {
         const { data } = response;
-        console.log(data);
-        console.log(111111111111);
         setPost(data.postToPostCommentResponseDto);
         setUser(data.member);
-        console.log(post.id);
       })
       .catch((error) => alert(error));
   }, []);

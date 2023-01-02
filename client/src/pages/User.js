@@ -73,6 +73,7 @@ function User() {
   const [editModalIsOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
+    console.log(getUSER_USER());
     axios
       .get(getUSER_USER(), pushDefaultWithToken())
       .then((response) => {

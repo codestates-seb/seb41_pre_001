@@ -37,8 +37,7 @@ export const getUSER_SIGNOUT = ({ userId = -1 }) =>
 export const getUSER_LOGIN = () => `${BASE}${USER_LOGIN}`;
 
 //http://localhost:8080/user/1
-export const getUSER_USER = ({ userId = -1 }) =>
-  `${BASE}${USER_USER}/${userId}`;
+export const getUSER_USER = () => `${BASE}${USER_USER}`;
 
 //
 export const getUSER_EDIT = ({ userId = -1 }) =>

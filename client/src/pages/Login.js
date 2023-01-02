@@ -20,6 +20,7 @@ import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
 import { getUser, setTOKEN, setUser } from '../util/tokenHelper';
 import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
+import { getUSER_USER } from '../util/urlStore';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -85,7 +86,7 @@ function Login() {
       .then((response) => {
         setTOKEN(response.headers.authorization);
         axios
-          .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
+          .get(getUSER_USER(), pushDefaultWithToken())
           .then((response) => {
             const { data } = response;
             console.log(data);
