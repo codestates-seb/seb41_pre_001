@@ -79,6 +79,8 @@ public class CommentService {
     private static void setCommentInfo(Comment comment, Member findMember, Post findPost) {
         String userImageUrl = findMember.getUserImageUrl();
         String userName = findMember.getUserName();
+        Long memberId = findMember.getId();
+        comment.setUserId(memberId);
         comment.setPost(findPost);
         comment.setMember(findMember);
         comment.setUserImageUrl(userImageUrl);
