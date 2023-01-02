@@ -92,17 +92,14 @@ function Signup() {
   const password = 'Password';
 
   const handleName = (e) => {
-    console.log(e.target.value);
     setUserName(e.target.value);
   };
 
   const handleEmail = (e) => {
-    console.log(e.target.value);
     setUserEmail(e.target.value);
   };
 
   const handlePassword = (e) => {
-    console.log(e.target.value);
     setUserPassword(e.target.value);
   };
 
@@ -161,8 +158,8 @@ function Signup() {
           alert('Email is already exist');
           return false;
         }
-        const { data } = response;
-        console.log(data);
+        // const { data } = response;
+        // console.log(data);
         if (response.status === 201) {
           alert(`Success created ${userEmail}`);
           navigate('/login');

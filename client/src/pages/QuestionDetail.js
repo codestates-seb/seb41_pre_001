@@ -50,9 +50,6 @@ function QuestionDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('--------=================---------------------');
-    console.log(state.post.id);
-    console.log(getPOSTS_DETAIL({ postId: state.post.id }));
     axios
       .get(getPOSTS_DETAIL({ postId: state.post.id }), {
         withCredentials: true,

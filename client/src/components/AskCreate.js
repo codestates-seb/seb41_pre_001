@@ -60,7 +60,6 @@ function AskCreate() {
         navigate('/');
       })
       .catch((error) => {
-        console.log(error);
         let errorText;
         const { message } = error;
         const code = Number(message.slice(-3));

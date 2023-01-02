@@ -43,7 +43,6 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
   // }
 
   const handleInputChange = (e) => {
-    console.log(e.target.value);
     setText(e.target.value);
   };
 
@@ -67,7 +66,6 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
           }
         })
         .catch((error) => {
-          console.log(error);
           let errorText;
           const { message } = error;
           const code = Number(message.slice(-3));

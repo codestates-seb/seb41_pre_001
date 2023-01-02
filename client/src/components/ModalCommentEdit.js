@@ -47,10 +47,6 @@ function ModalCommentEdit({
   };
 
   const handleEdit = () => {
-    console.log(11111111111111);
-    console.log(comment.content);
-
-    console.log(getCOMMENT_EDIT({ postId: postId, commentId: comment.id }));
     axios
       .patch(
         getCOMMENT_EDIT({ postId: postId, commentId: comment.id }),
@@ -59,16 +55,13 @@ function ModalCommentEdit({
         },
         pushDefaultWithToken()
       )
-      .then((response) => {
-        console.log(response.data);
-        console.log(getPOSTS_DETAIL({ postId: postId }));
+      .then(() => {
         axios
           .get(getPOSTS_DETAIL({ postId: postId }), {
             withCredentials: true,
           })
           .then((response) => {
             const { data } = response;
-            console.log(data);
 
             setPost(data.postToPostCommentResponseDto);
             closeModal();

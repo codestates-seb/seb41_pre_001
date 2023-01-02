@@ -5,8 +5,8 @@ import Modal from 'react-modal';
 import { ColumnDiv } from '../styles/StyledStore';
 import { pushDefaultWithToken } from '../util/axiosHelper';
 import { regDisplayName } from '../util/regExp';
-import { getIS_ALIVE } from '../util/tokenHelper';
-import { getUSER_EDIT } from '../util/urlStore';
+import { setUser } from '../util/tokenHelper';
+import { getUSER_EDIT, getUSER_USER } from '../util/urlStore';
 import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_EDIT,
@@ -91,11 +91,6 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen, user }) {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(user);
-    console.log(userName);
-    console.log(passwordConfirm);
-    console.log(faker.image.avatar());
-    console.log(getIS_ALIVE());
     axios
       .patch(
         getUSER_EDIT({ userId: user.id }),
@@ -106,26 +101,28 @@ function ModalEdit({ editModalIsOpen, setIsEditModalOpen, user }) {
         },
         pushDefaultWithToken()
       )
-      .then((response) => {
-        //TODO 성공처리
-        console.log(response);
+      .then(() => {
+        axios
+          .get(getUSER_USER(), pushDefaultWithToken())
+          .then((response) => {
+            setUser(response.data);
+            closeModal();
+          })
+          .catch((error) => {
+            let errorText;
+            const { message } = error;
+            const code = Number(message.slice(-3));
+            switch (code) {
+              case 401:
+              case 404:
+              case 500:
+              default:
+                errorText = message;
+            }
+            return alert(errorText);
+          });
       })
       .catch((error) => {
-        console.log(error);
-        // let errorText;
-        // const { message } = error;
-        // const code = Number(message.slice(-3));
-        // switch (code) {
-        //   case 401:
-        //     errorText = 'Wrong Email or Password, check your Email or Password';
-        //     break;
-        //   case 404:
-        //   case 500:
-        //     errorText = 'Sorry, We have problem for service. contact to us';
-        //     break;
-        //   default:
-        //     errorText = message;
-        // }
         return alert(error);
       });
     closeModal();

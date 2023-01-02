@@ -30,7 +30,6 @@ function Main() {
       })
       .then((response) => {
         const { data } = response;
-        console.log(data);
         setData(data);
       })
       .catch((error) => alert(error));

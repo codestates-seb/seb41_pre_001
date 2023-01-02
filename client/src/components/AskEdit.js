@@ -27,7 +27,6 @@ function AskEdit({ post }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(post);
     setTitle(post.title);
     setContent(post.content);
     setTags(post.tags);
@@ -73,7 +72,6 @@ function AskEdit({ post }) {
         navigate(-1);
       })
       .catch((error) => {
-        console.log(error);
         let errorText;
         const { message } = error;
         const code = Number(message.slice(-3));

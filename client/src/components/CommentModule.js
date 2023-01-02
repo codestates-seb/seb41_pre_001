@@ -62,14 +62,12 @@ function CommentModule({
         pushDefaultWithToken()
       )
       .then(() => {
-        console.log(getPOSTS_DETAIL({ postId: postId }));
         axios
           .get(getPOSTS_DETAIL({ postId: postId }), {
             withCredentials: true,
           })
           .then((response) => {
             const { data } = response;
-            console.log(data);
 
             setPost(data.postToPostCommentResponseDto);
             setComment('');
@@ -77,7 +75,6 @@ function CommentModule({
           .catch((error) => alert(error));
       })
       .catch((error) => {
-        console.log(error);
         let errorText;
         const { message } = error;
         const code = Number(message.slice(-3));

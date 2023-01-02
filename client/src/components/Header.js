@@ -9,7 +9,7 @@ import StyledInput, { INPUT_TYPE_SEARCH } from '../components/StyledInput';
 import { ControlledMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import NavSidebar from './NavSidebar';
-import { getUser, getIS_ALIVE, setLOGOUT } from '../util/tokenHelper';
+import { getIS_ALIVE, setLOGOUT } from '../util/tokenHelper';
 import { RowDiv } from '../styles/StyledStore';
 
 const HamburgerContainer = styled.div`

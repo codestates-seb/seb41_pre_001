@@ -20,7 +20,7 @@ import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
 import { getUser, setTOKEN, setUser } from '../util/tokenHelper';
 import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
-import { getUSER_USER } from '../util/urlStore';
+import { getUSER_LOGIN, getUSER_USER } from '../util/urlStore';
 
 const LoginContainer = styled.div`
   width: 316px;
@@ -45,12 +45,10 @@ function Login() {
 
   const handleUserEmail = (e) => {
     setUserEmail(e.target.value);
-    console.log(userEmail);
   };
 
   const handleUserPassword = (e) => {
     setUserPassword(e.target.value);
-    console.log(userPassword);
   };
 
   const handleLogin = () => {
@@ -71,12 +69,9 @@ function Login() {
     //   alert('Over 8 letters, contain over 1 English, contain over 1 number');
     //   return false;
     // }
-    console.log(process.env.REACT_APP_EP_LOGIN);
-    console.log('username: ' + userEmail);
-    console.log('password: ' + userPassword);
     axios
       .post(
-        process.env.REACT_APP_EP_LOGIN,
+        getUSER_LOGIN(),
         {
           username: userEmail,
           password: userPassword,
@@ -89,13 +84,10 @@ function Login() {
           .get(getUSER_USER(), pushDefaultWithToken())
           .then((response) => {
             const { data } = response;
-            console.log(data);
             setUser(data);
-            console.log(getUser());
             navigate('/');
           })
           .catch((error) => {
-            console.log(error);
             let errorText;
             const { message } = error;
             const code = Number(message.slice(-3));
@@ -110,7 +102,6 @@ function Login() {
           });
       })
       .catch((error) => {
-        console.log(error);
         let errorText;
         const { message } = error;
         const code = Number(message.slice(-3));

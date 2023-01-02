@@ -73,15 +73,12 @@ function User() {
   const [editModalIsOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
-    console.log(getUSER_USER());
     axios
       .get(getUSER_USER(), pushDefaultWithToken())
       .then((response) => {
-        console.log(response.data);
         setUser(response.data);
       })
       .catch((error) => {
-        console.log(error);
         let errorText;
         const { message } = error;
         const code = Number(message.slice(-3));
