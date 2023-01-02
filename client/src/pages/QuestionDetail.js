@@ -12,6 +12,7 @@ import ModalPostDelete from '../components/ModalPostDelete';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import CommentModule from '../components/CommentModule';
 import { getIS_ALIVE } from '../util/tokenHelper';
+import { getPOSTS_DETAIL } from '../util/urlStore';
 
 const Tags = ({ tags = [] }) => {
   return (
@@ -40,6 +41,7 @@ const Tags = ({ tags = [] }) => {
  */
 function QuestionDetail() {
   const [post, setPost] = useState({});
+  const [user, setUser] = useState({});
   const [deleteModalIsOpen, setIsDeleteModalOpen] = useState(false);
   const [commentDeleteModalIsOpen, setCommentDeleteModalOpen] = useState(false);
   const [commentEditModalIsOpen, setCommentEditModalOpen] = useState(false);
@@ -49,13 +51,15 @@ function QuestionDetail() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_EP_POSTS_DETAIL}/${state.post.id}`, {
+      .get(getPOSTS_DETAIL({ postId: state.post.id }), {
         withCredentials: true,
       })
       .then((response) => {
         const { data } = response;
         console.log(response);
-        setPost(data);
+        setPost(data.postToPostCommentResponseDto);
+        setUser(data.member);
+        console.log(user);
       })
       .catch((error) => alert(error));
   }, []);

@@ -6,6 +6,7 @@ import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_DELETE,
 } from './CommonButton';
+import { getPOSTS_DELETE } from '../util/urlStore';
 
 const customStyles = {
   content: {
@@ -32,10 +33,7 @@ function ModalPostDelete({ deleteModalIsOpen, setIsDeleteModalOpen, post }) {
 
   const handleDelete = () => {
     axios
-      .delete(
-        `${process.env.REACT_APP_EP_POSTS_DELETE}/${post.id}`,
-        pushDefaultWithToken()
-      )
+      .delete(getPOSTS_DELETE({ postId: post.id }), pushDefaultWithToken())
       .then(() => {
         navigate('/');
         closeModal();

@@ -24,11 +24,11 @@ import { MainContainer } from '../styles/StyledStore';
  * @returns QuestionCreate
  */
 function QuestionEdit() {
-  const location = useLocation();
+  const { state } = useLocation();
 
   return (
     <MainContainer>
-      <AskEdit post={location.state.post} />
+      <AskEdit post={state.post} />
       <AskEditScripts />
     </MainContainer>
   );

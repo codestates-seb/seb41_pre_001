@@ -20,6 +20,7 @@ import {
   UserSpan,
 } from '../styles/StyledStore';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+import { getUSER_USER } from '../util/urlStore';
 
 const Title = styled.p`
   font-size: 34px;
@@ -73,7 +74,7 @@ function User() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
+      .get(getUSER_USER(), pushDefaultWithToken())
       .then((response) => {
         console.log(response.data);
         setUser(response.data);

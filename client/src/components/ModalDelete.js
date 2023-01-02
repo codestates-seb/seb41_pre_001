@@ -9,6 +9,7 @@ import CommonButton, {
   BUTTON_TYPE_USER_DELETE,
 } from './CommonButton';
 import LabelInput from './LabelInput';
+import { getUSER_SIGNOUT } from '../util/urlStore';
 
 const customStyles = {
   content: {
@@ -51,10 +52,7 @@ function ModalDelete({ deleteModalIsOpen, setIsDeleteModalOpen, user }) {
   const handleDelete = () => {
     if (text === verifyPoint) {
       axios
-        .delete(
-          `${process.env.REACT_APP_EP_SIGNOUT}/${user.id}`,
-          pushDefaultWithToken()
-        )
+        .delete(getUSER_SIGNOUT({ userId: user.id }), pushDefaultWithToken())
         .then(() => {
           setLOGOUT();
           if (!getIS_ALIVE()) {

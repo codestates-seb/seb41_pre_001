@@ -10,6 +10,7 @@ import CommonButton, {
 } from './CommonButton';
 import ModalCommentDelete from './ModalCommentDelete';
 import ModalCommentEdit from './ModalCommentEdit';
+import { getCOMMENT_CREATE } from '../util/urlStore';
 
 /* 
   "comments": [
@@ -52,7 +53,7 @@ function CommentModule({
 
     axios
       .post(
-        `${process.env.REACT_APP_EP_COMMENT_CREATE}/${postId}${process.env.REACT_APP_EP_COMMENT}`,
+        getCOMMENT_CREATE({ postId: postId }),
         {
           content: comment,
         },

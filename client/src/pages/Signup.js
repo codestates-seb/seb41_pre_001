@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { regDisplayName, regEmail } from '../util/regExp';
 import { useNavigate } from 'react-router-dom';
 import { pushDefaultConfig } from '../util/axiosHelper';
+import { getUSER_SIGNUP } from '../util/urlStore';
 
 const LeftContainer = styled.div`
   width: 470px;
@@ -146,7 +147,7 @@ function Signup() {
     // }
     axios
       .post(
-        process.env.REACT_APP_EP_SIGNUP,
+        getUSER_SIGNUP(),
         {
           userName: userName,
           userEmail: userEmail,

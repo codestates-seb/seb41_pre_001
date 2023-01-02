@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Modal from 'react-modal';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+import { getCOMMENT_DELETE, getPOSTS_DETAIL } from '../util/urlStore';
 import CommonButton, {
   BUTTON_TYPE_USER,
   BUTTON_TYPE_USER_DELETE,
@@ -36,12 +37,12 @@ function ModalCommentDelete({
   const handleDelete = () => {
     axios
       .delete(
-        `${process.env.REACT_APP_EP_COMMENT_DELETE}/${postId}${process.env.REACT_APP_EP_COMMENT}/${commentId}`,
+        getCOMMENT_DELETE({ postId: postId, commentId: commentId }),
         pushDefaultWithToken()
       )
       .then(() => {
         axios
-          .get(`${process.env.REACT_APP_EP_POSTS_DETAIL}/${postId}`, {
+          .get(getPOSTS_DETAIL({ postId: postId }), {
             withCredentials: true,
           })
           .then((response) => {

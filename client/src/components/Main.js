@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getIS_ALIVE } from '../util/tokenHelper';
+import { getPOSTS_LIST } from '../util/urlStore';
 import Pagination from './lib/Pagination';
 import QuestionRow from './QuestionRow';
 
@@ -20,7 +21,7 @@ function Main() {
   //페이지가 변경될때
   useEffect(() => {
     axios
-      .get('/board/posts', {
+      .get(getPOSTS_LIST(), {
         withCredentials: true,
         params: {
           page: state.activePage,

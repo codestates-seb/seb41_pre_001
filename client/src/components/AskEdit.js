@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+import { getPOSTS_EDIT } from '../util/urlStore';
 
 /*
   "title": "질문글 제목입니다 ",
@@ -60,7 +61,7 @@ function AskEdit({ post }) {
 
     axios
       .patch(
-        `${process.env.REACT_APP_EP_POSTS_EDIT}/${post.id}`,
+        getPOSTS_EDIT({ postId: post.id }),
         {
           title: title,
           content: content,

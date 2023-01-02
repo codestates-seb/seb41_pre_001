@@ -1,4 +1,4 @@
-const TYPE_DEPLOY = true;
+const TYPE_DEPLOY = false;
 const BASE = TYPE_DEPLOY ? process.env.REACT_APP_BASEURL : '';
 
 //회원

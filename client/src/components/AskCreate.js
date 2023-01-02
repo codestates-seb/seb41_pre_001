@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { pushDefaultWithToken } from '../util/axiosHelper';
+import { getPOSTS_CREATE } from '../util/urlStore';
 
 /**
  * Created by @ldk199662
@@ -47,7 +48,7 @@ function AskCreate() {
 
     axios
       .post(
-        process.env.REACT_APP_EP_POSTS_CREATE,
+        getPOSTS_CREATE(),
         {
           title: title,
           content: content,
