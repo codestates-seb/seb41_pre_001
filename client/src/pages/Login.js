@@ -18,7 +18,7 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
-import { setTOKEN, setUser } from '../util/tokenHelper';
+import { getUser, setTOKEN, setUser } from '../util/tokenHelper';
 import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
 
 const LoginContainer = styled.div`
@@ -87,9 +87,10 @@ function Login() {
         axios
           .get(process.env.REACT_APP_EP_USER, pushDefaultWithToken())
           .then((response) => {
-            console.log(22222222222);
-            console.log(response.data);
-            setUser(response.data);
+            const { data } = response;
+            console.log(data);
+            setUser(data);
+            console.log(getUser());
             navigate('/');
           })
           .catch((error) => {

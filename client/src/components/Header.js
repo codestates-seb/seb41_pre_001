@@ -80,9 +80,7 @@ function Header({ isOpen, setOpen, isBugerVisible }) {
   const outCoTe = 'https://stackoverflow.co/teams/';
   const handleLogout = () => {
     //로그아웃 서버에 토큰저장안함.
-    console.log(`Header log out before: ${getUser()}`);
     setLOGOUT();
-    console.log(`Header log out after: ${getUser()}`);
     navigate('/login');
   };
 

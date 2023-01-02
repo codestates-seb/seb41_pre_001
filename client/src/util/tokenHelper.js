@@ -32,5 +32,6 @@ export const setLOGOUT = () => {
  */
 export const getIS_ALIVE = () => !!getTOKEN();
 
-export const getUser = () => localStorage.getItem(USER);
-export const setUser = (user) => localStorage.setItem(USER, user);
+export const getUser = () => JSON.parse(localStorage.getItem(USER));
+export const setUser = (user) =>
+  localStorage.setItem(USER, JSON.stringify(user));

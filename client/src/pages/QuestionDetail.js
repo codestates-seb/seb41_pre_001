@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import ModalPostDelete from '../components/ModalPostDelete';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import CommentModule from '../components/CommentModule';
-import { getIS_ALIVE } from '../util/tokenHelper';
+import { getIS_ALIVE, getUser } from '../util/tokenHelper';
 import { getPOSTS_DETAIL } from '../util/urlStore';
 
 const Tags = ({ tags = [] }) => {
@@ -56,10 +56,11 @@ function QuestionDetail() {
       })
       .then((response) => {
         const { data } = response;
-        console.log(response);
+        console.log(data);
+        console.log(111111111111);
         setPost(data.postToPostCommentResponseDto);
         setUser(data.member);
-        console.log(user);
+        console.log(post.id);
       })
       .catch((error) => alert(error));
   }, []);
@@ -113,7 +114,7 @@ function QuestionDetail() {
             </QuestionDetailContent>
           </QuestionDetailBox>
           {/* TODO user정보접속 -> 게시물정보접속 -> userid동일할때 뷰가 보여야됨*/}
-          {getIS_ALIVE() ? (
+          {getIS_ALIVE() && getUser().id === user.id ? (
             <div id="buttons">
               <EditDeleteBtn>
                 <CommonButton
@@ -136,23 +137,19 @@ function QuestionDetail() {
           ) : (
             ''
           )}
-          {getIS_ALIVE() ? (
-            <div>
-              <CommentModule
-                postId={post.id}
-                comments={post.comments}
-                setPost={setPost}
-                handleCommentDelete={handleCommentDelete}
-                handleCommentEdit={handleCommentEdit}
-                commentDeleteModalIsOpen={commentDeleteModalIsOpen}
-                setCommentDeleteModalOpen={setCommentDeleteModalOpen}
-                commentEditModalIsOpen={commentEditModalIsOpen}
-                setCommentEditModalOpen={setCommentEditModalOpen}
-              />
-            </div>
-          ) : (
-            ''
-          )}
+          <div>
+            <CommentModule
+              postId={post.id}
+              comments={post.comments}
+              setPost={setPost}
+              handleCommentDelete={handleCommentDelete}
+              handleCommentEdit={handleCommentEdit}
+              commentDeleteModalIsOpen={commentDeleteModalIsOpen}
+              setCommentDeleteModalOpen={setCommentDeleteModalOpen}
+              commentEditModalIsOpen={commentEditModalIsOpen}
+              setCommentEditModalOpen={setCommentEditModalOpen}
+            />
+          </div>
         </div>
       </QuestionDetails>
       <Sidebar />

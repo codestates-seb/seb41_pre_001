@@ -47,11 +47,15 @@ function ModalCommentEdit({
   };
 
   const handleEdit = () => {
+    console.log(11111111111111);
+    console.log(comment.content);
+
+    console.log(getCOMMENT_EDIT({ postId: postId, commentId: comment.id }));
     axios
       .patch(
         getCOMMENT_EDIT({ postId: postId, commentId: comment.id }),
         {
-          content: comment.content,
+          content: cont,
         },
         pushDefaultWithToken()
       )

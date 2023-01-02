@@ -103,3 +103,6 @@ export const sidebarData = {
     ],
   },
 };
+
+export const NONE_IMG =
+  'https://png.pngtree.com/png-clipart/20220621/original/pngtree-anonymous-unknown-avatar-icon-unnamed-png-image_8173919.png';
