@@ -18,7 +18,7 @@ import {
 } from '../styles/StyledStore';
 import { handleDonateMe } from '../util/alertStore';
 import { regEmail } from '../util/regExp';
-import { getUser, setTOKEN, setUser } from '../util/tokenHelper';
+import { setTOKEN, setUser } from '../util/tokenHelper';
 import { pushDefaultConfig, pushDefaultWithToken } from '../util/axiosHelper';
 import { getUSER_LOGIN, getUSER_USER } from '../util/urlStore';
 
